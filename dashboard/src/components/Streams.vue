@@ -62,42 +62,42 @@ export default {
       cvb();
     });
 
-    var wd = function(){
-       var lc = _this.$store.getters.getLastVideoCheck;
-      var lw = _this.$store.getters.getLastVideoWrite;
+    // var wd = function(){
+    //    var lc = _this.$store.getters.getLastVideoCheck;
+    //   var lw = _this.$store.getters.getLastVideoWrite;
 
-      var dropped = function () {
+    //   var dropped = function () {
         
-        _this.$store.dispatch("setConnectionIsDropped", true);
-        _this.$store.dispatch("setConnectionDroppedAt", dayjs().unix()); //seconds
-        var reconnectEvent = new Event("streams:dropped");
-            document.dispatchEvent(reconnectEvent);
-      };
+    //     _this.$store.dispatch("setConnectionIsDropped", true);
+    //     _this.$store.dispatch("setConnectionDroppedAt", dayjs().unix()); //seconds
+    //     var reconnectEvent = new Event("streams:dropped");
+    //         document.dispatchEvent(reconnectEvent);
+    //   };
 
-      if (lc > lw) {
-        // no write since last check
-        if (_this.$store.getters.getConnectionIsDropped) {
-          var when = _this.$store.getters.getConnectionDroppedAt;
-          var since = dayjs().unix() - when;
-          if (since > 10) {
-            //oh oh, haven't managed to reconnect, let's try again
-            // note on slow network or heavy load on relay-access, this might time out over and over again
-            // but user experience on a network that slow/server that loaded is questionable anyway
-            // given usually connect delay is  <<1sec; so we might consider that an edge case we are
-            // not likely to hit, so long as provisioning is ok (Server side)
-            // as for user network quality, never say never....
-            dropped();
-          }
-          return;
-        }
-        dropped();
-      } else {
-        //connection OK
-        _this.$store.dispatch("setLastVideoCheck", dayjs().valueOf()); //milliseconds
-        _this.$store.dispatch("setConnectionIsDropped", false);
-      }
+    //   if (lc > lw) {
+    //     // no write since last check
+    //     if (_this.$store.getters.getConnectionIsDropped) {
+    //       var when = _this.$store.getters.getConnectionDroppedAt;
+    //       var since = dayjs().unix() - when;
+    //       if (since > 10) {
+    //         //oh oh, haven't managed to reconnect, let's try again
+    //         // note on slow network or heavy load on relay-access, this might time out over and over again
+    //         // but user experience on a network that slow/server that loaded is questionable anyway
+    //         // given usually connect delay is  <<1sec; so we might consider that an edge case we are
+    //         // not likely to hit, so long as provisioning is ok (Server side)
+    //         // as for user network quality, never say never....
+    //         dropped();
+    //       }
+    //       return;
+    //     }
+    //     dropped();
+    //   } else {
+    //     //connection OK
+    //     _this.$store.dispatch("setLastVideoCheck", dayjs().valueOf()); //milliseconds
+    //     _this.$store.dispatch("setConnectionIsDropped", false);
+    //   }
 
-    };
+    // };
 
     // There is no video on the dashboard, so cannot check for connection this way.
     //this.connectionChecker = setInterval(wd, 1000);

@@ -4,7 +4,7 @@ const loggingStore = {
     state: () => ({
         logSocket: null,
         uuid: '',
-        logging_consent_given: false,
+        logging_consent_given: true,
         
 
        }),
