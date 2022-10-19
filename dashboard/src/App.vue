@@ -1,16 +1,21 @@
 <template>
-  
-    <div>David</div>
+<div>
 
+
+    <div>David</div>
+    <streams />
+
+
+</div>
 </template>
 
 <script>
-
+import Streams from "./components/Streams.vue"
 
 export default {
   name: 'App',
   components: {
-    
+    Streams,
   }
 }
 </script>
