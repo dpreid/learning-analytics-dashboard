@@ -22,15 +22,34 @@ const loggingStore = {
                 //only log to server if user has given consent.
                 //Still may require logging internally for achievements etc.
                 if(state.logging_consent_given && state.logSocket != null){
+                    console.log('logged')
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
-                        //exp: state.hardware,        
+                        //exp: state.hardware, 
+                        type: "log",       
                         payload: payload
                     }));
                 }
                 
+                
             },  
+            REQUEST(state, payload){
+                //only log to server if user has given consent.
+                //Still may require logging internally for achievements etc.
+                if(state.logging_consent_given && state.logSocket != null){
+                    console.log('request sent')
+                    state.logSocket.send(JSON.stringify({
+                        user: state.uuid,
+                        t: Date.now(),          
+                        //exp: state.hardware,    
+                        type: "request",    
+                        payload: payload
+                    }));
+                }
+                
+                
+            }, 
 
        },
        actions:{
@@ -47,6 +66,9 @@ const loggingStore = {
                 //context.commit('LOG_PARAMETERS', payload.data);
                 context.commit('LOG', payload);
             },
+            request(context, payload){
+                context.commit('REQUEST', payload);
+            }
 
        },
        getters:{

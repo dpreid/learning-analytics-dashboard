@@ -1,21 +1,32 @@
 <template>
 <div>
 
-
-    <div>David</div>
     <streams />
+
+    <div class='row'>
+        <div class="col-sm-6">
+            <send-message />
+        </div>
+        <div class="col-sm-6">
+            <receive-message />
+        </div>
+    </div>
 
 
 </div>
 </template>
 
 <script>
-import Streams from "./components/Streams.vue"
+import Streams from "./components/Streams.vue";
+import SendMessage from "./components/SendMessage.vue";
+import ReceiveMessage from "./components/ReceiveMessage.vue";
 
 export default {
   name: 'App',
   components: {
     Streams,
+    SendMessage,
+    ReceiveMessage,
   }
 }
 </script>

@@ -30,10 +30,10 @@ export default {
     },
     methods:{
         ...mapActions([
-            'log'
+            'request'
         ]),
         send(){
-            this.log({'message': this.message})
+            this.request(this.message);
         },
         clear(){
             this.message = ''

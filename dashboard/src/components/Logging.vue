@@ -20,7 +20,7 @@ export default {
         }
     },
     mounted(){
-        
+        this.connect(); //TESTING
         
     },
     watch:{
@@ -54,7 +54,8 @@ export default {
         connect(){
             let _store = this.$store;
 
-			this.logSocket = new WebSocket(this.url);
+			//this.logSocket = new WebSocket(this.url);
+            this.logSocket = new WebSocket('ws://127.0.0.1:8000');  //TESTING
 			_store.dispatch('setLogSocket', this.logSocket);
             
             this.logSocket.onopen = () => {
