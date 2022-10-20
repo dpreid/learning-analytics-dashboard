@@ -1,22 +1,47 @@
 <template>
+<div>
+    <div class='row'>
+        <div class="col-sm-6">
+            <send-message />
+        </div>
+        <div class="col-sm-6">
+            <receive-message :message="response"/>
+        </div>
+    </div>
 
-<div id='logging'>
+    <div class='row'>
+        <div class="col-sm-6">
+            <mock-logging />
+        </div>
+        <div class="col-sm-6">
+            
+        </div>
+    </div>
 
 </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { mapActions } from 'vuex';
+
+import { mapActions, mapGetters } from 'vuex';
+import SendMessage from "./SendMessage.vue";
+import ReceiveMessage from "./ReceiveMessage.vue";
+import MockLogging from "./MockLogging.vue";
 
 export default {
-    name: 'Logging',
+    name: 'AnalyticsDashboard',
     props: {
         url: String,   
     },
+    components: {
+        SendMessage,
+        ReceiveMessage,
+        MockLogging
+  },
     data () {
         return {
             logSocket: null,
+            response: null,
         }
     },
     mounted(){
@@ -61,6 +86,19 @@ export default {
             this.logSocket.onopen = () => {
 				console.log('log connection opened at ', this.url);
                 
+			};
+
+            this.logSocket.onmessage = (event) => {
+				try {
+                    console.log("message received");
+                    this.response = event.data;
+
+
+                } catch {
+                    console.log('No data to show');
+                }
+                
+
 			};
         }
     }

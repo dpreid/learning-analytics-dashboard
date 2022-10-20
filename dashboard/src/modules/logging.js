@@ -3,9 +3,9 @@
 const loggingStore = {
     state: () => ({
         logSocket: null,
-        uuid: '',
-        logging_consent_given: true,
-        
+        uuid: 'david',                      //SET HERE FOR TESTING
+        logging_consent_given: true,        //SET HERE FOR TESTING
+        hardware: 'spinner'
 
        }),
        mutations:{
@@ -18,6 +18,9 @@ const loggingStore = {
             SET_UUID(state, uuid){
                 state.uuid = uuid;
             },
+            SET_HARDWARE(state, hardware){
+                state.hardware = hardware;
+            },
             LOG(state, payload){
                 //only log to server if user has given consent.
                 //Still may require logging internally for achievements etc.
@@ -26,7 +29,7 @@ const loggingStore = {
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
-                        //exp: state.hardware, 
+                        exp: state.hardware, 
                         type: "log",       
                         payload: payload
                     }));
@@ -42,7 +45,7 @@ const loggingStore = {
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
-                        //exp: state.hardware,    
+                        exp: state.hardware,    
                         type: "request",    
                         payload: payload
                     }));
@@ -61,6 +64,9 @@ const loggingStore = {
             },
             setUUID(context, uuid){
                 context.commit('SET_UUID', uuid);
+            },
+            setHardware(context, hardware){
+                context.commit('SET_HARDWARE', hardware);
             },
             log(context, payload){
                 //context.commit('LOG_PARAMETERS', payload.data);

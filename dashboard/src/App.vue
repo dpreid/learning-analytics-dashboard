@@ -3,14 +3,7 @@
 
     <streams />
 
-    <div class='row'>
-        <div class="col-sm-6">
-            <send-message />
-        </div>
-        <div class="col-sm-6">
-            <receive-message />
-        </div>
-    </div>
+    <analytics-dashboard :url="getLogURL"/>
 
 
 </div>
@@ -18,15 +11,25 @@
 
 <script>
 import Streams from "./components/Streams.vue";
-import SendMessage from "./components/SendMessage.vue";
-import ReceiveMessage from "./components/ReceiveMessage.vue";
+import AnalyticsDashboard from "./components/AnalyticsDashboard.vue"
+
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'App',
   components: {
     Streams,
-    SendMessage,
-    ReceiveMessage,
+    AnalyticsDashboard
+  },
+  computed:{
+        ...mapGetters([
+            'getLogURL'
+        ])
+  },
+  methods:{
+        ...mapActions([
+
+        ])
   }
 }
 </script>

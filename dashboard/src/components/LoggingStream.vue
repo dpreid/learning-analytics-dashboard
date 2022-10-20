@@ -3,20 +3,20 @@
 <template>
 
     <div>
-		<logging :url="getLogURL"/>
+		
 	</div>
 
 </template>
 
 <script>
 import axios from "axios";
-import Logging from "./Logging.vue";
+
 import { mapGetters } from 'vuex';
 
 export default {
 	name: "LoggingStream",
 	components:{
-        Logging,
+        
 	},
     data(){
         return{
