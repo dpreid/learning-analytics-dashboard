@@ -14,7 +14,7 @@
             <mock-logging />
         </div>
         <div class="col-sm-6">
-            
+            <!-- <graph-display /> -->
         </div>
     </div>
 
@@ -27,6 +27,7 @@ import { mapActions, mapGetters } from 'vuex';
 import SendMessage from "./SendMessage.vue";
 import ReceiveMessage from "./ReceiveMessage.vue";
 import MockLogging from "./MockLogging.vue";
+// import GraphDisplay from "./GraphDisplay.vue"
 
 export default {
     name: 'AnalyticsDashboard',
@@ -36,7 +37,8 @@ export default {
     components: {
         SendMessage,
         ReceiveMessage,
-        MockLogging
+        MockLogging,
+        //GraphDisplay
   },
     data () {
         return {

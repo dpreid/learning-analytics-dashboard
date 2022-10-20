@@ -1,15 +1,58 @@
 <template>
-    <div>
-  
-      <h1>Graph</h1>
-      
-  
-    </div>
-  </template>
+    
+    <div id = "mynetwork"></div>
+
+
+</template>
   
   <script>
   import {mapActions} from 'vuex'
-  
+  import vis from 'vis-network'
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "size": 10, "x": 100, "y": -173.20508075688772}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "size": 10, "x": 200, "y": 0}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "size": 10, "x": -200, "y": 0}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "size": 10, "x": -100, "y": -173.20508075688772}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "size": 10, "x": 100, "y": 173.20508075688772}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "size": 10, "x": -100, "y": 173.20508075688772}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "voltage_step", "label": 1.0, "to": "voltage_step", "weight": 1.0}, {"arrows": "to", "from": "voltage_step", "label": 1.0, "to": "position_step", "weight": 1.0}, {"arrows": "to", "from": "position_step", "label": 2.0, "to": "position_step", "weight": 2.0}, {"arrows": "to", "from": "position_step", "label": 1.0, "to": "position_ramp", "weight": 1.0}, {"arrows": "to", "from": "position_ramp", "label": 3.0, "to": "position_ramp", "weight": 3.0}, {"arrows": "to", "from": "position_ramp", "label": 1.0, "to": "position_step", "weight": 1.0}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"nodes": {"font": {"color": "rgba(0,0,0,1)"}}, "edges": {"color": {"inherit": true}, "smooth": {"forceDirection": "none", "roundness": 1}}, "physics": {"minVelocity": 0.75}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+
+
+
+
+
   export default {
       name: "GraphDisplay",
       components:{
@@ -36,5 +79,12 @@
   </script>
   
   <style>
-  
+  #mynetwork {
+            width: 800;
+            height: 800;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
   </style>
