@@ -22,7 +22,7 @@
         container = document.getElementById('mynetwork');
         // parsing and collecting nodes and edges from the python
         if(n_list.length > 0){
-            nodes= new DataSet(n_list)
+            //nodes= new DataSet(n_list)
             edges = new DataSet(e_list)
         } else{
             nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "size": 10, "x": 100, "y": -173.20508075688772}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "size": 10, "x": 200, "y": 0}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "size": 10, "x": -200, "y": 0}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "size": 10, "x": -100, "y": -173.20508075688772}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "size": 10, "x": 100, "y": 173.20508075688772}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "size": 10, "x": -100, "y": 173.20508075688772}]);
@@ -59,8 +59,8 @@
   
       },
       watch:{
-        edges(){
-            drawGraph(this.nodes, this.edges);
+        edges(edges){
+            drawGraph(this.nodes, edges);
         }
       },
       methods:{

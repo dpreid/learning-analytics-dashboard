@@ -14,7 +14,7 @@
             <mock-logging />
         </div>
         <div class='col-sm-6'>
-
+            <task-completion :result="taskdistance" />
         </div>
     </div>
     <div class='row'>
@@ -33,6 +33,7 @@ import SendMessage from "./SendMessage.vue";
 import ReceiveMessage from "./ReceiveMessage.vue";
 import MockLogging from "./MockLogging.vue";
 import GraphDisplay from "./GraphDisplay.vue"
+import TaskCompletion from "./TaskCompletion.vue"
 
 export default {
     name: 'AnalyticsDashboard',
@@ -43,14 +44,16 @@ export default {
         SendMessage,
         ReceiveMessage,
         MockLogging,
-        GraphDisplay
+        GraphDisplay,
+        TaskCompletion
   },
     data () {
         return {
             logSocket: null,
             response: null,
             nodes: [],
-            edges: []
+            edges: [],
+            taskdistance: null,
         }
     },
     mounted(){
@@ -99,8 +102,22 @@ export default {
 
             this.logSocket.onmessage = (event) => {
 				try {
-                    console.log("message received");
                     this.response = event.data;
+                    let json_response = JSON.parse(this.response)
+
+                    if(json_response.type == 'response'){
+                        if(json_response.nodes){
+                            this.nodes = json_response.nodes
+                            this.edges = json_response.edges
+                        }
+
+                        if(json_response.taskdistance){
+                            this.taskdistance = json_response.taskdistance
+                        }
+                    }
+                    
+                    
+                    
 
 
                 } catch {
