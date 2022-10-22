@@ -1,10 +1,7 @@
 <template>
   <div>
-
-    <h1>Send</h1>
-    <input type="text" class="form-control" id="send_message" v-model="message">
-    <button id="send_button" @click="send">Submit</button>
-    <button id="clear_button" @click="clear">Clear</button>
+    
+    <button class='button-lg button-primary' id="send_button" @click="send">Request Analytics</button>
 
   </div>
 </template>
@@ -19,7 +16,7 @@ export default {
 	},
     data(){
         return{
-			message: ''
+			
         }
     },
 	mounted(){
@@ -33,11 +30,9 @@ export default {
             'request'
         ]),
         send(){
-            this.request(this.message);
+            this.request();
         },
-        clear(){
-            this.message = ''
-        }
+        
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
-<div>
-
+<div id="app" class='container-fluid-sm m-0 background-white'>
+    <navigation-bar />
     <streams />
 
     <analytics-dashboard :url="getLogURL"/>
@@ -12,12 +12,13 @@
 <script>
 import Streams from "./components/Streams.vue";
 import AnalyticsDashboard from "./components/AnalyticsDashboard.vue"
-
+import NavigationBar from "./components/NavigationBar.vue"
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'App',
   components: {
+    NavigationBar,
     Streams,
     AnalyticsDashboard
   },

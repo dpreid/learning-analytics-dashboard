@@ -1,6 +1,10 @@
 <template>
+    <div >
+        <h2>{{ title }}</h2>
+        <div class='mynetwork' :id="id"></div>
+
+    </div>
     
-    <div id = "mynetwork"></div>
 
 
 </template>
@@ -18,8 +22,8 @@
 
     
     // This method is responsible for drawing the graph, returns the drawn network
-    function drawGraph(n_list, e_list) {
-        container = document.getElementById('mynetwork');
+    function drawGraph(id, n_list, e_list) {
+        container = document.getElementById(id);
         // parsing and collecting nodes and edges from the python
         if(n_list.length > 0){
             //nodes= new DataSet(n_list)
@@ -56,21 +60,21 @@
       components:{
           
       },
-      props:['nodes', 'edges'],
+      props:['id', 'title', 'nodes', 'edges'],
       data(){
           return{
               
           }
       },
       mounted(){
-        drawGraph(this.nodes, this.edges);
+        drawGraph(this.id, this.nodes, this.edges);
       },
       computed:{
   
       },
       watch:{
         edges(edges){
-            drawGraph(this.nodes, edges);
+            drawGraph(this.id, this.nodes, edges);
         }
       },
       methods:{
@@ -83,7 +87,7 @@
   </script>
   
   <style scoped>
-  #mynetwork {
+  .mynetwork {
             width: 100%;
             height: 50vh;
             background-color: #ffffff;

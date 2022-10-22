@@ -1,9 +1,24 @@
 <template>
 <div>
-    <div class='row'>
-        <div class="col-sm-6">
-            <send-message />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <request-analytics />
         </div>
+    </div>
+
+    <div class='row'>
+        <div class="col-lg-6">
+            <graph-display id="student-network" title="Student Graph" :nodes="nodes" :edges="edges"/>
+        </div>
+        <div class="col-lg-6">
+            <graph-display id="comparison-network" title="Comparison Graph" :nodes="nodes" :edges="compare_edges"/>
+        </div>
+    </div>
+
+
+    <div class='row'>
+        
         <div class="col-sm-6">
             <receive-message :message="response"/>
         </div>
@@ -17,11 +32,7 @@
             <task-completion :result="taskdistance" />
         </div>
     </div>
-    <div class='row'>
-        <div class="col-sm-6">
-            <graph-display :nodes="nodes" :edges="edges"/>
-        </div>
-    </div>
+    
 
 </div>
 </template>
@@ -29,7 +40,7 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
-import SendMessage from "./SendMessage.vue";
+import RequestAnalytics from "./RequestAnalytics.vue";
 import ReceiveMessage from "./ReceiveMessage.vue";
 import MockLogging from "./MockLogging.vue";
 import GraphDisplay from "./GraphDisplay.vue"
@@ -41,7 +52,7 @@ export default {
         url: String,   
     },
     components: {
-        SendMessage,
+        RequestAnalytics,
         ReceiveMessage,
         MockLogging,
         GraphDisplay,
@@ -53,6 +64,7 @@ export default {
             response: null,
             nodes: [],
             edges: [],
+            compare_edges: [],
             taskdistance: null,
         }
     },
