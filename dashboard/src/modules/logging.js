@@ -5,7 +5,7 @@ const loggingStore = {
         logSocket: null,
         uuid: 'david',                      //SET HERE FOR TESTING
         logging_consent_given: true,        //SET HERE FOR TESTING
-        hardware: 'spinner'
+        exp: 'spinner'
 
        }),
        mutations:{
@@ -18,8 +18,8 @@ const loggingStore = {
             SET_UUID(state, uuid){
                 state.uuid = uuid;
             },
-            SET_HARDWARE(state, hardware){
-                state.hardware = hardware;
+            SET_EXPERIMENT(state, exp){
+                state.exp = exp;
             },
             LOG(state, payload){
                 //only log to server if user has given consent.
@@ -29,7 +29,7 @@ const loggingStore = {
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
-                        exp: state.hardware, 
+                        exp: state.exp, 
                         type: "log",       
                         payload: payload
                     }));
@@ -42,7 +42,7 @@ const loggingStore = {
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
-                        exp: state.hardware,    
+                        exp: state.exp,    
                         type: "request",    
                     }));
                 }
@@ -52,7 +52,7 @@ const loggingStore = {
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
-                        exp: state.hardware, 
+                        exp: state.exp, 
                         type: "feedback",       
                         payload: payload
                     }));
@@ -72,8 +72,8 @@ const loggingStore = {
             setUUID(context, uuid){
                 context.commit('SET_UUID', uuid);
             },
-            setHardware(context, hardware){
-                context.commit('SET_HARDWARE', hardware);
+            setExperiment(context, exp){
+                context.commit('SET_EXPERIMENT', exp);
             },
             log(context, payload){
                 //context.commit('LOG_PARAMETERS', payload.data);
@@ -97,6 +97,9 @@ const loggingStore = {
             getLogUUID(state){
                 return state.uuid;
             },
+            getExperiment(state){
+                return state.exp
+            }
           
        },  
   

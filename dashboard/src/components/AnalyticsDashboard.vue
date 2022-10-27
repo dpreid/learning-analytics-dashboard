@@ -17,20 +17,22 @@
     </div>
 
 
-    <div class='row'>
-        
-        <div class="col-sm-6">
-            <receive-message :message="response"/>
+    <div class='row mt-2'>
+        <div class='col-sm-6'>
+            <task-completion :response="tasks" />
         </div>
+        
+        
     </div>
 
     <div class='row'>
         <div class="col-sm-6">
             <mock-logging />
         </div>
-        <div class='col-sm-6'>
-            <task-completion :result="taskdistance" />
+        <div class="col-sm-6">
+            <receive-message :message="response"/>
         </div>
+        
     </div>
     
 
@@ -62,10 +64,10 @@ export default {
         return {
             logSocket: null,
             response: null,
-            nodes: [],
-            edges: [],
-            compare_edges: [],
-            taskdistance: null,
+            nodes: [],      //graph nodes to display
+            edges: [],      //student graph edges
+            compare_edges: [],  //comparison graph edges
+            tasks: {},        //response from a task completion request
         }
     },
     mounted(){
@@ -123,8 +125,8 @@ export default {
                             this.edges = json_response.edges
                         }
 
-                        if(json_response.taskdistance){
-                            this.taskdistance = json_response.taskdistance
+                        if("tasks" in json_response){
+                            this.tasks = json_response.tasks
                         }
                     }
                     

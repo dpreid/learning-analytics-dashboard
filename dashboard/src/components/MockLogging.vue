@@ -1,3 +1,5 @@
+//TEMPORARY component for mocking logging from the remote lab UI
+
 <template>
     <div>
   

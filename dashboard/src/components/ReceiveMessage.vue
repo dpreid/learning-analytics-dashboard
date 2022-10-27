@@ -1,3 +1,5 @@
+//TEMPORARY component for outputting the received websocket message
+
 <template>
     <div>
   
