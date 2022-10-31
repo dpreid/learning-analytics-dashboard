@@ -3,10 +3,10 @@
 
     <div class='row'>
         <div class="col-lg-6">
-            <graph-display id="student-network" title="Student Graph" graph_type="student_graph" :nodes="nodes" :edges="edges"/>
+            <graph-display id="student-network" title="Your Graph" graph_type="student_graph" :nodes="nodes" :edges="edges"/>
         </div>
         <div class="col-lg-6">
-            <graph-display id="comparison-network" title="Comparison Graph" graph_type="variable_graph" :nodes="nodes" :edges="compare_edges"/>
+            <graph-display id="comparison-network" title="Example Graph" graph_type="comparison_graph" :nodes="nodes" :edges="compare_edges"/>
         </div>
     </div>
 
@@ -14,6 +14,9 @@
     <div class='row mt-2'>
         <div class='col-sm-6'>
             <task-completion :response="tasks" />
+        </div>
+        <div class='col-sm-6'>
+            <indicators :response="indicators" />
         </div>
         
         
@@ -41,6 +44,7 @@ import ReceiveMessage from "./ReceiveMessage.vue";
 import MockLogging from "./MockLogging.vue";
 import GraphDisplay from "./GraphDisplay.vue"
 import TaskCompletion from "./TaskCompletion.vue"
+import Indicators from './Indicators.vue';
 
 export default {
     name: 'AnalyticsDashboard',
@@ -52,7 +56,8 @@ export default {
         ReceiveMessage,
         MockLogging,
         GraphDisplay,
-        TaskCompletion
+        TaskCompletion,
+        Indicators,
   },
     data () {
         return {
@@ -62,6 +67,7 @@ export default {
             edges: [],      //student graph edges
             compare_edges: [],  //comparison graph edges
             tasks: {},        //response from a task completion request
+            indicators: {}
         }
     },
     mounted(){
@@ -106,7 +112,7 @@ export default {
             this.logSocket.onopen = () => {
 				console.log('log connection opened at ', this.url);
 
-                this.request('student_graph');                
+                this.request({"content": 'student_graph'});                
 			};
 
             this.logSocket.onmessage = (event) => {
@@ -120,13 +126,16 @@ export default {
                             this.edges = json_response.edges
                         }
 
-                        if(json_response.content == 'comparison_graph'){
+                        else if(json_response.content == 'comparison_graph'){
                             this.nodes = json_response.nodes
                             this.compare_edges = json_response.edges
                         }
 
-                        if("tasks" in json_response){
+                        else if(json_response.content == 'task_identification'){
                             this.tasks = json_response.tasks
+                        }
+                        else if(json_response.content == 'indicators'){
+                            this.indicators = json_response.indicators
                         }
                     }
                     

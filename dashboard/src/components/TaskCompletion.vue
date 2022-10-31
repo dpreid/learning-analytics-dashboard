@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-8 pt-3 ps-3">
                 <h3 class="text-start">Task Completion</h3>
             </div>
             <div class="col-sm-4">
@@ -97,19 +97,19 @@
         getComment(value){
             let closest_value = this.getCompleted[1];
             if(value == closest_value){
-                return 'Looks like you are closest to completing these tasks'
+                return 'Looks like you are closest to completing this task combination'
             }
             else if(value < 10){
-                return 'Getting close to completing this'
+                return 'Good progress on this task'
             } else if(value < 20){
-                return 'Seems you have been working on this task'
+                return 'Looks like you have started this task'
             } else{
-                return 'Still some work to do'
+                return 'You have probably not run some key hardware modes yet.'
             }
             
         },
         send(){
-            this.request('task_identification');
+            this.request({"content": 'task_identification'});
         }
           
           

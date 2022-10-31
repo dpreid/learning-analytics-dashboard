@@ -39,7 +39,7 @@
                    UUID
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                    <li><a class="dropdown-item" href="#" >Display UUID</a></li>
+                    <li><a class="dropdown-item" href="#" >{{ getLogUUID }}</a></li>
                   </ul>
               </li>
               
@@ -91,7 +91,7 @@ export default {
   },
   computed:{
     ...mapGetters([
-      
+        'getLogUUID'
     ]),
 
   },

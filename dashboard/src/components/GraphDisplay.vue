@@ -1,12 +1,13 @@
 <template>
     <div >
         <div class="row">
-            <h2>{{ title }}</h2>
+            <h2 v-if="graph_type == 'student_graph'">{{ title }}</h2>
+            <h2 v-else>{{ title }}: {{ selected }}</h2>
         </div>
 
         <div class='mynetwork' :id="id"></div>
 
-        <div v-if="graph_type == 'variable_graph'" class="row">
+        <div v-if="graph_type == 'comparison_graph'" class="row">
             <div class="col-lg-6 mt-2">
                 <div class='input-group'>
                     <span class='input-group-text' for="graph">Graph:  </span>
@@ -108,7 +109,12 @@
             'request'
         ]),
         send(){
-            this.request(this.selected);
+            if(this.graph_type == 'student_graph'){
+                this.request({"content": this.graph_type});
+            } else{
+                this.request({"content": this.graph_type, "graph": this.selected});
+            }
+            
         },
           
       }
