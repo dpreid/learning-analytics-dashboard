@@ -5,7 +5,7 @@
                 <h3 class="text-start">Task Completion</h3>
             </div>
             <div class="col-sm-4">
-                <button class="button-primary button-lg">Request Data</button>
+                <button class="btn btn-success button-sm" @click="send">Request Data</button>
             </div>
             
             
@@ -87,7 +87,7 @@
       },
       methods:{
           ...mapActions([
-              
+              'request'
           ]),
           getProgress(value){
             let closest_value = this.getCompleted[1];
@@ -107,6 +107,9 @@
                 return 'Still some work to do'
             }
             
+        },
+        send(){
+            this.request('task_identification');
         }
           
           

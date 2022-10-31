@@ -1,18 +1,12 @@
 <template>
 <div>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <request-analytics />
-        </div>
-    </div>
-
     <div class='row'>
         <div class="col-lg-6">
-            <graph-display id="student-network" title="Student Graph" :nodes="nodes" :edges="edges"/>
+            <graph-display id="student-network" title="Student Graph" graph_type="student_graph" :nodes="nodes" :edges="edges"/>
         </div>
         <div class="col-lg-6">
-            <graph-display id="comparison-network" title="Comparison Graph" :nodes="nodes" :edges="compare_edges"/>
+            <graph-display id="comparison-network" title="Comparison Graph" graph_type="variable_graph" :nodes="nodes" :edges="compare_edges"/>
         </div>
     </div>
 
@@ -42,7 +36,7 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
-import RequestAnalytics from "./RequestAnalytics.vue";
+//import RequestAnalytics from "./RequestAnalytics.vue";
 import ReceiveMessage from "./ReceiveMessage.vue";
 import MockLogging from "./MockLogging.vue";
 import GraphDisplay from "./GraphDisplay.vue"
@@ -54,7 +48,7 @@ export default {
         url: String,   
     },
     components: {
-        RequestAnalytics,
+        //RequestAnalytics,
         ReceiveMessage,
         MockLogging,
         GraphDisplay,
@@ -99,7 +93,7 @@ export default {
     },
     methods:{
         ...mapActions([
-            
+            'request'
         ]),
         
         connect(){
@@ -111,7 +105,8 @@ export default {
             
             this.logSocket.onopen = () => {
 				console.log('log connection opened at ', this.url);
-                
+
+                this.request('student_graph');                
 			};
 
             this.logSocket.onmessage = (event) => {
@@ -120,9 +115,14 @@ export default {
                     let json_response = JSON.parse(this.response)
 
                     if(json_response.type == 'response'){
-                        if(json_response.nodes){
+                        if(json_response.content == 'student_graph'){
                             this.nodes = json_response.nodes
                             this.edges = json_response.edges
+                        }
+
+                        if(json_response.content == 'comparison_graph'){
+                            this.nodes = json_response.nodes
+                            this.compare_edges = json_response.edges
                         }
 
                         if("tasks" in json_response){

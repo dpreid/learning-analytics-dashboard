@@ -125,7 +125,6 @@
   }
   
   .button-sm{
-      background-color: #1433BA; /* Persian Blue */
       border: none;
       border-radius: 4px;
       color: white;
@@ -140,7 +139,6 @@
   }
   
   .button-lg{
-      background-color: #1433BA; /* Persian Blue */
       border: none;
       border-radius: 8px;
       color: white;

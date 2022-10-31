@@ -1,7 +1,31 @@
 <template>
     <div >
-        <h2>{{ title }}</h2>
+        <div class="row">
+            <h2>{{ title }}</h2>
+        </div>
+
         <div class='mynetwork' :id="id"></div>
+
+        <div v-if="graph_type == 'variable_graph'" class="row">
+            <div class="col-lg-6 mt-2">
+                <div class='input-group'>
+                    <span class='input-group-text' for="graph">Graph:  </span>
+                    <select class='form-select form-select-sm' name="function" id="function" v-model="selected">
+                        <option v-if="getExperiment == 'spinner'" value="spinner-all">Full procedure</option>
+                        <option v-if="getExperiment == 'spinner'" value="spinner-1-2">Task 1+2</option>
+                        <option v-if="getExperiment == 'spinner'" value="spinner-3">Task 3</option>
+                        <option v-if="getExperiment == 'spinner'" value="spinner-4">Task 4</option>
+                    </select> 
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <button class='btn button-sm btn-success' id="request_button" @click="send">Request Graph</button>
+            </div>
+            
+        </div>
+        
+        
+        
 
     </div>
     
@@ -10,7 +34,7 @@
 </template>
   
   <script>
-  import {mapActions} from 'vuex';
+  import {mapActions, mapGetters} from 'vuex';
   import { DataSet, Network } from 'vis-network/standalone'
  
     // initialize global variables.
@@ -60,17 +84,19 @@
       components:{
           
       },
-      props:['id', 'title', 'nodes', 'edges'],
+      props:['id', 'title', 'graph_type', 'nodes', 'edges'],
       data(){
           return{
-              
+              selected: 'student_graph',      //defaults to requesting the student graph
           }
-      },
+      },    
       mounted(){
         drawGraph(this.id, this.nodes, this.edges);
       },
       computed:{
-  
+            ...mapGetters([
+                'getExperiment'
+            ])
       },
       watch:{
         edges(edges){
@@ -78,9 +104,12 @@
         }
       },
       methods:{
-          ...mapActions([
-              
-          ]),
+        ...mapActions([
+            'request'
+        ]),
+        send(){
+            this.request(this.selected);
+        },
           
       }
   }

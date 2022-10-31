@@ -37,13 +37,14 @@ const loggingStore = {
                 
                 
             },  
-            REQUEST(state){
+            REQUEST(state, content){
                 if(state.logging_consent_given && state.logSocket != null){
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
                         exp: state.exp,    
-                        type: "request",    
+                        type: "request", 
+                        content: content   
                     }));
                 }
             }, 
@@ -79,8 +80,8 @@ const loggingStore = {
                 //context.commit('LOG_PARAMETERS', payload.data);
                 context.commit('LOG', payload);
             },
-            request(context){
-                context.commit('REQUEST');
+            request(context, content){
+                context.commit('REQUEST', content);
             },
             feedback(context, payload){
                 context.commit('FEEDBACK', payload);
