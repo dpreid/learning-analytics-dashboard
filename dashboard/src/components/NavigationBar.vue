@@ -46,8 +46,8 @@
           </ul>
 
           <div class='d-flex'>
-            <toolbar class='me-5' parentCanvasID="" parentDivID="navbar" parentComponentName="navbar" :showDownload="false" :showOptions="false" :showPopupHelp="true">
-                  <template v-slot:popup id='navbar-popup'>
+            <!-- <toolbar class='me-5' parentCanvasID="" parentDivID="navbar" parentComponentName="navbar" :showDownload="false" :showOptions="false" :showPopupHelp="true">
+                  <template v-slot:popup-help-body id='navbar-popup'>
                     <div class='row'>
                       <div class='col-6'>
                         <h2> Layout </h2>
@@ -57,7 +57,7 @@
                       </div>
                     </div>
                   </template>
-            </toolbar>
+            </toolbar> -->
           </div>
 
 
@@ -69,14 +69,14 @@
 
 <script>
 
-import Toolbar from './elements/Toolbar.vue';
+//import Toolbar from './elements/Toolbar.vue';
 import { mapGetters } from 'vuex';
 
 export default {
 
   name: 'NavigationBar',
   components: {
-    Toolbar
+    //Toolbar
   },
   props:{
       

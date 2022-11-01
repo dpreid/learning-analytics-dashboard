@@ -1,18 +1,26 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-8 pt-3 ps-3">
+            <div class="col-lg-8 pt-3 ps-3">
                 <h3 class="text-start">Task Completion</h3>
             </div>
+            
             <div class="col-sm-4">
                 <button class="btn btn-success button-sm" @click="send">Request Data</button>
             </div>
-            
-            
         </div>
+
+       
+        <div class="form-check-inline form-switch">
+            <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" @click="toggleChart">
+            <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
+        </div>
+      
         
 
-        <div class="row table" id='task-completion-table' >
+        <simple-line-graph v-if="showGraph" heading="TaskCompletion" :x_labels="labels" :y_values="y_values"/>
+
+        <div v-else class="row table" id='task-completion-table' >
 
             <table>
                 <thead class='table-head background-primary'>
@@ -34,27 +42,28 @@
             </table> 
 
         </div>
-
-        <!-- <p>{{ response }}</p>
-      <div v-for="key in Object.keys(response)" :key="key" >
-            <p> {{ key }} : {{ response[key] }}</p>
-        </div> -->
   
     </div>
   </template>
   
   <script>
   import {mapActions, mapGetters} from 'vuex'
+  import SimpleLineGraph from './elements/SimpleLineGraph.vue'
   
   export default {
       name: "TaskCompletion",
       components:{
-          
+          SimpleLineGraph,
       },
       props: ['response'],
       data(){
           return{
-              headings: ['Task', 'Relative Similarity', 'Comment']
+            showGraph: false,
+            headings: ['Task', 'Relative Similarity', 'Comment'],
+            //TESTING
+            labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+            y_values: [{title:'task1', values:[86,114,106,106,107,111,133,221,783,2478]},
+                        {title:'task2', values:[123,34,76,38,90,76,12,5,300,432]}]
           }
       },
       mounted(){
@@ -110,6 +119,9 @@
         },
         send(){
             this.request({"content": 'task_identification'});
+        },
+        toggleChart(){
+            this.showGraph = !this.showGraph;
         }
           
           

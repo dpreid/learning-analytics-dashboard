@@ -28,8 +28,14 @@
                                 <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgress(response['exploration'], 100)"></div>
                             </div>
                         </td>
-                        <td v-if="response['exploration']">{{ getComment(response['exploration']) }}</td>
-                        <td><popup-help /></td>
+                        <td v-if="response['exploration']">{{ getExplorationComment(response['exploration']) }}</td>
+                        <td v-if="response['exploration']"><popup-help>
+                            <template v-slot:popup-help-header id='p-h-header'>Exploration</template>
+                            <template v-slot:popup-help-body id='p-h-header'>
+                                Exploration concerns how much you have investigated hardware modes outside of those necessary to complete tasks.
+                            </template>
+                            </popup-help>
+                        </td>
                     </tr>
 
                     <!-- ADD IN OTHER INDICATORS WHEN AVAILABLE-->
@@ -72,7 +78,7 @@
             let width = value*100.0/max;
             return 'width: ' + width.toFixed(2) + '%';
         },
-        getComment(value){
+        getExplorationComment(value){
             if(value > 100){
                 return 'You have explored well beyond expectations!'
             }
@@ -82,7 +88,7 @@
             else if(value > 25){
                 return 'You have followed the tasks quite closely'
             } else{
-                return 'You probably haven\'t completed the tasks yet'
+                return 'You probably haven\'t completed the main tasks yet'
             }
             
         },

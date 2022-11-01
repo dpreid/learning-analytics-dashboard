@@ -5,7 +5,8 @@ const loggingStore = {
         logSocket: null,
         uuid: 'david',                      //SET HERE FOR TESTING
         logging_consent_given: true,        //SET HERE FOR TESTING
-        exp: 'spinner'
+        exp: 'spinner',                     //SET HERE FOR TESTING
+        saved: [],
 
        }),
        mutations:{
@@ -20,6 +21,9 @@ const loggingStore = {
             },
             SET_EXPERIMENT(state, exp){
                 state.exp = exp;
+            },
+            SET_SAVED(state, data){
+                state.saved = data;
             },
             LOG(state, payload){
                 //only log to server if user has given consent.
@@ -76,6 +80,9 @@ const loggingStore = {
             setExperiment(context, exp){
                 context.commit('SET_EXPERIMENT', exp);
             },
+            setSaved(context, data){
+                context.commit('SET_SAVED', data);
+            },
             log(context, payload){
                 //context.commit('LOG_PARAMETERS', payload.data);
                 context.commit('LOG', payload);
@@ -100,6 +107,9 @@ const loggingStore = {
             },
             getExperiment(state){
                 return state.exp
+            },
+            getSaved(state){
+                return state.saved;
             }
           
        },  
