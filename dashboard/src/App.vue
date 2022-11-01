@@ -1,6 +1,6 @@
 <template>
 <div id="app" class='container-fluid-sm m-0 background-white'>
-    <navigation-bar />
+    <navigation-bar @save="saveDataToLocalStorage"/>
     <streams />
 
     <analytics-dashboard :url="getLogURL"/>
@@ -22,11 +22,17 @@ export default {
     Streams,
     AnalyticsDashboard
   },
+  mounted(){
+        this.loadFromLocalStorage();
+  },
   computed:{
         ...mapGetters([
             'getLogURL',
             'getExperiment',
-            'getLogConsent'
+            'getLogConsent',
+            'getSaved',
+            'getTasks',
+            'getIndicators'
         ])
   },
   methods:{
@@ -65,8 +71,8 @@ export default {
             
         },
         loadData(exp){
-            if(window.localStorage.getItem(exp + 'la-data')){
-                let data = window.localStorage.getItem(exp + 'la-data');
+            if(window.localStorage.getItem(exp + '-la-data')){
+                let data = window.localStorage.getItem(exp + '-la-data');
                 data = JSON.parse(data);
                 this.$store.dispatch('setSaved', data);
             }
@@ -84,13 +90,17 @@ export default {
             }
         },
         saveData(){
-            
-            // let data_json = JSON.stringify(this.$store.getters.getData);
-            // window.localStorage.setItem('savedDataSpinningDisk', data_json);
-            // let date = JSON.stringify(new Date());
-            // window.localStorage.setItem('dateSavedSpinningDisk', date);
-            
+            let exp = this.getExperiment;
+            let saved = this.getSaved;
+            let taskcompletion = this.getTasks;
+            let indicators = this.getIndicators;
+            let date = new Date();
+            let to_save = {"date": date, "taskcompletion":taskcompletion, "indicators":indicators}
+            saved.push(to_save);
+            let data_json = JSON.stringify(saved);
+            window.localStorage.setItem(exp + '-la-data', data_json);  
         },
+        
   }
 }
 </script>

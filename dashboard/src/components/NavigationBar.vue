@@ -46,6 +46,7 @@
           </ul>
 
           <div class='d-flex'>
+            <button class="btn btn-danger" @click="save">Save</button>
             <!-- <toolbar class='me-5' parentCanvasID="" parentDivID="navbar" parentComponentName="navbar" :showDownload="false" :showOptions="false" :showPopupHelp="true">
                   <template v-slot:popup-help-body id='navbar-popup'>
                     <div class='row'>
@@ -82,7 +83,7 @@ export default {
       
   },
   emits:[
-    'togglelayout'
+    'togglelayout', 'save'
   ],
   data () {
     return {
@@ -116,6 +117,9 @@ export default {
         {
           this.$emit('togglelayout', 1);
         }
+      },
+      save(){
+        this.$emit('save');
       }
   }
 }

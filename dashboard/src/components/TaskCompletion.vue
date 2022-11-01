@@ -18,7 +18,7 @@
       
         
 
-        <simple-line-graph v-if="showGraph" heading="TaskCompletion" :x_labels="labels" :y_values="y_values"/>
+        <simple-line-graph v-if="showGraph" heading="TaskCompletion" :x_labels="getXLabels" :y_values="getYValues"/>
 
         <div v-else class="row table" id='task-completion-table' >
 
@@ -60,10 +60,6 @@
           return{
             showGraph: false,
             headings: ['Task', 'Relative Similarity', 'Comment'],
-            //TESTING
-            labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
-            y_values: [{title:'task1', values:[86,114,106,106,107,111,133,221,783,2478]},
-                        {title:'task2', values:[123,34,76,38,90,76,12,5,300,432]}]
           }
       },
       mounted(){
@@ -71,7 +67,7 @@
       },
       computed:{
         ...mapGetters([
-            // 'getExperiment'
+            'getSaved'
         ]),
         
         getSeparateCompleted(){
@@ -91,6 +87,39 @@
             })
             
             return [task, value]
+          },
+          getXLabels(){
+            let labels = []
+            this.getSaved.forEach((data) => {
+                labels.push(data.date)
+                })
+
+            return labels;
+          },
+          getYValues(){
+            // return [{title:'task1', values:[86,114,106,106,107,111,133,221,783,2478]},
+            //         {title:'task2', values:[123,34,76,38,90,76,12,5,300,432]}]
+            if(this.getSaved.length > 0){
+                let tc = []
+                this.getSaved.forEach((data) => {
+                    tc.push(data.taskcompletion)
+                })
+                let result = []
+                const keys = Object.keys(tc[0])
+                keys.forEach((key) => {
+                    let values = [];
+                    tc.forEach((entry) => {
+                        values.push(entry[key])
+                    })
+                    result.push({"title":key, "values":values})
+                })
+
+                return result;
+            } else {
+                return []
+            }
+            
+
           }
   
       },
