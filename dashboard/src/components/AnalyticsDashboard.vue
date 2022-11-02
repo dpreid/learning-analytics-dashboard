@@ -12,29 +12,29 @@
 
 
     <div class='row mt-2'>
-        <div class='col-sm-6'>
+        <div class='col-lg-6'>
             <task-completion :response="getTasks" />
         </div>
-        <div class='col-sm-6'>
+        <div class='col-lg-6'>
             <indicators :response="getIndicators" />
         </div>
     </div>
 
     <div class='row mt-2'>
-        <div class='col-sm-6'>
+        <div class='col-lg-6'>
             <affective-feedback />
         </div>
-        <div class='col-sm-6'>
+        <div class='col-lg-6'>
             <regulatory-feedback />
         </div>
     </div>
 
 
     <div class='row'>
-        <div class="col-sm-6">
+        <div class="col-lg-6">
             <mock-logging />
         </div>
-        <div class="col-sm-6">
+        <div class="col-lg-6">
             <receive-message :message="response"/>
         </div>
         

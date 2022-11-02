@@ -12,6 +12,8 @@
         <div class="row">
             <div class="container-fluid border mt-4 col-lg-6">
                 <button class="button-regulation button-sm" @click="selected_state = 'Planning'">Planning</button> 
+                <button class="button-regulation button-sm" @click="selected_state = 'Monitoring'">Monitoring</button> 
+                <button class="button-regulation button-sm" @click="selected_state = 'Evaluating'">Evaluating</button> 
                 
             </div>
 
