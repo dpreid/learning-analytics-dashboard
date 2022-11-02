@@ -151,16 +151,6 @@ export default {
       cursor: pointer;
   }
 
-  .button-success{
-    background-color:#3e8e41;
-    color: white; 
-    border: 2px solid #3e8e41
-}
-
-.button-success:hover{
-    background-color: white; 
-    color: black; 
-}
 
 .button-positive{
     background-color:darkorange;
