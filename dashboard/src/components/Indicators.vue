@@ -1,18 +1,25 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-sm-8 pt-3 ps-3">
+            <div class="col-lg-6 pt-3 ps-3">
                 <h3 class="text-start">SRL Indicators</h3>
             </div>
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <button class="btn btn-success button-sm" @click="send">Request Data</button>
+            </div> -->
+            <div class="col-lg-6 pt-3 ps-3">
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" @click="toggleChart">
+                    <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
+                </div>
             </div>
             
-            
         </div>
+
+        <simple-line-graph v-if="showGraph" id="indicators-line-chart" heading="SRL Indicators" :x_labels="getXLabels" :y_values="getYValues"/>
         
 
-        <div class="row table" id='indicators-table' >
+        <div v-else class="row table" id='indicators-table' >
 
             <table>
                 <thead class='table-head background-primary'>
@@ -50,16 +57,19 @@
   <script>
   import {mapActions, mapGetters} from 'vuex'
   import PopupHelp from './elements/PopupHelp.vue'
+  import SimpleLineGraph from './elements/SimpleLineGraph.vue';
 
   export default {
       name: "Indicators",
       components:{
           PopupHelp,
+          SimpleLineGraph
       },
       props: ['response'],
       data(){
           return{
-              headings: ['Indicator', 'Relative Value', 'Comment', 'Help']
+              headings: ['Indicator', 'Relative Value', 'Comment', 'Help'],
+              showGraph: false
           }
       },
       mounted(){
@@ -67,8 +77,42 @@
       },
       computed:{
         ...mapGetters([
-            // 'getExperiment'
+            'getSaved'
         ]),
+        getXLabels(){
+            let labels = []
+            this.getSaved.forEach((data) => {
+                labels.push(data.date)
+                })
+
+            return labels;
+          },
+          getYValues(){
+            // return [{title:'task1', values:[86,114,106,106,107,111,133,221,783,2478]},
+            //         {title:'task2', values:[123,34,76,38,90,76,12,5,300,432]}]
+            if(this.getSaved.length > 0){
+                let tc = []
+                this.getSaved.forEach((data) => {
+                    tc.push(data.indicators)
+                })
+                console.log(tc)
+                let result = []
+                const keys = Object.keys(tc[0])
+                keys.forEach((key) => {
+                    let values = [];
+                    tc.forEach((entry) => {
+                        values.push(entry[key])
+                    })
+                    result.push({"title":key, "values":values})
+                })
+                
+                return result;
+            } else {
+                return []
+            }
+            
+
+          },
       },
       methods:{
           ...mapActions([
@@ -94,7 +138,10 @@
         },
         send(){
             this.request({"content": 'indicators'});
-        }
+        },
+          toggleChart(){
+            this.showGraph = !this.showGraph;
+          }
           
           
       }

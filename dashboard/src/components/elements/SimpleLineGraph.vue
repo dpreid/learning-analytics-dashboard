@@ -1,9 +1,9 @@
 
 <template>
 <div class='container-fluid'>
-    <div class="row" id="chart-canvas">
-        <div class="col-12">
-            <canvas id='line-canvas'></canvas>
+    <div class="row" :id="id + 'chart'">
+        <div class="col-sm-12">
+            <canvas :id='id'></canvas>
         </div>
     </div>
     
@@ -20,6 +20,7 @@ export default {
     
     name: 'SimpleLineGraph',
     props:{
+        id: String,
         heading: String,
         x_labels: Array,
         y_values: Array        //array of Objects {title: task_1, values: [0.1, 0.2...]}
@@ -53,7 +54,8 @@ export default {
         
         createChart() {
             let _this = this;
-            const canvas = document.getElementById('line-canvas');
+            console.log(this.id)
+            const canvas = document.getElementById(this.id);
             const ctx = canvas.getContext('2d');
             let chart = new Chart(ctx, {
                     type: 'line',

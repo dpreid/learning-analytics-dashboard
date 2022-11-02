@@ -117,8 +117,12 @@ export default {
             
             this.logSocket.onopen = () => {
 				console.log('log connection opened at ', this.url);
-
-                this.request({"content": 'student_graph'});                
+                
+                // REQUEST student data automatically
+                this.request({"content": 'student_graph'});    
+                this.request({"content": 'task_identification'});  
+                this.request({"content": 'indicators'}); 
+                this.request({"content": 'comparison_graph', "graph": 'spinner-all'});          
 			};
 
             this.logSocket.onmessage = (event) => {

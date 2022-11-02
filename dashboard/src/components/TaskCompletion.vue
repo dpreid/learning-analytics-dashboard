@@ -1,24 +1,29 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 pt-3 ps-3">
+            <div class="col-lg-6 pt-3 ps-3">
                 <h3 class="text-start">Task Completion</h3>
             </div>
             
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <button class="btn btn-success button-sm" @click="send">Request Data</button>
+            </div> -->
+            <div class="col-lg-6 pt-3 ps-3">
+                <div class="form-check-inline form-switch">
+                    <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" @click="toggleChart">
+                    <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
+                </div>
             </div>
+            
+
         </div>
 
        
-        <div class="form-check-inline form-switch">
-            <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" @click="toggleChart">
-            <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
-        </div>
+        
       
         
 
-        <simple-line-graph v-if="showGraph" heading="TaskCompletion" :x_labels="getXLabels" :y_values="getYValues"/>
+        <simple-line-graph v-if="showGraph" id="taskcompletion-line-chart" heading="TaskCompletion" :x_labels="getXLabels" :y_values="getYValues"/>
 
         <div v-else class="row table" id='task-completion-table' >
 
@@ -63,7 +68,7 @@
           }
       },
       mounted(){
-          
+        
       },
       computed:{
         ...mapGetters([

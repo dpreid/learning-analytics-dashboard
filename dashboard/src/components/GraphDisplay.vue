@@ -88,7 +88,7 @@
       props:['id', 'title', 'graph_type', 'nodes', 'edges'],
       data(){
           return{
-              selected: 'student_graph',      //defaults to requesting the student graph
+              selected: 'spinner-all',      //defaults to requesting the student graph
           }
       },    
       mounted(){
