@@ -18,8 +18,15 @@
         <div class='col-sm-6'>
             <indicators :response="getIndicators" />
         </div>
-        
-        
+    </div>
+
+    <div class='row mt-2'>
+        <div class='col-sm-6'>
+            <affective-feedback />
+        </div>
+        <div class='col-sm-6'>
+            <regulatory-feedback />
+        </div>
     </div>
 
 
@@ -46,6 +53,8 @@ import MockLogging from "./MockLogging.vue";
 import GraphDisplay from "./GraphDisplay.vue"
 import TaskCompletion from "./TaskCompletion.vue"
 import Indicators from './Indicators.vue';
+import AffectiveFeedback from './AffectiveFeedback.vue'
+import RegulatoryFeedback from './RegulatoryFeedback.vue'
 
 export default {
     name: 'AnalyticsDashboard',
@@ -59,6 +68,8 @@ export default {
         GraphDisplay,
         TaskCompletion,
         Indicators,
+        AffectiveFeedback,
+        RegulatoryFeedback
   },
     data () {
         return {
