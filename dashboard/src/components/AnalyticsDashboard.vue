@@ -25,7 +25,16 @@
             <affective-feedback />
         </div>
         <div class='col-lg-6'>
-            <regulatory-feedback />
+            <self-evaluation-feedback />
+        </div>
+    </div>
+
+    <div class='row mt-2'>
+        <div class='col-lg-6'>
+            
+        </div>
+        <div class='col-lg-6'>
+            <planning-feedback />
         </div>
     </div>
 
@@ -53,8 +62,9 @@ import MockLogging from "./MockLogging.vue";
 import GraphDisplay from "./GraphDisplay.vue"
 import TaskCompletion from "./TaskCompletion.vue"
 import Indicators from './Indicators.vue';
-import AffectiveFeedback from './AffectiveFeedback.vue'
-import RegulatoryFeedback from './RegulatoryFeedback.vue'
+import AffectiveFeedback from './AffectiveFeedback.vue';
+import SelfEvaluationFeedback from './SelfEvaluationFeedback.vue';
+import PlanningFeedback from './PlanningFeedback.vue';
 
 export default {
     name: 'AnalyticsDashboard',
@@ -69,7 +79,8 @@ export default {
         TaskCompletion,
         Indicators,
         AffectiveFeedback,
-        RegulatoryFeedback
+        SelfEvaluationFeedback,
+        PlanningFeedback
   },
     data () {
         return {

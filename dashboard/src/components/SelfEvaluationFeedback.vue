@@ -1,38 +1,54 @@
 <template>
   
     <div class="m-2">
-        <h2>Affective Reflection Space</h2>
+        <h2>Self-evaluation space</h2>
         <div class="row">
-            <div class="col-lg-6">
-                <h5>Affective State</h5>
+            <div class="col-lg-4">
+                <h5>Evaluation</h5>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
+                <h5>Learning Component</h5>
+            </div>
+            <div class="col-lg-4">
                 <h5>Subject of reflection</h5>
             </div>
         </div>
         <div class="row">
-            <div class="container-fluid border col-lg-6">
-                <button class="button button-positive button-sm" @click="selected_state = 'Planning'">Planning</button> 
+            <div class="container-fluid border col-lg-4">
+                <button class="button button-positive button-sm" @click="selected_evaluation = 'Satisfied'">Satisfied</button> 
+                <button class="button button-negative button-sm" @click="selected_evaluation = 'Dissatisfied'">Dissatisfied</button> 
                 
 
                 
                 
             </div>
 
-            <div class="container-fluid border col-lg-6">
-                <button class="button button-subject button-sm" @click="selected_subject = 'Teaching'">Teaching</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Workbook'">Workbook</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Remote work'">Remote work</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Hardware'">Hardware</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Tasks'">Tasks</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Feedback'">Feedback</button> 
+            <div class="container-fluid border col-lg-4">
+                <button class="button button-subject button-sm" @click="selected_component = 'Progress'">Progress</button> 
+                <button class="button button-subject button-sm" @click="selected_component = 'Understanding'">Understanding</button> 
+                
+
+                
+                
+            </div>
+
+            <div class="container-fluid border col-lg-4">
+                <button class="button button-subject button-sm" @click="selected_subject = 'Course content'">Course content</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Remote lab'">Remote lab</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Task 1'">Task 1</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Task 2'">Task 2</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Task 3'">Task 3</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Task 4'">Task 4</button> 
             </div>
         </div>
 
         <div class="row justify-content-center">
-            <div class="state-input col-lg-5" @click="selected_state = null">{{ selected_state }}</div>
-            <span class="col-sm-1 mt-4"> about </span>
-            <div class="subject-input col-lg-5" @click="selected_subject = null">{{ selected_subject }}</div>
+            <span class="col-sm-1 mt-3"> I am </span>
+            <div class="state-input col-lg-2" @click="selected_evaluation = null">{{ selected_evaluation }}</div>
+            <span class="col-sm-1 mt-3"> with my </span>
+            <div class="subject-input col-lg-2" @click="selected_component = null">{{ selected_component }}</div>
+            <span class="col-sm-1 mt-4"> on</span>
+            <div class="subject-input col-lg-2" @click="selected_subject = null">{{ selected_subject }}</div>
         </div>
 
         <button class="btn btn-success btn-lg" :disabled="!getSubmitAllowed" @click="submit">Submit</button>
@@ -55,8 +71,9 @@ export default {
       props: [],
       data(){
           return{
-                selected_state: null,
-                selected_subject: null
+            selected_evaluation: null,
+            selected_component: null,
+            selected_subject: null
           }
       },
       mounted(){
@@ -67,7 +84,7 @@ export default {
 
         ]),
         getSubmitAllowed(){
-            if(this.selected_state != null && this.selected_subject != null){
+            if(this.selected_evaluation != null && this.selected_component != null && this.selected_subject != null){
                 return true;
             } else{
                 return false;
