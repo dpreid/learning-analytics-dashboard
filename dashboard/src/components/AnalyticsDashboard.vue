@@ -31,7 +31,7 @@
 
     <div class='row mt-2'>
         <div class='col-lg-6'>
-            <centroid-display id='centroid' :coords='coords' />
+            <centroid-display id='centroid' :centroids='getCentroids' />
         </div>
         <div class='col-lg-6'>
             <planning-feedback />
@@ -93,7 +93,7 @@ export default {
             // compare_edges: [],  //comparison graph edges
             // tasks: {},        //response from a task completion request
             // indicators: {},
-            coords: [1,1]
+            //coords: [1,1]
         }
     },
     mounted(){
@@ -123,7 +123,8 @@ export default {
             'getEdges',
             'getCompareEdges',
             'getTasks',
-            'getIndicators'
+            'getIndicators',
+            'getCentroids'
             
         ]),
 
@@ -147,7 +148,8 @@ export default {
                 this.request({"content": 'student_graph'});    
                 this.request({"content": 'task_identification'});  
                 this.request({"content": 'indicators'}); 
-                this.request({"content": 'comparison_graph', "graph": 'spinner-all'});          
+                this.request({"content": 'comparison_graph', "graph": 'spinner-all'});   
+                this.request({"content": 'centroids'});        
 			};
 
             this.logSocket.onmessage = (event) => {
@@ -175,8 +177,14 @@ export default {
                             _this.$store.dispatch('setTasks', json_response.tasks);
                         }
                         else if(json_response.content == 'indicators'){
+                            console.log(json_response.content)
                             // this.indicators = json_response.indicators
                             _this.$store.dispatch('setIndicators', json_response.indicators);
+                        }
+                        else if(json_response.content == 'centroids'){
+                            // this.indicators = json_response.indicators
+                            console.log(json_response.content)
+                            _this.$store.dispatch('setCentroids', json_response.centroids);
                         }
                     }
                     

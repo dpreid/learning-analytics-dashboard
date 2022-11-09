@@ -7,7 +7,7 @@ const dataStore = {
         compare_edges: [],  //comparison graph edges
         tasks: {},        //response from a task completion request
         indicators: {},
-
+        centroids: {},
        }),
        mutations:{
             SET_NODES(state, nodes){
@@ -24,6 +24,9 @@ const dataStore = {
             },
             SET_INDICATORS(state, indicators){
                 state.indicators = indicators;
+            },
+            SET_CENTROIDS(state, centroids){
+                state.centroids = centroids;
             },
 
        },
@@ -43,6 +46,9 @@ const dataStore = {
             setIndicators(context, indicators){
                 context.commit('SET_INDICATORS', indicators);
             },
+            setCentroids(context, centroids){
+                context.commit('SET_CENTROIDS', centroids);
+            },
 
 
        },
@@ -61,6 +67,9 @@ const dataStore = {
            },
            getIndicators(state){
             return state.indicators;
+           },
+           getCentroids(state){
+            return state.centroids;
            }
           
        },  
