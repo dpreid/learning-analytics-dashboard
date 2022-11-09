@@ -31,7 +31,7 @@
 
     <div class='row mt-2'>
         <div class='col-lg-6'>
-            
+            <centroid-display id='centroid' :coords='coords' />
         </div>
         <div class='col-lg-6'>
             <planning-feedback />
@@ -65,6 +65,7 @@ import Indicators from './Indicators.vue';
 import AffectiveFeedback from './AffectiveFeedback.vue';
 import SelfEvaluationFeedback from './SelfEvaluationFeedback.vue';
 import PlanningFeedback from './PlanningFeedback.vue';
+import CentroidDisplay from './CentroidDisplay.vue';
 
 export default {
     name: 'AnalyticsDashboard',
@@ -80,7 +81,8 @@ export default {
         Indicators,
         AffectiveFeedback,
         SelfEvaluationFeedback,
-        PlanningFeedback
+        PlanningFeedback,
+        CentroidDisplay
   },
     data () {
         return {
@@ -91,6 +93,7 @@ export default {
             // compare_edges: [],  //comparison graph edges
             // tasks: {},        //response from a task completion request
             // indicators: {},
+            coords: [1,1]
         }
     },
     mounted(){
