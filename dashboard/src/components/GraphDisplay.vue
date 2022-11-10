@@ -1,8 +1,41 @@
 <template>
     <div >
-        <div class="row">
-            <h2 v-if="graph_type == 'student_graph'">{{ title }}</h2>
-            <h2 v-else>{{ title }}: {{ selected }}</h2>
+        <div v-if="graph_type == 'student_graph'" class="row">
+            <div class="col-lg-3"> </div>
+            <div class="col-lg-6"> 
+                <h2 >{{ title }}</h2>
+            </div>
+            <div class="col-lg-3"> 
+                <popup-help>
+                    <template v-slot:popup-help-header id='p-h-header'>Your Graph</template>
+                    <template v-slot:popup-help-body id='p-h-header'>
+                        This graph displays all the times you have run the hardware. Vertices represent the different hardware modes and edges 
+                        between the vertices tell you the number of times that hardware transition has been made. 
+                    </template>
+                </popup-help>
+            </div>
+            
+            
+            
+        </div>
+        <div v-else class="row">
+            <div class="col-lg-3"> </div>
+            <div class="col-lg-6"> 
+                <h2 >{{ title }}: {{ selected }}</h2>
+            </div>
+            <div class="col-lg-3"> 
+                <popup-help>
+                    <template v-slot:popup-help-header id='p-h-header'>Example Graph</template>
+                    <template v-slot:popup-help-body id='p-h-header'>
+                        This shows an example of a possible graph for completing individual tasks and for the full coursework. It is not expected that you would
+                        match this, but it gives a suggestion of the different modes necessary to complete tasks. Use the dropdown and request graph button at the bottom to display a different 
+                        example graph.
+                    </template>
+                </popup-help>
+            </div>
+            
+            
+            
         </div>
 
         <div class='mynetwork' :id="id"></div>
@@ -37,6 +70,7 @@
   <script>
   import {mapActions, mapGetters} from 'vuex';
   import { DataSet, Network } from 'vis-network/standalone'
+  import PopupHelp from './elements/PopupHelp.vue'
  
     // initialize global variables.
     var edges;
@@ -93,7 +127,7 @@
   export default {
       name: "GraphDisplay",
       components:{
-          
+          PopupHelp,
       },
       props:['id', 'title', 'graph_type', 'nodes', 'edges', 'node_info'],
       data(){
