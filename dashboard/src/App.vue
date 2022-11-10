@@ -65,7 +65,7 @@ export default {
 
             } else{
 
-                console.log('no local storage');
+                console.log('no local storage or data to load');
                 return false;
             }
             
