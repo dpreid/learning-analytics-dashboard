@@ -3,10 +3,10 @@
 
     <div class='row'>
         <div class="col-lg-6">
-            <graph-display id="student-network" title="Your Graph" graph_type="student_graph" :nodes="getNodes" :edges="getEdges"/>
+            <graph-display id="student-network" title="Your Graph" graph_type="student_graph" :nodes="getNodes" :edges="getEdges" :node_info="getNodeInfo"/>
         </div>
         <div class="col-lg-6">
-            <graph-display id="comparison-network" title="Example Graph" graph_type="comparison_graph" :nodes="getNodes" :edges="getCompareEdges"/>
+            <graph-display id="comparison-network" title="Example Graph" graph_type="comparison_graph" :nodes="getNodes" :edges="getCompareEdges" :node_info="getCompareNodeInfo"/>
         </div>
     </div>
 
@@ -124,7 +124,9 @@ export default {
             'getCompareEdges',
             'getTasks',
             'getIndicators',
-            'getCentroids'
+            'getCentroids',
+            'getNodeInfo',
+            'getCompareNodeInfo'
             
         ]),
 
@@ -159,31 +161,29 @@ export default {
 
                     if(json_response.type == 'response'){
                         if(json_response.content == 'student_graph'){
-                            // this.nodes = json_response.nodes
-                            // this.edges = json_response.edges
+                            
                             _this.$store.dispatch('setNodes', json_response.nodes);
                             _this.$store.dispatch('setEdges', json_response.edges);
+                            _this.$store.dispatch('setNodeInfo', json_response.node_info);
                         }
 
                         else if(json_response.content == 'comparison_graph'){
-                            // this.nodes = json_response.nodes
-                            // this.compare_edges = json_response.edges
+                            
                             _this.$store.dispatch('setNodes', json_response.nodes);
                             _this.$store.dispatch('setCompareEdges', json_response.edges);
+                            _this.$store.dispatch('setCompareNodeInfo', json_response.node_info);
                         }
 
                         else if(json_response.content == 'task_identification'){
-                            // this.tasks = json_response.tasks
+                            
                             _this.$store.dispatch('setTasks', json_response.tasks);
                         }
                         else if(json_response.content == 'indicators'){
-                            console.log(json_response.content)
-                            // this.indicators = json_response.indicators
+                            
                             _this.$store.dispatch('setIndicators', json_response.indicators);
                         }
                         else if(json_response.content == 'centroids'){
-                            // this.indicators = json_response.indicators
-                            console.log(json_response.content)
+                            
                             _this.$store.dispatch('setCentroids', json_response.centroids);
                         }
                     }

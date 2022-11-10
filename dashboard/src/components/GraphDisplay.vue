@@ -47,11 +47,18 @@
 
     
     // This method is responsible for drawing the graph, returns the drawn network
-    function drawGraph(id, n_list, e_list) {
+    function drawGraph(id, n_list, e_list, node_titles) {
         container = document.getElementById(id);
+
+        // force edge width to 1 for each edge
+        e_list.forEach(edge => {
+            edge.width = 1
+        });
+
         // parsing and collecting nodes and edges from the python
         if(n_list.length > 0){
             //nodes= new DataSet(n_list)
+            nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "x": 100, "y": -173.20508075688772, 'title': node_titles['voltage_step']}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "x": 200, "y": 0, 'title': node_titles['position_step']}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "x": -200, "y": 0, 'title': node_titles['position_ramp']}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "x": -100, "y": -173.20508075688772, 'title': node_titles['voltage_ramp']}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "x": 100, "y": 173.20508075688772, 'title': node_titles['speed_step']}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "x": -100, "y": 173.20508075688772, 'title': node_titles['speed_ramp']}]);
             edges = new DataSet(e_list)
         } else{
             nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "x": 100, "y": -173.20508075688772}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "x": 200, "y": 0}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "x": -200, "y": 0}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "x": -100, "y": -173.20508075688772}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "x": 100, "y": 173.20508075688772}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "x": -100, "y": 173.20508075688772}]);
@@ -59,6 +66,9 @@
             edges = new DataSet([])
         }
         
+        
+
+
         // adding nodes and edges to the graph
         data = {nodes: nodes, edges: edges};
 
@@ -85,7 +95,7 @@
       components:{
           
       },
-      props:['id', 'title', 'graph_type', 'nodes', 'edges'],
+      props:['id', 'title', 'graph_type', 'nodes', 'edges', 'node_info'],
       data(){
           return{
               selected: 'spinner-all',      //defaults to requesting the student graph
@@ -97,11 +107,25 @@
       computed:{
             ...mapGetters([
                 'getExperiment'
-            ])
+            ]),
+            getNodeTitles(){
+                if(this.node_info != undefined){
+                    let info = {}
+                    Object.keys(this.node_info['in_centrality']).forEach((key) => {
+                        info[key] = 'centrality = ' + this.node_info['in_centrality'][key].toFixed(2)
+                    })
+                    return info
+
+                } else{
+
+                    return {}
+                }
+                
+            }
       },
       watch:{
         edges(edges){
-            drawGraph(this.id, this.nodes, edges);
+            drawGraph(this.id, this.nodes, edges, this.getNodeTitles);
         }
       },
       methods:{

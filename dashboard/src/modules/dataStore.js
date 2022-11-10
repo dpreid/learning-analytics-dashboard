@@ -3,8 +3,10 @@
 const dataStore = {
     state: () => ({
         nodes: [],      //graph nodes to display
+        node_info: {},
         edges: [],      //student graph edges
         compare_edges: [],  //comparison graph edges
+        compare_node_info: {},
         tasks: {},        //response from a task completion request
         indicators: {},
         centroids: {},
@@ -28,6 +30,12 @@ const dataStore = {
             SET_CENTROIDS(state, centroids){
                 state.centroids = centroids;
             },
+            SET_NODE_INFO(state, info){
+                state.node_info = info;
+            },
+            SET_COMPARE_NODE_INFO(state, info){
+                state.compare_node_info = info;
+            }
 
        },
        actions:{
@@ -49,6 +57,12 @@ const dataStore = {
             setCentroids(context, centroids){
                 context.commit('SET_CENTROIDS', centroids);
             },
+            setNodeInfo(context, info){
+                context.commit('SET_NODE_INFO', info);
+            },
+            setCompareNodeInfo(context, info){
+                context.commit('SET_COMPARE_NODE_INFO', info);
+            }
 
 
        },
@@ -70,6 +84,12 @@ const dataStore = {
            },
            getCentroids(state){
             return state.centroids;
+           },
+           getNodeInfo(state){
+            return state.node_info;
+           },
+           getCompareNodeInfo(state){
+            return state.compare_node_info;
            }
           
        },  

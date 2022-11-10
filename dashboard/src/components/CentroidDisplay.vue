@@ -110,6 +110,7 @@
                             label: data,
                             borderColor: 'blue',
                             pointRadius: 15,
+                            pointHoverRadius: 20,
                             fill: false
                         }
                     )
@@ -120,6 +121,7 @@
                             label: data,
                             borderColor: _this.colourList[index],
                             pointRadius: 5,
+                            pointHoverRadius: 10,
                             fill: false
                         }
                     )
@@ -137,12 +139,12 @@
                             borderColor: 'red',
                             //pointBackgroundColor: 'red',
                             pointRadius: 20,
+                            pointHoverRadius: 25,
                             fill: false
                         }
                     )
             })
 
-            console.log(dataset)
             return dataset;
         }
         
