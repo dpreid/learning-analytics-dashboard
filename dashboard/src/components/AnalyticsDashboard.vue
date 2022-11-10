@@ -25,16 +25,16 @@
             <affective-feedback />
         </div>
         <div class='col-lg-6'>
-            <self-evaluation-feedback />
+            <centroid-display id='centroid' :centroids='getCentroids' />
         </div>
     </div>
 
     <div class='row mt-2'>
         <div class='col-lg-6'>
-            <centroid-display id='centroid' :centroids='getCentroids' />
+            <!-- <self-evaluation-feedback /> -->
         </div>
         <div class='col-lg-6'>
-            <planning-feedback />
+            <!-- <planning-feedback /> -->
         </div>
     </div>
 
@@ -63,8 +63,8 @@ import GraphDisplay from "./GraphDisplay.vue"
 import TaskCompletion from "./TaskCompletion.vue"
 import Indicators from './Indicators.vue';
 import AffectiveFeedback from './AffectiveFeedback.vue';
-import SelfEvaluationFeedback from './SelfEvaluationFeedback.vue';
-import PlanningFeedback from './PlanningFeedback.vue';
+//import SelfEvaluationFeedback from './SelfEvaluationFeedback.vue';
+//import PlanningFeedback from './PlanningFeedback.vue';
 import CentroidDisplay from './CentroidDisplay.vue';
 
 export default {
@@ -80,8 +80,8 @@ export default {
         TaskCompletion,
         Indicators,
         AffectiveFeedback,
-        SelfEvaluationFeedback,
-        PlanningFeedback,
+        //SelfEvaluationFeedback,
+        //PlanningFeedback,
         CentroidDisplay
   },
     data () {

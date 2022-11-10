@@ -36,11 +36,31 @@
                             </div>
                         </td>
                         <td v-if="response['exploration']">{{ getExplorationComment(response['exploration']) }}</td>
-                        <td v-if="response['exploration']"><popup-help>
-                            <template v-slot:popup-help-header id='p-h-header'>Exploration</template>
-                            <template v-slot:popup-help-body id='p-h-header'>
-                                Exploration concerns how much you have investigated hardware modes outside of those necessary to complete tasks.
-                            </template>
+                        <td v-if="response['exploration']">
+                            <popup-help>
+                                <template v-slot:popup-help-header id='p-h-header'>Exploration</template>
+                                <template v-slot:popup-help-body id='p-h-header'>
+                                    Exploration concerns how much you have investigated hardware modes outside of those necessary to complete tasks.
+                                </template>
+                            </popup-help>
+                        </td>
+                    </tr>
+
+                     <!-- ENJOYMENT INDICATOR -->
+                     <tr>
+                        <td v-if="response['enjoyment']">enjoyment</td>
+                        <td v-if="response['enjoyment']">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgressMidZero(response['enjoyment'], 20)"></div>
+                            </div>
+                        </td>
+                        <td v-if="response['enjoyment']">{{ getEnjoymentComment(response['enjoyment']) }}</td>
+                        <td v-if="response['enjoyment']">
+                            <popup-help>
+                                <template v-slot:popup-help-header id='p-h-header'>Enjoyment</template>
+                                <template v-slot:popup-help-body id='p-h-header'>
+                                    This is the difference between your positive and negative responses to the lab
+                                </template>
                             </popup-help>
                         </td>
                     </tr>
@@ -97,7 +117,7 @@
                 })
                 console.log(tc)
                 let result = []
-                const keys = Object.keys(tc[0])
+                const keys = Object.keys(tc[tc.length - 1])
                 keys.forEach((key) => {
                     let values = [];
                     tc.forEach((entry) => {
@@ -122,6 +142,10 @@
             let width = value*100.0/max;
             return 'width: ' + width.toFixed(2) + '%';
         },
+        getProgressMidZero(value, max){
+            let width = 50.0 + value*100.0/max;
+            return 'width: ' + width.toFixed(2) + '%';
+        },
         getExplorationComment(value){
             if(value > 100){
                 return 'You have explored well beyond expectations!'
@@ -135,6 +159,15 @@
                 return 'You probably haven\'t completed the main tasks yet'
             }
             
+        },
+        getEnjoymentComment(value){
+            if(value == 0){
+                return 'Not sure if you are enjoying it or not?'
+            } else if(value > 0){
+                return 'Seems like you are enjoying the remote lab'
+            } else{
+                return 'Let us know if there is anything that would help improve your experience'
+            }
         },
         send(){
             this.request({"content": 'indicators'});

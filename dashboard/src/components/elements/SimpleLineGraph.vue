@@ -54,7 +54,6 @@ export default {
         
         createChart() {
             let _this = this;
-            console.log(this.id)
             const canvas = document.getElementById(this.id);
             const ctx = canvas.getContext('2d');
             let chart = new Chart(ctx, {

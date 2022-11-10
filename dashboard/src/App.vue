@@ -32,7 +32,8 @@ export default {
             'getLogConsent',
             'getSaved',
             'getTasks',
-            'getIndicators'
+            'getIndicators',
+            'getCentroids'
         ])
   },
   methods:{
@@ -94,8 +95,9 @@ export default {
             let saved = this.getSaved;
             let taskcompletion = this.getTasks;
             let indicators = this.getIndicators;
+            let student_centroid = this.getCentroids['student']
             let date = new Date();
-            let to_save = {"date": date, "taskcompletion":taskcompletion, "indicators":indicators}
+            let to_save = {"date": date, "taskcompletion":taskcompletion, "indicators":indicators, 'student_centroid': student_centroid}
             saved.push(to_save);
             let data_json = JSON.stringify(saved);
             window.localStorage.setItem(exp + '-la-data', data_json);  

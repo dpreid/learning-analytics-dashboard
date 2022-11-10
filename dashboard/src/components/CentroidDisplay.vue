@@ -1,5 +1,24 @@
 <template>
     <div class='container-fluid'>
+        <div class="row">
+            <div class="col-lg-3">
+                
+            </div>
+            <div class="col-lg-6">
+                <h2>Interaction Centroid</h2>
+            </div>
+            <div class="col-lg-3">
+                <popup-help>
+                    <template v-slot:popup-help-header id='p-h-header'>Centroid</template>
+                    <template v-slot:popup-help-body id='p-h-header'>
+                        This plot displays the weighted average hardware mode that you have entered during the remote laboratory.
+                        The position for example processes of completing individual tasks are also displayed.
+                    </template>
+                </popup-help>
+            </div>
+            
+            
+        </div>
     <div class="row" :id="id + 'chart'">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
@@ -17,12 +36,12 @@
   <script>
   import {mapActions, mapGetters} from 'vuex';
   import { Chart } from 'chart.js';
- 
+ import PopupHelp from './elements/PopupHelp.vue'
 
   export default {
       name: "CentroidDisplay",
       components:{
-          
+          PopupHelp,
       },
       props:{
         id: String,
@@ -38,7 +57,7 @@
       },
       computed:{
             ...mapGetters([
-                
+                'getSaved'
             ])
       },
       watch:{
@@ -60,6 +79,9 @@
                     datasets: _this.generateDatasets()
                 },
                 options: {
+                    legend:{
+                        position: 'bottom'
+                    },
                     aspectRatio: 1,
                     scales: {
                         xAxes: [{
@@ -144,6 +166,29 @@
                         }
                     )
             })
+
+            //add saved centroid data for student if available
+            let previous_data = []
+            this.getSaved.forEach((save) => {
+                if(save['student_centroid'] != undefined){
+
+                    let coord = save['student_centroid'];
+                    previous_data.push({x: coord[0], y: coord[1]})
+
+                }
+            })
+
+            dataset.push(
+                        {
+                            data: previous_data,
+                            label: 'student_previous',
+                            borderColor: 'green',
+                            //pointBackgroundColor: 'red',
+                            pointRadius: 15,
+                            pointHoverRadius: 20,
+                            fill: false
+                        }
+                    )
 
             return dataset;
         }

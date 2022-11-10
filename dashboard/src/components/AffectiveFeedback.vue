@@ -42,6 +42,9 @@
         </div>
 
         <button class="btn btn-success btn-lg" :disabled="!getSubmitAllowed" @click="submit">Submit</button>
+        <div class="row mt-2">
+            <h5 v-if="thanks"> Thanks </h5>
+        </div>
         
 
     </div>
@@ -62,7 +65,8 @@ export default {
       data(){
           return{
                 selected_state: null,
-                selected_subject: null
+                selected_subject: null,
+                thanks: false
           }
       },
       mounted(){
@@ -86,6 +90,12 @@ export default {
         ]),
         submit(){
             this.feedback({"state": this.selected_state, "subject": this.selected_subject});
+            this.thanks = true;
+            setTimeout(() => {
+                this.thanks = false
+            }, 10000);
+            this.selected_state = null;
+            this.selected_subject = null;
         }
       }
 }
