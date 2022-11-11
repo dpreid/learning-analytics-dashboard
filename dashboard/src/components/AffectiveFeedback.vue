@@ -45,9 +45,17 @@
                 <button class="button button-subject button-sm" @click="selected_subject = 'Teaching'">Teaching</button> 
                 <button class="button button-subject button-sm" @click="selected_subject = 'Workbook'">Workbook</button> 
                 <button class="button button-subject button-sm" @click="selected_subject = 'Remote work'">Remote work</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Hardware'">Hardware</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Tasks'">Tasks</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Feedback'">Feedback</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Hardware'">Remote Hardware</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'UI'">User Interface</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'LA'">Learning Analytics data</button> 
+               
+                <button v-if="getExperiment == 'spinner' && getCourse == 'cie3'" class="button button-subject button-sm" @click="selected_subject = 'spinner-cie3-1-2'">Task spinner-cie3-1-2</button> 
+                <button v-if="getExperiment == 'spinner' && getCourse == 'cie3'" class="button button-subject button-sm" @click="selected_subject = 'spinner-cie3-3'">Task spinner-cie3-3</button> 
+                <button v-if="getExperiment == 'spinner' && getCourse == 'cie3'" class="button button-subject button-sm" @click="selected_subject = 'spinner-cie3-4'">Task spinner-cie3-4</button> 
+            
+                <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-1'">Task pendulum-engdes1-1</button> 
+                <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-2'">Task pendulum-engdes1-2</button> 
+                
             </div>
         </div>
 
@@ -91,7 +99,8 @@ export default {
       },
       computed: {
         ...mapGetters([
-
+            'getExperiment',
+            'getCourse'
         ]),
         getSubmitAllowed(){
             if(this.selected_state != null && this.selected_subject != null){
