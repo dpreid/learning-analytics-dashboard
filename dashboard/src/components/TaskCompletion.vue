@@ -17,10 +17,18 @@
                         This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
                         It is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.<br>
                         <br>
-                        The tasks represent the practical aspects of the CIE3 coursework workbook.<br>
-                        spinner-1-2: Section 2 and 3.<br>
-                        spinner-3: Section 5<br>
-                        spinner-4: Section 6
+                        <div v-if="getCourse == 'cie3'">
+                            The tasks represent the practical aspects of the CIE3 coursework workbook.<br>
+                            spinner-1-2: Section 2 and 3.<br>
+                            spinner-3: Section 5<br>
+                            spinner-4: Section 6
+                        </div>
+                        <div v-if="getCourse == 'engdes1'">
+                            The tasks represent the practical aspects of the Engineering Design 1 workshop workbook.<br>
+                            
+                        </div>
+
+                        
                     
                     </template>
                 </popup-help>
@@ -99,7 +107,8 @@
       computed:{
         ...mapGetters([
             'getSaved',
-            'getExperiment'
+            'getExperiment',
+            'getCourse'
         ]),
         
         getSeparateCompleted(){
