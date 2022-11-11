@@ -45,12 +45,12 @@
                 <div class='input-group'>
                     <span class='input-group-text' for="graph">Graph:  </span>
                     <select class='form-select form-select-sm' name="function" id="function" v-model="selected">
-                        <option v-if="getExperiment == 'spinner'" value="spinner-all">Full procedure</option>
-                        <option v-if="getExperiment == 'spinner'" value="spinner-1-2">Task 1+2</option>
-                        <option v-if="getExperiment == 'spinner'" value="spinner-3">Task 3</option>
-                        <option v-if="getExperiment == 'spinner'" value="spinner-4">Task 4</option>
-                        <option v-if="getExperiment == 'pendulum'" value="pendulum-1">Task 1</option>
-                        <option v-if="getExperiment == 'pendulum'" value="pendulum-2">Task 2</option>
+                        <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-all">Full procedure</option>
+                        <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-1-2">Task 1+2</option>
+                        <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-3">Task 3</option>
+                        <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-4">Task 4</option>
+                        <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-1">Task 1</option>
+                        <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-2">Task 2</option>
                     </select> 
                 </div>
             </div>
@@ -148,7 +148,7 @@
       props:['id', 'title', 'graph_type', 'nodes', 'edges', 'node_info'],
       data(){
           return{
-              selected: this.getExperiment == 'spinner' ? 'spinner-all' : 'pendulum-1',      //defaults to requesting the student graph
+              selected: this.getCourse == 'cie3' ? 'spinner-cie3-all' : 'pendulum-engdes1-1',      //defaults to requesting the student graph
           }
       },    
       mounted(){
@@ -156,7 +156,8 @@
       },
       computed:{
             ...mapGetters([
-                'getExperiment'
+                'getExperiment',
+                'getCourse'
             ]),
             getNodeTitles(){
                 if(this.node_info != undefined){
@@ -176,7 +177,8 @@
       watch:{
         edges(edges){
             drawGraph(this.id, this.nodes, edges, this.getNodeTitles, this.getExperiment);
-        }
+        },
+        
       },
       methods:{
         ...mapActions([

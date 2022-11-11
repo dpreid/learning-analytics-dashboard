@@ -5,7 +5,8 @@ const loggingStore = {
         logSocket: null,
         uuid: 'david',                      //SET HERE FOR TESTING
         logging_consent_given: true,        //SET HERE FOR TESTING
-        exp: 'pendulum',                     //SET HERE FOR TESTING
+        exp: 'spinner',                     //SET HERE FOR TESTING
+        course: 'cie3',                      //needed for differentiating tasks in different classes, 'engdes1'
         saved: [],
 
        }),
@@ -22,6 +23,9 @@ const loggingStore = {
             SET_EXPERIMENT(state, exp){
                 state.exp = exp;
             },
+            SET_COURSE(state, course){
+                state.course = course;
+            },
             SET_SAVED(state, data){
                 state.saved = data;
             },
@@ -34,6 +38,7 @@ const loggingStore = {
                         user: state.uuid,
                         t: Date.now(),          
                         exp: state.exp, 
+                        course: state.course,
                         type: "log",       
                         payload: payload
                     }));
@@ -46,7 +51,8 @@ const loggingStore = {
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
-                        exp: state.exp,    
+                        exp: state.exp,   
+                        course: state.course, 
                         type: "request", 
                         payload: payload   
                     }));
@@ -58,6 +64,7 @@ const loggingStore = {
                         user: state.uuid,
                         t: Date.now(),          
                         exp: state.exp, 
+                        course: state.course,
                         type: "feedback",       
                         payload: payload
                     }));
@@ -79,6 +86,9 @@ const loggingStore = {
             },
             setExperiment(context, exp){
                 context.commit('SET_EXPERIMENT', exp);
+            },
+            setCourse(context, course){
+                context.commit('SET_COURSE', course);
             },
             setSaved(context, data){
                 context.commit('SET_SAVED', data);
@@ -107,6 +117,9 @@ const loggingStore = {
             },
             getExperiment(state){
                 return state.exp
+            },
+            getCourse(state){
+                return state.course
             },
             getSaved(state){
                 return state.saved;

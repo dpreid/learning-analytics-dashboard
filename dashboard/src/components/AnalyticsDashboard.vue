@@ -152,9 +152,9 @@ export default {
                 this.request({"content": 'task_identification'});  
                 this.request({"content": 'indicators'}); 
                 if(_this.getExperiment == 'spinner'){
-                    this.request({"content": 'comparison_graph', "graph": 'spinner-all'}); 
+                    this.request({"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
                 } else{
-                    this.request({"content": 'comparison_graph', "graph": 'pendulum-1'}); 
+                    this.request({"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
                 }
                   
                 this.request({"content": 'centroids'});        
