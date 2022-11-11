@@ -19,11 +19,11 @@
             
         </div>
         <div v-else class="row">
-            <div class="col-lg-3"> </div>
-            <div class="col-lg-6"> 
+            <div class="col-lg-2"> </div>
+            <div class="col-lg-8"> 
                 <h2 >{{ title }}: {{ selected }}</h2>
             </div>
-            <div class="col-lg-3"> 
+            <div class="col-lg-2"> 
                 <popup-help>
                     <template v-slot:popup-help-header id='p-h-header'>Example Graph</template>
                     <template v-slot:popup-help-body id='p-h-header'>
@@ -148,10 +148,11 @@
       props:['id', 'title', 'graph_type', 'nodes', 'edges', 'node_info'],
       data(){
           return{
-              selected: this.getCourse == 'cie3' ? 'spinner-cie3-all' : 'pendulum-engdes1-1',      //defaults to requesting the student graph
+              selected: 'pendulum-engdes1-1',      //defaults to requesting the student graph
           }
       },    
       mounted(){
+        this.getCourse == 'cie3' ? this.selected = 'spinner-cie3-all' : this.selected = 'pendulum-engdes1-1';
         drawGraph(this.id, this.nodes, this.edges, [], this.getExperiment);
       },
       computed:{
