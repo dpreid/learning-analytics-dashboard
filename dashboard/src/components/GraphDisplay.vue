@@ -49,6 +49,8 @@
                         <option v-if="getExperiment == 'spinner'" value="spinner-1-2">Task 1+2</option>
                         <option v-if="getExperiment == 'spinner'" value="spinner-3">Task 3</option>
                         <option v-if="getExperiment == 'spinner'" value="spinner-4">Task 4</option>
+                        <option v-if="getExperiment == 'pendulum'" value="pendulum-1">Task 1</option>
+                        <option v-if="getExperiment == 'pendulum'" value="pendulum-2">Task 2</option>
                     </select> 
                 </div>
             </div>
@@ -81,7 +83,7 @@
 
     
     // This method is responsible for drawing the graph, returns the drawn network
-    function drawGraph(id, n_list, e_list, node_titles) {
+    function drawGraph(id, n_list, e_list, node_titles, getExperiment) {
         container = document.getElementById(id);
 
         // force edge width to 1 for each edge
@@ -91,11 +93,25 @@
 
         // parsing and collecting nodes and edges from the python
         if(n_list.length > 0){
-            //nodes= new DataSet(n_list)
-            nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "x": 100, "y": -173.20508075688772, 'title': node_titles['voltage_step']}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "x": 200, "y": 0, 'title': node_titles['position_step']}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "x": -200, "y": 0, 'title': node_titles['position_ramp']}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "x": -100, "y": -173.20508075688772, 'title': node_titles['voltage_ramp']}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "x": 100, "y": 173.20508075688772, 'title': node_titles['speed_step']}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "x": -100, "y": 173.20508075688772, 'title': node_titles['speed_ramp']}]);
-            edges = new DataSet(e_list)
+            if(getExperiment == 'spinner'){
+                nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "x": 100, "y": -173.20508075688772, 'title': node_titles['voltage_step']}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "x": 200, "y": 0, 'title': node_titles['position_step']}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "x": -200, "y": 0, 'title': node_titles['position_ramp']}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "x": -100, "y": -173.20508075688772, 'title': node_titles['voltage_ramp']}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "x": 100, "y": 173.20508075688772, 'title': node_titles['speed_step']}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "x": -100, "y": 173.20508075688772, 'title': node_titles['speed_ramp']}]);
+                edges = new DataSet(e_list)
+            } else if(getExperiment == 'pendulum'){
+                nodes = new DataSet([{"id": "start", "label": "start", "physics": false, "shape": "dot", "x": -100, "y": -200, 'title': node_titles['start']}, {"id": "brake", "label": "brake", "physics": false, "shape": "dot", "x": 100, "y": -200, 'title': node_titles['brake']}, {"id": "free", "label": "free", "physics": false, "shape": "dot", "x": 200, "y": -100, 'title': node_titles['free']}, {"id": "load", "label": "load", "physics": false, "shape": "dot", "x": 200, "y": 100, 'title': node_titles['load']}, {"id": "sampling", "label": "sampling", "physics": false, "shape": "dot", "x": 100, "y": 200, 'title': node_titles['sampling']}, {"id": "drive_perc", "label": "drive_perc", "physics": false, "shape": "dot", "x": -100, "y": 200, 'title': node_titles['drive_perc']}, {"id": "brake_perc", "label": "brake_perc", "physics": false, "shape": "dot", "x": -200, "y": 100, 'title': node_titles['brake_perc']}, {"id": "measuring_tools", "label": "measuring_tools", "physics": false, "shape": "dot", "x": -200, "y": -100, 'title': node_titles['measuring_tools']}]);
+                edges = new DataSet(e_list)
+            } else{
+                nodes = new DataSet([])
+                edges = new DataSet([])
+            }
+            
         } else{
-            nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "x": 100, "y": -173.20508075688772}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "x": 200, "y": 0}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "x": -200, "y": 0}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "x": -100, "y": -173.20508075688772}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "x": 100, "y": 173.20508075688772}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "x": -100, "y": 173.20508075688772}]);
+            if(getExperiment == 'spinner'){
+                nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "x": 100, "y": -173.20508075688772}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "x": 200, "y": 0}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "x": -200, "y": 0}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "x": -100, "y": -173.20508075688772}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "x": 100, "y": 173.20508075688772}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "x": -100, "y": 173.20508075688772}]);
+            } else if(getExperiment == 'pendulum'){
+                nodes = new DataSet([{"id": "start", "label": "start", "physics": false, "shape": "dot", "x": -100, "y": -200}, {"id": "brake", "label": "brake", "physics": false, "shape": "dot", "x": 100, "y": -200}, {"id": "free", "label": "free", "physics": false, "shape": "dot", "x": 200, "y": -100}, {"id": "load", "label": "load", "physics": false, "shape": "dot", "x": 200, "y": 100}, {"id": "sampling", "label": "sampling", "physics": false, "shape": "dot", "x": 100, "y": 200}, {"id": "drive_perc", "label": "drive_perc", "physics": false, "shape": "dot", "x": -100, "y": 200}, {"id": "brake_perc", "label": "brake_perc", "physics": false, "shape": "dot", "x": -200, "y": 100}, {"id": "measuring_tools", "label": "measuring_tools", "physics": false, "shape": "dot", "x": -200, "y": -100}]);
+            } else{
+                nodes = new DataSet([])
+            }
             //edges = new DataSet([{"arrows": "to", "from": "voltage_step", "label": "1", "to": "voltage_step", "weight": 1.0}, {"arrows": "to", "from": "voltage_step", "label": "1", "to": "position_step", "weight": 1.0}, {"arrows": "to", "from": "position_step", "label": "2", "to": "position_step", "weight": 2.0}, {"arrows": "to", "from": "position_step", "label": "1", "to": "position_ramp", "weight": 1.0}, {"arrows": "to", "from": "position_ramp", "label": "3", "to": "position_ramp", "weight": 3.0}, {"arrows": "to", "from": "position_ramp", "label": "1", "to": "position_step", "weight": 1.0}]);
             edges = new DataSet([])
         }
@@ -132,11 +148,11 @@
       props:['id', 'title', 'graph_type', 'nodes', 'edges', 'node_info'],
       data(){
           return{
-              selected: 'spinner-all',      //defaults to requesting the student graph
+              selected: this.getExperiment == 'spinner' ? 'spinner-all' : 'pendulum-1',      //defaults to requesting the student graph
           }
       },    
       mounted(){
-        drawGraph(this.id, this.nodes, this.edges);
+        drawGraph(this.id, this.nodes, this.edges, [], this.getExperiment);
       },
       computed:{
             ...mapGetters([
@@ -159,7 +175,7 @@
       },
       watch:{
         edges(edges){
-            drawGraph(this.id, this.nodes, edges, this.getNodeTitles);
+            drawGraph(this.id, this.nodes, edges, this.getNodeTitles, this.getExperiment);
         }
       },
       methods:{

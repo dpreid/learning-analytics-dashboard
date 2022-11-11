@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-lg-6 pt-3 ps-3">
-                <h3 class="text-start">SRL Indicators</h3>
+                <h2 class="text-start">SRL Indicators</h2>
             </div>
             <!-- <div class="col-sm-4">
                 <button class="btn btn-success button-sm" @click="send">Request Data</button>

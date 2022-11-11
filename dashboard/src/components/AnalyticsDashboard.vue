@@ -126,7 +126,8 @@ export default {
             'getIndicators',
             'getCentroids',
             'getNodeInfo',
-            'getCompareNodeInfo'
+            'getCompareNodeInfo',
+            'getExperiment'
             
         ]),
 
@@ -150,7 +151,12 @@ export default {
                 this.request({"content": 'student_graph'});    
                 this.request({"content": 'task_identification'});  
                 this.request({"content": 'indicators'}); 
-                this.request({"content": 'comparison_graph', "graph": 'spinner-all'});   
+                if(_this.getExperiment == 'spinner'){
+                    this.request({"content": 'comparison_graph', "graph": 'spinner-all'}); 
+                } else{
+                    this.request({"content": 'comparison_graph', "graph": 'pendulum-1'}); 
+                }
+                  
                 this.request({"content": 'centroids'});        
 			};
 

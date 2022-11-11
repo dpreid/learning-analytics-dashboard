@@ -1,19 +1,43 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6 pt-3 ps-3">
-                <h3 class="text-start">Task Completion</h3>
+            <div class="col-lg-6">
+                <h2 class="text-start">Task Completion</h2>
             </div>
-            
-            <!-- <div class="col-sm-4">
-                <button class="btn btn-success button-sm" @click="send">Request Data</button>
-            </div> -->
-            <div class="col-lg-6 pt-3 ps-3">
+            <div class="col-lg-3">
                 <div class="form-check-inline form-switch">
                     <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" @click="toggleChart">
                     <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
                 </div>
             </div>
+            <div v-if="getExperiment == 'spinner'" class="col-lg-3">
+                <popup-help>
+                    <template v-slot:popup-help-header id='p-h-header'>Task Completion: Spinner</template>
+                    <template v-slot:popup-help-body id='p-h-header'>
+                        This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
+                        It is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.<br>
+                        <br>
+                        The tasks represent the practical aspects of the CIE3 coursework workbook.<br>
+                        spinner-1-2: Section 2 and 3.<br>
+                        spinner-3: Section 5<br>
+                        spinner-4: Section 6
+                    
+                    </template>
+                </popup-help>
+            </div>
+            <div v-if="getExperiment == 'pendulum'" class="col-lg-3">
+                <popup-help>
+                    <template v-slot:popup-help-header id='p-h-header'>Task Completion: Pendulum</template>
+                    <template v-slot:popup-help-body id='p-h-header'>
+                        This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
+                        It is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.
+                    </template>
+                </popup-help>
+            </div>
+            <div v-else class="col-lg-3">
+                
+            </div>
+                
             
 
         </div>
@@ -54,11 +78,13 @@
   <script>
   import {mapActions, mapGetters} from 'vuex'
   import SimpleLineGraph from './elements/SimpleLineGraph.vue'
+  import PopupHelp from './elements/PopupHelp.vue'
   
   export default {
       name: "TaskCompletion",
       components:{
           SimpleLineGraph,
+          PopupHelp,
       },
       props: ['response'],
       data(){
@@ -72,7 +98,8 @@
       },
       computed:{
         ...mapGetters([
-            'getSaved'
+            'getSaved',
+            'getExperiment'
         ]),
         
         getSeparateCompleted(){

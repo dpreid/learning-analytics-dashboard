@@ -5,7 +5,7 @@ const loggingStore = {
         logSocket: null,
         uuid: 'david',                      //SET HERE FOR TESTING
         logging_consent_given: true,        //SET HERE FOR TESTING
-        exp: 'spinner',                     //SET HERE FOR TESTING
+        exp: 'pendulum',                     //SET HERE FOR TESTING
         saved: [],
 
        }),

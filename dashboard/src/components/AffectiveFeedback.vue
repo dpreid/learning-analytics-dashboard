@@ -1,7 +1,23 @@
 <template>
   
     <div class="m-2">
-        <h2>Affective Reflection Space</h2>
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <h2>Affective Reflection</h2>
+            </div>
+            <div class="col-lg-3">
+                <popup-help>
+                    <template v-slot:popup-help-header id='p-h-header'>Affective Reflection</template>
+                    <template v-slot:popup-help-body id='p-h-header'>
+                        This component allows you to provide feedback on how you are responding to the remote laboratory and learning analytics data.
+                        
+                    </template>
+                </popup-help>
+            </div>
+        </div>
+        
+        
         <div class="row">
             <div class="col-lg-6">
                 <h5>Affective State</h5>
@@ -55,11 +71,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import PopupHelp from './elements/PopupHelp.vue'
 
 export default {
     name: "AffectiveFeedback",
       components:{
-          
+          PopupHelp,
       },
       props: [],
       data(){
