@@ -46,7 +46,9 @@
           </ul>
 
           <div class='d-flex'>
-            <button class="btn btn-danger" @click="save">Save</button>
+            <div v-if="displaySave" class="text-white me-2 mt-2"> {{ dateTime }}</div>
+            <button class="btn btn-danger me-2" @click="save">Save</button>
+            <button class="btn btn-success" @click="refresh">Refresh</button>
             <!-- <toolbar class='me-5' parentCanvasID="" parentDivID="navbar" parentComponentName="navbar" :showDownload="false" :showOptions="false" :showPopupHelp="true">
                   <template v-slot:popup-help-body id='navbar-popup'>
                     <div class='row'>
@@ -71,7 +73,7 @@
 <script>
 
 //import Toolbar from './elements/Toolbar.vue';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
 
@@ -87,7 +89,8 @@ export default {
   ],
   data () {
     return {
-        
+        displaySave: false,
+        dateTime: ''
     }
   },
   computed:{
@@ -97,6 +100,9 @@ export default {
 
   },
   methods: {
+    ...mapActions([
+        'requestAll',
+    ]),
       toggleComponent(component){
           this.$emit('toggle' + component);
       },
@@ -120,7 +126,18 @@ export default {
       },
       save(){
         this.$emit('save');
-      }
+        this.updateDateTime();
+        this.displaySave = true;
+      },
+      updateDateTime(){
+      let d = new Date();
+      let time = d.toLocaleTimeString();
+      let date = d.toLocaleDateString();
+      this.dateTime = "Saved: " + date + " " + time;
+    },
+    refresh(){
+      this.requestAll();
+    }
   }
 }
 </script>

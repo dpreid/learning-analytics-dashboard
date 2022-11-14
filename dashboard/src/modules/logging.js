@@ -100,6 +100,18 @@ const loggingStore = {
             request(context, payload){
                 context.commit('REQUEST', payload);
             },
+            requestAll(context){
+                context.commit('REQUEST', {"content": 'student_graph'});    
+                context.commit('REQUEST', {"content": 'task_identification'});  
+                context.commit('REQUEST', {"content": 'indicators'}); 
+                if(context.state.exp == 'spinner'){
+                    context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
+                } else{
+                    context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
+                }
+                  
+                context.commit('REQUEST', {"content": 'centroids'});  
+            },
             feedback(context, payload){
                 context.commit('FEEDBACK', payload);
             }

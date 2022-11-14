@@ -134,7 +134,8 @@ export default {
     },
     methods:{
         ...mapActions([
-            'request'
+            'request',
+            'requestAll'
         ]),
         
         connect(){
@@ -148,16 +149,17 @@ export default {
 				console.log('log connection opened at ', this.url);
                 
                 // REQUEST student data automatically
-                this.request({"content": 'student_graph'});    
-                this.request({"content": 'task_identification'});  
-                this.request({"content": 'indicators'}); 
-                if(_this.getExperiment == 'spinner'){
-                    this.request({"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
-                } else{
-                    this.request({"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
-                }
+                this.requestAll();
+                // this.request({"content": 'student_graph'});    
+                // this.request({"content": 'task_identification'});  
+                // this.request({"content": 'indicators'}); 
+                // if(_this.getExperiment == 'spinner'){
+                //     this.request({"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
+                // } else{
+                //     this.request({"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
+                // }
                   
-                this.request({"content": 'centroids'});        
+                // this.request({"content": 'centroids'});        
 			};
 
             this.logSocket.onmessage = (event) => {
