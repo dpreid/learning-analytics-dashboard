@@ -55,7 +55,7 @@
       
         
 
-        <simple-line-graph v-if="showGraph" id="taskcompletion-line-chart" heading="TaskCompletion" :x_labels="getXLabels" :y_values="getYValues"/>
+        <simple-line-graph v-if="showGraph" id="taskcompletion-line-chart" heading="TaskCompletion" :x_labels="getXLabels" :y_values="getYValues" :hide_y_axis='hide_axis' :invert="invert"/>
 
         <div v-else class="row table" id='task-completion-table' >
 
@@ -70,7 +70,7 @@
                         <!-- <td>{{ response[key].toFixed(2) }}</td> -->
                         <td>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgress(response[key])"></div>
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgressAsString(response[key])"></div>
                             </div>
                         </td>
                         
@@ -99,6 +99,8 @@
           return{
             showGraph: false,
             headings: ['Task', 'Relative Similarity', 'Comment'],
+            hide_axis: true,
+            invert: true,
           }
       },
       mounted(){
@@ -140,6 +142,7 @@
           getYValues(){
             // return [{title:'task1', values:[86,114,106,106,107,111,133,221,783,2478]},
             //         {title:'task2', values:[123,34,76,38,90,76,12,5,300,432]}]
+            
             if(this.getSaved.length > 0){
                 let tc = []
                 this.getSaved.forEach((data) => {
@@ -171,6 +174,10 @@
           getProgress(value){
             let closest_value = this.getCompleted[1];
             let width = closest_value*100.0/value;
+            return width
+        },
+        getProgressAsString(value){
+            let width = this.getProgress(value)
             return 'width: ' + width.toFixed(2) + '%';
         },
         getComment(value){

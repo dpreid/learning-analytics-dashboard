@@ -16,7 +16,7 @@
             
         </div>
 
-        <simple-line-graph v-if="showGraph" id="indicators-line-chart" heading="SRL Indicators" :x_labels="getXLabels" :y_values="getYValues"/>
+        <simple-line-graph v-if="showGraph" id="indicators-line-chart" heading="SRL Indicators" :x_labels="getXLabels" :y_values="getYValues" :hide_y_axis='hide_axis' :invert="invert"/>
         
 
         <div v-else class="row table" id='indicators-table' >
@@ -89,7 +89,9 @@
       data(){
           return{
               headings: ['Indicator', 'Relative Value', 'Comment', 'Help'],
-              showGraph: false
+              showGraph: false,
+              hide_axis: false,
+              invert: false
           }
       },
       mounted(){

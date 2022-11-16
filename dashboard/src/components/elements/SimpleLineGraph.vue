@@ -23,7 +23,9 @@ export default {
         id: String,
         heading: String,
         x_labels: Array,
-        y_values: Array        //array of Objects {title: task_1, values: [0.1, 0.2...]}
+        y_values: Array,        //array of Objects {title: task_1, values: [0.1, 0.2...]}
+        invert: Boolean,
+        hide_y_axis: Boolean
     },         
     emits: [],
     components:{
@@ -64,8 +66,16 @@ export default {
                     },
                     options: {
                         title: {
-                        display: true,
-                        text: _this.heading
+                            display: true,
+                            text: _this.heading,
+                        },
+                        scales:{
+                            yAxes:[{
+                                ticks: {
+                                    display: !_this.hide_y_axis,
+                                    reverse: _this.invert
+                                }
+                            }]
                         }
                     }
                 });

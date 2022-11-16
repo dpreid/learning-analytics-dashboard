@@ -5,14 +5,14 @@
                 
             </div>
             <div class="col-lg-6">
-                <h2>Interaction Centroid</h2>
+                <h2>Hardware Centroid</h2>
             </div>
             <div class="col-lg-3">
                 <popup-help>
                     <template v-slot:popup-help-header id='p-h-header'>Centroid</template>
                     <template v-slot:popup-help-body id='p-h-header'>
-                        This plot displays the weighted average hardware mode that you have entered during the remote laboratory.
-                        The position for example processes of completing individual tasks are also displayed.
+                        This plot displays the weighted average (centroid) hardware mode that you have entered during the remote laboratory.
+                        The position for possible centroids for individual tasks is also provided.
                     </template>
                 </popup-help>
             </div>
@@ -79,6 +79,7 @@
                     datasets: _this.generateDatasets()
                 },
                 options: {
+                    responsive: true,
                     legend:{
                         position: 'bottom'
                     },
@@ -109,10 +110,13 @@
                                 var label = data.datasets[tooltipItem.datasetIndex].label || '';
                                 
                                 return label;
-                            }
+                                }
+                            },
+                            intersect: false,
+                            mode: 'nearest',
+                            axis: 'xy'
                         }
-                        }
-                    }
+                    },
                 });
 
             return chart;
@@ -128,17 +132,20 @@
                     if(data == 'student'){
                         dataset.push(
                         {
+                            type: 'line',
                             data: [{x: coords[0], y: coords[1]}],
                             label: data,
                             borderColor: 'blue',
-                            pointRadius: 15,
-                            pointHoverRadius: 20,
+                            pointBackgroundColor: 'blue',
+                            pointRadius: 5,
+                            pointHoverRadius: 10,
                             fill: false
                         }
                     )
                     } else {
                         dataset.push(
                         {
+                            type: 'scatter',
                             data: [{x: coords[0], y: coords[1]}],
                             label: data,
                             borderColor: _this.colourList[index],
@@ -156,10 +163,11 @@
             this.centroids['vertices'].forEach((vertex) => {
                 dataset.push(
                         {
+                            type:'scatter',
                             data: [{x: vertex['x'], y: vertex['y']}],
                             label: vertex['name'],
                             borderColor: 'red',
-                            //pointBackgroundColor: 'red',
+                            pointBackgroundColor: 'red',
                             pointRadius: 20,
                             pointHoverRadius: 25,
                             fill: false
@@ -180,12 +188,13 @@
 
             dataset.push(
                         {
+                            type:'line',
                             data: previous_data,
                             label: 'student_previous',
                             borderColor: 'green',
-                            //pointBackgroundColor: 'red',
-                            pointRadius: 15,
-                            pointHoverRadius: 20,
+                            pointBackgroundColor: 'green',
+                            pointRadius: 5,
+                            pointHoverRadius: 10,
                             fill: false
                         }
                     )
