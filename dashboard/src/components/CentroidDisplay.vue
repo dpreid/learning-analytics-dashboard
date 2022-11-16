@@ -1,5 +1,5 @@
 <template>
-    <div class='container-fluid'>
+    <div class='border-dashed'>
         <div class="row">
             <div class="col-lg-3">
                 

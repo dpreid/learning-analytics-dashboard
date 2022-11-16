@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="border-dashed">
         <div class="row">
-            <div class="col-lg-6 pt-3 ps-3">
+            <div class="col-lg-6 ps-3">
                 <h2 class="text-start">SRL Indicators</h2>
             </div>
             <!-- <div class="col-sm-4">

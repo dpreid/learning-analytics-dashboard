@@ -11,7 +11,7 @@
     </div>
 
 
-    <div class='row mt-2'>
+    <div class='row'>
         <div class='col-lg-6'>
             <task-completion :response="getTasks" />
         </div>
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class='row mt-2'>
+    <div class='row'>
         <div class='col-lg-6'>
             <affective-feedback />
         </div>
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class='row mt-2'>
+    <div class='row'>
         <div class='col-lg-6'>
             <!-- <self-evaluation-feedback /> -->
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="border-dashed">
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="text-start">Task Completion</h2>

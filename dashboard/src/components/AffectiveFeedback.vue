@@ -1,6 +1,6 @@
 <template>
   
-    <div class="m-2">
+    <div class="border-dashed">
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
@@ -17,17 +17,10 @@
             </div>
         </div>
         
-        
-        <div class="row">
-            <div class="col-lg-6">
-                <h5>Affective State</h5>
-            </div>
-            <div class="col-lg-6">
-                <h5>Subject of reflection</h5>
-            </div>
-        </div>
+    
         <div class="row">
             <div class="container-fluid border col-lg-6">
+                <h5 class="mt-2">Affective State</h5>
                 <button class="button button-positive button-sm" @click="selected_state = 'Engaged'">Engaged</button> 
                 <button class="button button-positive button-sm" @click="selected_state = 'Curious'">Curious</button> 
                 <button class="button button-positive button-sm" @click="selected_state = 'Interested'">Interested</button> 
@@ -42,6 +35,7 @@
             </div>
 
             <div class="container-fluid border col-lg-6">
+                <h5 class="mt-2">Subject of reflection</h5>
                 <button class="button button-subject button-sm" @click="selected_subject = 'Teaching'">Teaching</button> 
                 <button class="button button-subject button-sm" @click="selected_subject = 'Workbook'">Workbook</button> 
                 <button class="button button-subject button-sm" @click="selected_subject = 'Remote work'">Remote work</button> 

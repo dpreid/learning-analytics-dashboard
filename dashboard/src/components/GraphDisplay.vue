@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div class="border-dashed">
         <div v-if="graph_type == 'student_graph'" class="row">
             <div class="col-lg-3"> </div>
             <div class="col-lg-6"> 
@@ -58,6 +58,11 @@
                 <button class='btn button-sm btn-success' id="request_button" @click="send">Request Graph</button>
             </div>
             
+        </div>
+
+        <!-- Ensures that border around component reaches to below the graph-->
+        <div v-else class="row">
+            <div class="col-sm-12"></div>
         </div>
         
         
