@@ -146,7 +146,7 @@
                     tc.push(data.taskcompletion)
                 })
                 let result = []
-                const keys = Object.keys(tc[0])
+                const keys = Object.keys(tc[tc.length - 1])
                 keys.forEach((key) => {
                     let values = [];
                     tc.forEach((entry) => {

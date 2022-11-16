@@ -24,6 +24,10 @@ export default {
   },
   mounted(){
         this.loadFromLocalStorage();
+        this.autoSave();
+
+        window.addEventListener('pagehide', () => {this.autoSave()});				//closing window
+        window.addEventListener('beforeunload', () => {this.autoSave()});			//refreshing page, changing URL
   },
   computed:{
         ...mapGetters([
@@ -102,6 +106,20 @@ export default {
             let data_json = JSON.stringify(saved);
             window.localStorage.setItem(exp + '-la-data', data_json);  
         },
+        autoSave(){
+            if(this.getSaved.length > 0){
+                let latest_save = this.getSaved[this.getSaved.length - 1];
+                let time_delta = new Date().getTime() - new Date(latest_save.date).getTime();
+                //if it has been more than 12 hours since your last save then automatically save
+                if(time_delta > 43200000){
+                    this.saveDataToLocalStorage();
+                }
+            } else if(Object.keys(this.getTasks).length > 0){
+                this.saveDataToLocalStorage();
+            }
+            
+
+        }
         
   }
 }
