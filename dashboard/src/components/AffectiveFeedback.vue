@@ -26,12 +26,15 @@
                 <button class="button button-positive button-sm" @click="selected_state = 'Interested'">Interested</button> 
                 <button class="button button-positive button-sm" @click="selected_state = 'Excited'">Excited</button> 
                 <button class="button button-positive button-sm" @click="selected_state = 'Satisfied'">Satisfied</button> 
+                <button class="button button-positive button-sm" @click="selected_state = 'Delighted'">Delighted</button> 
+
 
                 <button class="button button-negative button-sm" @click="selected_state = 'Dissatisfied'">Dissatisfied</button> 
                 <button class="button button-negative button-sm" @click="selected_state = 'Bored'">Bored</button> 
                 <button class="button button-negative button-sm" @click="selected_state = 'Confused'">Confused</button> 
                 <button class="button button-negative button-sm" @click="selected_state = 'Uninterested'">Uninterested</button> 
                 <button class="button button-negative button-sm" @click="selected_state = 'Frustrated'">Frustrated</button> 
+                <button class="button button-negative button-sm" @click="selected_state = 'Surprised'">Surprised</button> 
             </div>
 
             <div class="container-fluid border col-lg-6">
