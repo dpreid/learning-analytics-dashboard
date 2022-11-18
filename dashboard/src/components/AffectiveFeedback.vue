@@ -21,30 +21,24 @@
         <div class="row">
             <div class="container-fluid border col-lg-6">
                 <h5 class="mt-2">Affective State</h5>
-                <button class="button button-positive button-sm" @click="selected_state = 'Engaged'">Engaged</button> 
-                <button class="button button-positive button-sm" @click="selected_state = 'Curious'">Curious</button> 
-                <button class="button button-positive button-sm" @click="selected_state = 'Interested'">Interested</button> 
-                <button class="button button-positive button-sm" @click="selected_state = 'Excited'">Excited</button> 
-                <button class="button button-positive button-sm" @click="selected_state = 'Satisfied'">Satisfied</button> 
-                <button class="button button-positive button-sm" @click="selected_state = 'Delighted'">Delighted</button> 
+                <button class="button button-positive button-sm" @click="selected_state = 'Engaged'">Focused/Engaged</button> 
+                <button class="button button-positive button-sm" @click="selected_state = 'Curious'">Curious</button>  
+                <button class="button button-positive button-sm" @click="selected_state = 'Delighted'">Delighted/Excited</button> 
 
-
-                <button class="button button-negative button-sm" @click="selected_state = 'Dissatisfied'">Dissatisfied</button> 
                 <button class="button button-negative button-sm" @click="selected_state = 'Bored'">Bored</button> 
-                <button class="button button-negative button-sm" @click="selected_state = 'Confused'">Confused</button> 
-                <button class="button button-negative button-sm" @click="selected_state = 'Uninterested'">Uninterested</button> 
+                <button class="button button-negative button-sm" @click="selected_state = 'Confused'">Confused</button>  
                 <button class="button button-negative button-sm" @click="selected_state = 'Frustrated'">Frustrated</button> 
                 <button class="button button-negative button-sm" @click="selected_state = 'Surprised'">Surprised</button> 
+                <button class="button button-negative button-sm" @click="selected_state = 'Anxious'">Anxious</button> 
             </div>
 
             <div class="container-fluid border col-lg-6">
                 <h5 class="mt-2">Subject of reflection</h5>
-                <button class="button button-subject button-sm" @click="selected_subject = 'Teaching'">Teaching</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Workbook'">Workbook</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Remote work'">Remote work</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'Hardware'">Remote Hardware</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Workbook'">Workbook tasks</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Remote work'">Remote working</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Hardware'">Hardware</button> 
                 <button class="button button-subject button-sm" @click="selected_subject = 'UI'">User Interface</button> 
-                <button class="button button-subject button-sm" @click="selected_subject = 'LA'">Learning Analytics data</button> 
+                <button class="button button-subject button-sm" @click="selected_subject = 'LA'">Learning Analytics feedback</button> 
                
                 <button v-if="getExperiment == 'spinner' && getCourse == 'cie3'" class="button button-subject button-sm" @click="selected_subject = 'spinner-cie3-1-2'">Task spinner-cie3-1-2</button> 
                 <button v-if="getExperiment == 'spinner' && getCourse == 'cie3'" class="button button-subject button-sm" @click="selected_subject = 'spinner-cie3-3'">Task spinner-cie3-3</button> 
