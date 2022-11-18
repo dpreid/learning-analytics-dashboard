@@ -47,13 +47,16 @@
                 <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-1'">Task pendulum-engdes1-1</button> 
                 <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-2'">Task pendulum-engdes1-2</button> 
                 
+                <button class="button button-subject button-sm" @click="selected_subject = 'Other'">Other</button> 
+
             </div>
         </div>
 
         <div class="row justify-content-center">
             <div class="state-input col-lg-5" @click="selected_state = null">{{ selected_state }}</div>
             <span class="col-sm-1 mt-4"> about </span>
-            <div class="subject-input col-lg-5" @click="selected_subject = null">{{ selected_subject }}</div>
+            <input v-if="selected_subject == 'Other'" class="input col-lg-5" v-model="user_input" />
+            <div v-else class="subject-input col-lg-5" @click="selected_subject = null">{{ selected_subject }}</div>
         </div>
 
         <button class="btn btn-success btn-lg" :disabled="!getSubmitAllowed" @click="submit">Submit</button>
@@ -82,6 +85,7 @@ export default {
           return{
                 selected_state: null,
                 selected_subject: null,
+                user_input: '',
                 thanks: false
           }
       },
@@ -95,7 +99,12 @@ export default {
         ]),
         getSubmitAllowed(){
             if(this.selected_state != null && this.selected_subject != null){
-                return true;
+                if(this.selected_subject == 'Other' && this.user_input == ''){
+                    return false;
+                } else {
+                    return true;
+                }
+                
             } else{
                 return false;
             }
@@ -113,6 +122,7 @@ export default {
             }, 10000);
             this.selected_state = null;
             this.selected_subject = null;
+            this.user_input = '';
         }
       }
 }
