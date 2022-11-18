@@ -115,7 +115,12 @@ export default {
             'feedback'
         ]),
         submit(){
-            this.feedback({"state": this.selected_state, "subject": this.selected_subject});
+            if(this.selected_subject == 'Other'){
+                this.feedback({"state": this.selected_state, "subject": this.selected_subject, "input": this.user_input});
+            } else{
+                this.feedback({"state": this.selected_state, "subject": this.selected_subject});
+            }
+            
             this.thanks = true;
             setTimeout(() => {
                 this.thanks = false
