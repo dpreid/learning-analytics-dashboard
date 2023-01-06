@@ -2,7 +2,7 @@
     <div class="border-dashed">
         <div class="row">
             <div class="col-lg-6 ps-3">
-                <h2 class="text-start">SRL Indicators</h2>
+                <h2 class="text-start">Learning Indicators</h2>
             </div>
             <!-- <div class="col-sm-4">
                 <button class="btn btn-success button-sm" @click="send">Request Data</button>
@@ -60,6 +60,25 @@
                                 <template v-slot:popup-help-header id='p-h-header'>Enjoyment</template>
                                 <template v-slot:popup-help-body id='p-h-header'>
                                     This is the difference between your positive and negative responses to the lab
+                                </template>
+                            </popup-help>
+                        </td>
+                    </tr>
+
+                    <!-- Number of runs INDICATOR -->
+                    <tr>
+                        <td v-if="response['edges']">edges</td>
+                        <td v-if="response['edges']">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgress(response['edges'], 100)"></div>
+                            </div>
+                        </td>
+                        <td v-if="response['edges']">{{ getEdgesComment(response['edges']) }}</td>
+                        <td v-if="response['edges']">
+                            <popup-help>
+                                <template v-slot:popup-help-header id='p-h-header'>Graph edges</template>
+                                <template v-slot:popup-help-body id='p-h-header'>
+                                    This is the percentage of edges your graph contains in comparison to the expected full procedure.
                                 </template>
                             </popup-help>
                         </td>
@@ -170,6 +189,9 @@
             } else{
                 return 'Let us know if there is anything that would help improve your experience'
             }
+        },
+        getEdgesComment(value){
+            return 'Your graph contains ' + value.toFixed(0) + '% of the expected number of edges.'
         },
         send(){
             this.request({"content": 'indicators'});
