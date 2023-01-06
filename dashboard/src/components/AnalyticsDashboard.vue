@@ -10,6 +10,12 @@
         </div>
     </div>
 
+    <div class='row'>
+        <div class='col-lg-12'>
+            <task-feedback :tasks="getFeedback" />
+        </div>
+    </div>
+
 
     <div class='row'>
         <div class='col-lg-6'>
@@ -66,6 +72,7 @@ import AffectiveFeedback from './AffectiveFeedback.vue';
 //import SelfEvaluationFeedback from './SelfEvaluationFeedback.vue';
 //import PlanningFeedback from './PlanningFeedback.vue';
 import CentroidDisplay from './CentroidDisplay.vue';
+import TaskFeedback from './TaskFeedback.vue';
 
 export default {
     name: 'AnalyticsDashboard',
@@ -82,7 +89,8 @@ export default {
         AffectiveFeedback,
         //SelfEvaluationFeedback,
         //PlanningFeedback,
-        CentroidDisplay
+        CentroidDisplay,
+        TaskFeedback
   },
     data () {
         return {
@@ -127,7 +135,8 @@ export default {
             'getCentroids',
             'getNodeInfo',
             'getCompareNodeInfo',
-            'getExperiment'
+            'getExperiment',
+            'getFeedback'
             
         ]),
 
@@ -143,6 +152,9 @@ export default {
             let _this = this;
 			//this.logSocket = new WebSocket(this.url);
             this.logSocket = new WebSocket('ws://127.0.0.1:8000');  //TESTING
+            //this.logSocket = new WebSocket('wss://77a0-2a00-23c8-a417-4a01-9ac7-c293-d47-bdc4.ngrok.io');  //TESTING
+            //this.logSocket = new WebSocket('wss://dc0f-2a00-23c8-a417-4a01-39bc-5e41-de06-20a6.eu.ngrok.io');  //TESTING
+            
 			_store.dispatch('setLogSocket', this.logSocket);
             
             this.logSocket.onopen = () => {
@@ -193,6 +205,10 @@ export default {
                         else if(json_response.content == 'centroids'){
                             
                             _this.$store.dispatch('setCentroids', json_response.centroids);
+                        } 
+                        else if(json_response.content == 'task_feedback'){
+
+                            _this.$store.dispatch('setFeedback', json_response.feedback);
                         }
                     }
                     

@@ -10,6 +10,8 @@ const dataStore = {
         tasks: {},        //response from a task completion request
         indicators: {},
         centroids: {},
+        feedback: {},
+        //feedback: {'hardware': ['voltage_step', 'speed_ramp'], 'hardware_freq': [], 'transition': ['position_step to position_ramp'], 'transition_freq': []},       //TESTING
        }),
        mutations:{
             SET_NODES(state, nodes){
@@ -35,6 +37,9 @@ const dataStore = {
             },
             SET_COMPARE_NODE_INFO(state, info){
                 state.compare_node_info = info;
+            },
+            SET_FEEDBACK(state, feedback){
+                state.feedback = feedback;
             }
 
        },
@@ -62,6 +67,9 @@ const dataStore = {
             },
             setCompareNodeInfo(context, info){
                 context.commit('SET_COMPARE_NODE_INFO', info);
+            },
+            setFeedback(context, feedback){
+                context.commit('SET_FEEDBACK', feedback);
             }
 
 
@@ -90,6 +98,9 @@ const dataStore = {
            },
            getCompareNodeInfo(state){
             return state.compare_node_info;
+           },
+           getFeedback(state){
+            return state.feedback;
            }
           
        },  
