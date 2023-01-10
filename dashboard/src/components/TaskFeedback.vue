@@ -33,6 +33,10 @@
                             <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-mean-21-22">CIE3 2021-22 Mean</option>
                             <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-1">Task 1</option>
                             <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-2">Task 2</option>
+                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-all">Full procedure</option>
+                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-1">Task 1</option>
+                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-2">Task 2</option>
+                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-all">Full procedure</option>
                         </select> 
                     </div>
                 
@@ -45,12 +49,12 @@
             <div v-if='Object.keys(this.tasks).length > 0' class="col-lg-9">
                 <div class="row">
                     <div class="col border p-2">
-                        <h4> Hardware modes</h4>
+                        <h4> Hardware repeat runs</h4>
                         <ul v-if="this.tasks.hardware.length > 0">
-                            <li v-for="mode in this.tasks.hardware" :key="mode">You may wish to use hardware mode {{ mode }}.</li>
+                            <li v-for="mode in this.tasks.hardware" :key="mode">You may wish to remain in hardware mode {{ mode }} for multiple runs.</li>
                         </ul>
                         <div v-else>
-                            You have used the correct hardware modes.
+                            You have performed repeat runs on the correct hardware modes.
                         </div>
 
                         <ul v-if="this.tasks.hardware_freq.length > 0">

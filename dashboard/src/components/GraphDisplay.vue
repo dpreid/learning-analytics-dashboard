@@ -52,6 +52,10 @@
                         <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-mean-21-22">CIE3 2021-22 Mean</option>
                         <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-1">Task 1</option>
                         <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-2">Task 2</option>
+                        <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-all">Full procedure</option>
+                        <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-1">Task 1</option>
+                        <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-2">Task 2</option>
+                        <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-all">Full procedure</option>
                     </select> 
                 </div>
             </div>
