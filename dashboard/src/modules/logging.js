@@ -3,10 +3,10 @@
 const loggingStore = {
     state: () => ({
         logSocket: null,
-        uuid: 'david',                      //SET HERE FOR TESTING
+        uuid: 'david-test-pendulum',                      //SET HERE FOR TESTING
         logging_consent_given: true,        //SET HERE FOR TESTING
-        exp: 'spinner',                     //SET HERE FOR TESTING
-        course: 'cie3',                      //needed for differentiating tasks in different classes, 'engdes1'
+        exp: 'pendulum',                     //SET HERE FOR TESTING
+        course: 'engdes1',                      //needed for differentiating tasks in different classes, 'engdes1'
         saved: [],
 
        }),
@@ -39,7 +39,7 @@ const loggingStore = {
                         t: Date.now(),          
                         exp: state.exp, 
                         course: state.course,
-                        type: "log",       
+                        type: "analytics",       
                         payload: payload
                     }));
                 }
