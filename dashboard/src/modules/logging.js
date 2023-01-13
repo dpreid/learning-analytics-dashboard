@@ -3,9 +3,10 @@
 const loggingStore = {
     state: () => ({
         logSocket: null,
-        uuid: 'david-test-pendulum',                      //SET HERE FOR TESTING
+        uuid: 'f349da2a-165a-4cf8-87ae-5adfdd7cdba8',                      //SET HERE FOR TESTING
         logging_consent_given: true,        //SET HERE FOR TESTING
-        exp: 'pendulum',                     //SET HERE FOR TESTING
+        exp: 'spinner',                     //SET HERE FOR TESTING
+        hardware: 'spin30',
         course: 'engdes1',                      //needed for differentiating tasks in different classes, 'engdes1'
         saved: [],
 
@@ -23,6 +24,9 @@ const loggingStore = {
             SET_EXPERIMENT(state, exp){
                 state.exp = exp;
             },
+            SET_HARDWARE(state, hardware){
+                state.hardware = hardware;
+            },
             SET_COURSE(state, course){
                 state.course = course;
             },
@@ -37,7 +41,8 @@ const loggingStore = {
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
-                        exp: state.exp, 
+                        exp: state.exp,
+                        hardware: state.hardware,
                         course: state.course,
                         type: "analytics",       
                         payload: payload
@@ -87,6 +92,9 @@ const loggingStore = {
             setExperiment(context, exp){
                 context.commit('SET_EXPERIMENT', exp);
             },
+            setHardware(context, hardware){
+                context.commit('SET_HARDWARE', hardware);
+            },
             setCourse(context, course){
                 context.commit('SET_COURSE', course);
             },
@@ -129,6 +137,9 @@ const loggingStore = {
             },
             getExperiment(state){
                 return state.exp
+            },
+            getHardware(state){
+                return state.hardware
             },
             getCourse(state){
                 return state.course

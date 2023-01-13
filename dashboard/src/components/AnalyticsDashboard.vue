@@ -105,7 +105,7 @@ export default {
         }
     },
     mounted(){
-        this.connect(); //TESTING
+        //this.connect(); //TESTING
         
     },
     watch:{
@@ -150,8 +150,8 @@ export default {
         connect(){
             let _store = this.$store;
             let _this = this;
-			//this.logSocket = new WebSocket(this.url);
-            this.logSocket = new WebSocket('ws://127.0.0.1:8000');  //TESTING
+			this.logSocket = new WebSocket(this.url);
+            //this.logSocket = new WebSocket('ws://127.0.0.1:8000');  //TESTING
             //this.logSocket = new WebSocket('wss://77a0-2a00-23c8-a417-4a01-9ac7-c293-d47-bdc4.ngrok.io');  //TESTING
             //this.logSocket = new WebSocket('wss://dc0f-2a00-23c8-a417-4a01-39bc-5e41-de06-20a6.eu.ngrok.io');  //TESTING
             
