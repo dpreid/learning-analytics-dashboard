@@ -6,7 +6,7 @@ const loggingStore = {
         uuid: 'b0344977-ea14-499c-aa9b-c5a60286e668',                      //SET HERE FOR TESTING
         logging_consent_given: true,        //SET HERE FOR TESTING
         exp: 'spinner',                     //SET HERE FOR TESTING
-        hardware: 'spin30',
+        hardware: 'spin30',                 //FOR MOCK LOGGING
         course: 'engdes1',                      //needed for differentiating tasks in different classes, 'engdes1'
         saved: [],
 

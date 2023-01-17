@@ -35,6 +35,15 @@
               </li>
 
               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="settingsdropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                   Settings
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
+                    <li><a class="dropdown-item" id='toggleconsentbutton' href="#" @click='this.$emit("toggleconsent")'>Change consent</a></li>
+                  </ul>
+              </li>
+
+              <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                    UUID
                   </a>
@@ -85,7 +94,7 @@ export default {
       
   },
   emits:[
-    'togglelayout', 'save'
+    'togglelayout', 'save', 'toggleconsent'
   ],
   data () {
     return {

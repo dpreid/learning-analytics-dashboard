@@ -6,6 +6,7 @@ const uiStore = {
         isDraggable: true,
         consent_given: false,
         input_disabled: false,
+        usesLocalStorage: false,        //can only use localStorage if the browser allows it.
        }),
        mutations:{
          SET_DRAGGABLE(state, draggable){
@@ -13,6 +14,9 @@ const uiStore = {
          },
          SET_CONSENT(state, consent){
             state.consent_given = consent;
+         },
+         SET_USES_LOCAL_STORAGE(state, set){
+            state.usesLocalStorage = set;
          },
 
        },
@@ -23,6 +27,9 @@ const uiStore = {
          setConsent(context, consent){
             context.commit('SET_CONSENT', consent);
          },
+         setUsesLocalStorage(context, set){
+            context.commit('SET_USES_LOCAL_STORAGE', set);
+         },
 
        },
        getters:{
@@ -31,6 +38,9 @@ const uiStore = {
          },
          getConsent(state){
             return state.consent_given;
+         },
+         getUsesLocalStorage(state){
+            return state.usesLocalStorage;
          },
           
          
