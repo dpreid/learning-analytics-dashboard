@@ -113,7 +113,12 @@ const loggingStore = {
                 context.commit('REQUEST', {"content": 'task_identification'});  
                 context.commit('REQUEST', {"content": 'indicators'}); 
                 if(context.state.exp == 'spinner'){
-                    context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
+                    if(context.state.course == 'cie3'){
+                        context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
+                    } else{
+                        context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-engdes1-all'}); 
+                    }
+                    
                 } else{
                     context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
                 }

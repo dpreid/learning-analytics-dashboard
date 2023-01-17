@@ -162,7 +162,7 @@
           }
       },    
       mounted(){
-        this.getCourse == 'cie3' ? this.selected = 'spinner-cie3-all' : this.selected = 'pendulum-engdes1-1';
+        this.getCourse == 'cie3' ? this.selected = 'spinner-cie3-all' : this.selected = 'pendulum-engdes1-all';
         drawGraph(this.id, this.nodes, this.edges, [], this.getExperiment);
       },
       computed:{
