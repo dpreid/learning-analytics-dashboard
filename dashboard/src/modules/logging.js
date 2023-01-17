@@ -3,7 +3,7 @@
 const loggingStore = {
     state: () => ({
         logSocket: null,
-        uuid: 'f349da2a-165a-4cf8-87ae-5adfdd7cdba8',                      //SET HERE FOR TESTING
+        uuid: 'b0344977-ea14-499c-aa9b-c5a60286e668',                      //SET HERE FOR TESTING
         logging_consent_given: true,        //SET HERE FOR TESTING
         exp: 'spinner',                     //SET HERE FOR TESTING
         hardware: 'spin30',
@@ -109,21 +109,28 @@ const loggingStore = {
                 context.commit('REQUEST', payload);
             },
             requestAll(context){
-                context.commit('REQUEST', {"content": 'student_graph'});    
-                context.commit('REQUEST', {"content": 'task_identification'});  
-                context.commit('REQUEST', {"content": 'indicators'}); 
                 if(context.state.exp == 'spinner'){
                     if(context.state.course == 'cie3'){
-                        context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
+                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-cie3-all'}); 
                     } else{
-                        context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-engdes1-all'}); 
+                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-engdes1-all'}); 
                     }
-                    
-                } else{
-                    context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
                 }
+                // context.commit('REQUEST', {"content": 'student_graph'});    
+                // context.commit('REQUEST', {"content": 'task_identification'});  
+                // context.commit('REQUEST', {"content": 'indicators'}); 
+                // if(context.state.exp == 'spinner'){
+                //     if(context.state.course == 'cie3'){
+                //         context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
+                //     } else{
+                //         context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-engdes1-all'}); 
+                //     }
+                    
+                // } else{
+                //     context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
+                // }
                   
-                context.commit('REQUEST', {"content": 'centroids'});  
+                // context.commit('REQUEST', {"content": 'centroids'});  
             },
             feedback(context, payload){
                 context.commit('FEEDBACK', payload);
