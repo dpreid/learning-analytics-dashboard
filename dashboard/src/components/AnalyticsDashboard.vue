@@ -48,6 +48,7 @@
     <div class='row'>
         <div class="col-lg-6">
             <mock-logging />
+            <auto-logging />
         </div>
         <div class="col-lg-6">
             <receive-message :message="response"/>
@@ -63,8 +64,8 @@
 
 import { mapActions, mapGetters } from 'vuex';
 //import RequestAnalytics from "./RequestAnalytics.vue";
-import ReceiveMessage from "./ReceiveMessage.vue";
-import MockLogging from "./MockLogging.vue";
+import ReceiveMessage from "./ReceiveMessage.vue";      //only for testing
+import MockLogging from "./MockLogging.vue";            //only for testing
 import GraphDisplay from "./GraphDisplay.vue"
 import TaskCompletion from "./TaskCompletion.vue"
 import Indicators from './Indicators.vue';
@@ -74,6 +75,8 @@ import AffectiveFeedback from './AffectiveFeedback.vue';
 import CentroidDisplay from './CentroidDisplay.vue';
 import TaskFeedback from './TaskFeedback.vue';
 
+import AutoLogging from './test/AutoLogging.vue';       //only for testing
+
 export default {
     name: 'AnalyticsDashboard',
     props: {
@@ -81,8 +84,8 @@ export default {
     },
     components: {
         //RequestAnalytics,
-        ReceiveMessage,
-        MockLogging,
+        ReceiveMessage, //TESTING
+        MockLogging,    //TESTING
         GraphDisplay,
         TaskCompletion,
         Indicators,
@@ -90,7 +93,8 @@ export default {
         //SelfEvaluationFeedback,
         //PlanningFeedback,
         CentroidDisplay,
-        TaskFeedback
+        TaskFeedback,
+        AutoLogging,        //TESTING
   },
     data () {
         return {

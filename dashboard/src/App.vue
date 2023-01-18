@@ -33,7 +33,7 @@ export default {
   },
   created(){
     this.$store.dispatch('setUsesLocalStorage', this.hasStorage());
-    this.getUUID();
+    //this.getUUID();       //whilst testing
     this.checkConsent();
   },
   mounted(){
