@@ -7,6 +7,12 @@
   
       <h1>Auto Logging</h1>
         <div class="row">
+            <div class="col-6">
+                <input type="text" class="form-control" id="user" v-model="user">
+            </div>
+            <div class="col-6">
+                <input type="text" class="form-control" id="hardware" v-model="hardware1">
+            </div>
             <div v-if='message_count == 1' class="col-6">
                 <input type="text" class="form-control" id="send_message" v-model="message">
                 <input type="number" class="form-control" id="interval" v-model="interval">
@@ -38,7 +44,7 @@
   </template>
   
   <script>
-  import {mapActions} from 'vuex'
+  import {mapActions, mapGetters} from 'vuex'
   
   export default {
       name: "AutoLogging",
@@ -47,6 +53,8 @@
       },
       data(){
           return{
+            logSocket: null,
+            user: 'david',
             message_count: 2,
               message: '',
               message2: '',
@@ -54,6 +62,8 @@
               id: '',
               id2: '',
               log_count: 0,
+              hardware1: 'spin30',
+              hardware2: 'spin31'
               
           }
       },
@@ -61,13 +71,17 @@
           
       },
       computed:{
-  
+        ...mapGetters([
+            'getLogSocket'
+        ])
       },
       methods:{
           ...mapActions([
-              'log'
+              
+              'setHardware'
           ]),
           start(){
+            this.logSocket = this.getLogSocket;
             let _this = this;
             this.log_count = 0;
             this.id = setInterval(() => {
@@ -77,17 +91,17 @@
               
           },
           start2(){
+            this.logSocket = this.getLogSocket;
             let _this = this;
             this.log_count = 0;
-            this.id = this.startLogging(this.message, this.interval)
-            setTimeout(() => this.id2 = this.startLogging(_this.message2, _this.interval), _this.interval*500);
+            this.id = this.startLogging(this.user, this.message, this.interval, this.hardware1)
+            setTimeout(() => this.id2 = this.startLogging(_this.user, _this.message2, _this.interval, _this.hardware1), _this.interval*500);
               
           },
-          startLogging(message, interval){
+          startLogging(user, message, interval, hardware){
             let _this = this;
             let id = setInterval(() => {
-                _this.log(JSON.parse(message));
-                console.log(message);
+                _this.log(user, JSON.parse(message), hardware);
                 _this.log_count += 1;
                 
             }, interval*1000);
@@ -100,6 +114,17 @@
           stop2(){
             clearInterval(this.id);
             clearInterval(this.id2);
+          },
+          log(user, message, hardware){
+            this.logSocket.send(JSON.stringify({
+                        user: user,
+                        t: Date.now(),          
+                        exp: 'spinner',
+                        hardware: hardware,
+                        course: 'engdes1',
+                        type: "analytics",       
+                        payload: message
+                    }));
           }
       }
   }

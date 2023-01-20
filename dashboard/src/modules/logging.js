@@ -3,7 +3,8 @@
 const loggingStore = {
     state: () => ({
         logSocket: null,
-        uuid: '8f2d4e23-fd99-44f0-bdbc-82add7c0973c',                      //SET HERE FOR TESTING
+        //uuid: '8f2d4e23-fd99-44f0-bdbc-82add7c0973c',                      //SET HERE FOR TESTING
+        uuid: 'david1', 
         logging_consent_given: true,        //SET HERE FOR TESTING
         exp: 'spinner',                     //SET HERE FOR TESTING
         hardware: 'spin30',                 //FOR MOCK LOGGING
@@ -37,7 +38,6 @@ const loggingStore = {
                 //only log to server if user has given consent.
                 //Still may require logging internally for achievements etc.
                 if(state.logging_consent_given && state.logSocket != null){
-                    console.log('logged')
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
                         t: Date.now(),          
