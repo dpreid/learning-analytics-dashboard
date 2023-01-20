@@ -8,30 +8,43 @@
       <h1>Auto Logging</h1>
         <div class="row">
             <div class="col-6">
+                <p>User</p>
                 <input type="text" class="form-control" id="user" v-model="user">
             </div>
             <div class="col-6">
+                <p>Hardware</p>
                 <input type="text" class="form-control" id="hardware" v-model="hardware1">
+                <input type="text" class="form-control" id="hardware2" v-model="hardware2">
             </div>
+        </div>
+        <div class="row">
             <div v-if='message_count == 1' class="col-6">
+                <p>Message</p>
                 <input type="text" class="form-control" id="send_message" v-model="message">
+                <p>Interval</p>
                 <input type="number" class="form-control" id="interval" v-model="interval">
+                <p>Num logs</p>
+                <input type="number" class="form-control" id="num" v-model="num_logs">
             </div>
             <div v-if='message_count == 2' class="col-6">
+                <p>Message</p>
                 <input type="text" class="form-control" id="send_message" v-model="message">
                 <input type="text" class="form-control" id="send_message2" v-model="message2">
+                <p>Interval</p>
                 <input type="number" class="form-control" id="interval" v-model="interval">
+                <p>Num logs</p>
+                <input type="number" class="form-control" id="num" v-model="num_logs">
             </div>
 
 
             <div v-if='message_count == 1' class="col-6">
                 <button id="start_button" @click="start">Start</button>
-                <button id="stop_button" @click="stop">Stop</button>
+                <!-- <button id="stop_button" @click="stop">Stop</button> -->
                 <p>{{ log_count }}</p>
             </div>
             <div v-if='message_count == 2' class="col-6">
                 <button id="start_button" @click="start2">Start</button>
-                <button id="stop_button" @click="stop2">Stop</button>
+                <!-- <button id="stop_button" @click="stop2">Stop</button> -->
                 <p>{{ log_count }}</p>
             </div>
         </div>
@@ -56,14 +69,15 @@
             logSocket: null,
             user: 'david',
             message_count: 2,
-              message: '',
-              message2: '',
+              message: '{"log":"voltage"}',
+              message2: '{"log":"position"}',
               interval: 1,      //seconds between logs
               id: '',
               id2: '',
               log_count: 0,
               hardware1: 'spin30',
-              hardware2: 'spin31'
+              hardware2: 'spin31',
+              num_logs: 100,
               
           }
       },
@@ -92,21 +106,27 @@
           },
           start2(){
             this.logSocket = this.getLogSocket;
-            let _this = this;
             this.log_count = 0;
-            this.id = this.startLogging(this.user, this.message, this.interval, this.hardware1)
-            setTimeout(() => this.id2 = this.startLogging(_this.user, _this.message2, _this.interval, _this.hardware1), _this.interval*500);
+            this.id = this.startLogging(this.user, this.hardware1, this.interval, this.num_logs )
               
           },
-          startLogging(user, message, interval, hardware){
-            let _this = this;
-            let id = setInterval(() => {
-                _this.log(user, JSON.parse(message), hardware);
-                _this.log_count += 1;
-                
-            }, interval*1000);
+          sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            },
+            async sendLog(user, hardware, interval){
+                this.log(user, JSON.parse(this.message), hardware);
+                this.log_count += 1;
+                await this.sleep(interval*500.0);
+                this.log(user, JSON.parse(this.message2), hardware);
+                this.log_count += 1;
+            },
 
-            return id;
+          async startLogging(user, hardware, interval, num_logs ){
+            for(let i=0;i<num_logs/2;i++){
+                this.sendLog(user, hardware, interval);
+                await this.sleep(interval*1000.0);
+            }
+            
           },
           stop(){
             clearInterval(this.id);
