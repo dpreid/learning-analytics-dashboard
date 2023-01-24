@@ -45,6 +45,8 @@ export default {
       let cam = query.get('v');
       this.$store.dispatch('setCamera', cam);
 
+      //Will need to add a query get for the course here
+
     } catch (e) {
       console.log("error decoding streams");
       this.$store.dispatch("deleteStreams");
