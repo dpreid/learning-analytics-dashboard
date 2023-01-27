@@ -8,7 +8,7 @@ const loggingStore = {
         logging_consent_given: false,        //SET HERE FOR TESTING
         exp: 'spinner',                     //SET HERE FOR TESTING
         hardware: 'spin30',                 //FOR MOCK LOGGING
-        course: 'engdes1',                      //needed for differentiating tasks in different classes, 'engdes1'
+        course: 'engdes1',                      //needed for differentiating tasks in different classes, defaults to 'engdes1'
         saved: [],
 
        }),

@@ -45,7 +45,13 @@ export default {
       let cam = query.get('v');
       this.$store.dispatch('setCamera', cam);
 
-      //Will need to add a query get for the course here
+      //Search for the course query parameter
+      // If it doesn't exist then don't set null or '', just leave the default course set in the logging.js store - probably engdes1 for now
+      let course = query.get('course');
+      if(course != null){
+        this.$store.dispatch('setCourse', course);
+      }
+      
 
     } catch (e) {
       console.log("error decoding streams");
