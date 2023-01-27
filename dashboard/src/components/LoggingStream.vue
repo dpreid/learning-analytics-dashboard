@@ -48,7 +48,7 @@ export default {
 		getLogURLObtained(is) {
 			if (is) {
 				//console.log("get logURL", this.getLogURLObtained, this.getLogURL);
-                this.getHardwareCode(this.getLogURL);
+                this.setHardwareCode(this.getLogURL);
 			}
 		},
 
