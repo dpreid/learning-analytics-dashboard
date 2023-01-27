@@ -47,15 +47,15 @@ export default {
 		},
 		getLogURLObtained(is) {
 			if (is) {
-				//console.log("get logURL", this.getLogURLObtained, this.getLogURL);
-                this.setHardwareCode(this.getLogURL);
+				console.log("log URL obtained");
+                //this.setHardwareCode(this.getLogURL);
 			}
 		},
 
 	},
 	methods:{
         ...mapActions([
-            'setHardware'
+            //'setHardware'
 		]),
 		getWebsocketConnection(){
 			this.stream = this.$store.getters.getStream("log");
@@ -70,11 +70,11 @@ export default {
 			})
 			.catch((err) => console.log(err));
 		},
-        setHardwareCode(url){
-                let index = url.indexOf('spin');
-                let hardware = url.substr(index, 6);
-                this.setHardware(hardware);
-            },
+        // setHardwareCode(url){
+        //         let index = url.indexOf('spin');
+        //         let hardware = url.substr(index, 6);
+        //         this.setHardware(hardware);
+        //     },
 	},
 	
 	
