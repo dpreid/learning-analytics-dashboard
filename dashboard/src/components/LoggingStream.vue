@@ -54,9 +54,9 @@ export default {
 
 	},
 	methods:{
-        ...mapActions[(
+        ...mapActions([
             'setHardware'
-        )],
+		]),
 		getWebsocketConnection(){
 			this.stream = this.$store.getters.getStream("log");
 			var accessURL = this.stream.url;
