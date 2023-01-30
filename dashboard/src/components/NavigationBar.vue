@@ -22,7 +22,7 @@
               </li>
 
 
-              <li class="nav-item dropdown">
+              <!-- <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                    Layout
                   </a>
@@ -32,7 +32,7 @@
                     <li><a class="dropdown-item" href="#" @click='toggleLayout(0.5)'>50%:50%</a></li>
                     <li><a class="dropdown-item" href="#" @click='toggleLayout(0.75)'>75%:25%</a></li>
                   </ul>
-              </li>
+              </li> -->
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="settingsdropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -94,7 +94,7 @@ export default {
       
   },
   emits:[
-    'togglelayout', 'save', 'toggleconsent'
+    'save', 'toggleconsent'
   ],
   data () {
     return {
@@ -115,24 +115,24 @@ export default {
       toggleComponent(component){
           this.$emit('toggle' + component);
       },
-      toggleLayout(ratio){
-        if(ratio == 0.25)
-        {
-          this.$emit('togglelayout', 0.25);
-        }
-        else if(ratio == 0.5)
-        {
-          this.$emit('togglelayout', 0.5);
-        }
-        else if(ratio == 0.75)
-        {
-          this.$emit('togglelayout', 0.75);
-        }
-        else 
-        {
-          this.$emit('togglelayout', 1);
-        }
-      },
+      // toggleLayout(ratio){
+      //   if(ratio == 0.25)
+      //   {
+      //     this.$emit('togglelayout', 0.25);
+      //   }
+      //   else if(ratio == 0.5)
+      //   {
+      //     this.$emit('togglelayout', 0.5);
+      //   }
+      //   else if(ratio == 0.75)
+      //   {
+      //     this.$emit('togglelayout', 0.75);
+      //   }
+      //   else 
+      //   {
+      //     this.$emit('togglelayout', 1);
+      //   }
+      // },
       save(){
         this.$emit('save');
         this.updateDateTime();
