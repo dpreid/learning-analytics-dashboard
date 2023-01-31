@@ -9,8 +9,13 @@
                 <popup-help>
                     <template v-slot:popup-help-header id='p-h-header'>Your Graph</template>
                     <template v-slot:popup-help-body id='p-h-header'>
-                        This graph displays all the times you have run the hardware. Vertices represent the different hardware modes and edges 
-                        between the vertices tell you the number of times that hardware transition has been made. 
+                        This graph (network) is a concise visualisation of the procedure you have followed during your remote lab work.
+                        The nodes of the graph represent the different commands you can send to the remote lab hardware.
+                        Graph edges represent the order that commands have been sent and the number of times those commands have been used.
+                        
+                        The feedback provided on this dashboard is based upon a similarity between your graph and a range of comparison graphs.
+
+                        Please note: all analysis is experimental and your data is completely anonymous. 
                     </template>
                 </popup-help>
             </div>
@@ -27,9 +32,11 @@
                 <popup-help>
                     <template v-slot:popup-help-header id='p-h-header'>Example Graph</template>
                     <template v-slot:popup-help-body id='p-h-header'>
-                        This shows an example of a possible graph for completing individual tasks and for the full coursework. It is not expected that you would
-                        match this, but it gives a suggestion of the different modes necessary to complete tasks. Use the dropdown and request graph button at the bottom to display a different 
-                        example graph.
+                        You can display different possible comparison graphs here. It is not expected that your graph will match any particular comparison graph in this list 
+                        and it is not the aim of the practical work to get "close" to any particular graph. These are intended as demonstrations of possible procedures to complete tasks 
+                        and to help you overcome any difficulties you are having with the practical tasks.  
+                        
+                        Use the dropdown menu and request graph button at the bottom to display a different example graph.
                     </template>
                 </popup-help>
             </div>
