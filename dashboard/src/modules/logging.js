@@ -136,7 +136,7 @@ const loggingStore = {
                 }
 
                 setTimeout(() => {
-                    context.commit('LOG', {"log":"analytics-interaction", "type": "request_all"});
+                    context.commit('LOG', {"log":"analytics-interaction", "type": "request-all"});
                 }, 100);
             },
             feedback(context, payload){
