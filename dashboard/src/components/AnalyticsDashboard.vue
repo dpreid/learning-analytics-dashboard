@@ -35,16 +35,7 @@
         </div>
     </div>
 
-    <div class='row'>
-        <div class='col-lg-6'>
-            <!-- <self-evaluation-feedback /> -->
-        </div>
-        <div class='col-lg-6'>
-            <!-- <planning-feedback /> -->
-        </div>
-    </div>
-
-
+<!-- Below components are for testing purposes only - remove for production -->
     <div class='row'>
         <div class="col-lg-6">
             <mock-logging />
@@ -63,19 +54,18 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
-//import RequestAnalytics from "./RequestAnalytics.vue";
+
 import ReceiveMessage from "./ReceiveMessage.vue";      //only for testing
 import MockLogging from "./MockLogging.vue";            //only for testing
+import AutoLogging from './test/AutoLogging.vue';       //only for testing
+
 import GraphDisplay from "./GraphDisplay.vue"
 import TaskCompletion from "./TaskCompletion.vue"
 import Indicators from './Indicators.vue';
 import AffectiveFeedback from './AffectiveFeedback.vue';
-//import SelfEvaluationFeedback from './SelfEvaluationFeedback.vue';
-//import PlanningFeedback from './PlanningFeedback.vue';
 import CentroidDisplay from './CentroidDisplay.vue';
 import TaskFeedback from './TaskFeedback.vue';
 
-import AutoLogging from './test/AutoLogging.vue';       //only for testing
 
 export default {
     name: 'AnalyticsDashboard',
@@ -83,29 +73,22 @@ export default {
         url: String,   
     },
     components: {
-        //RequestAnalytics,
-        ReceiveMessage, //TESTING
-        MockLogging,    //TESTING
+        ReceiveMessage, //TESTING - remove in production
+        MockLogging,    //TESTING - remove in production
+        AutoLogging,        //TESTING - remove in production
+
         GraphDisplay,
         TaskCompletion,
         Indicators,
         AffectiveFeedback,
-        //SelfEvaluationFeedback,
-        //PlanningFeedback,
         CentroidDisplay,
         TaskFeedback,
-        AutoLogging,        //TESTING
+        
   },
     data () {
         return {
             logSocket: null,
             response: null,
-            // nodes: [],      //graph nodes to display
-            // edges: [],      //student graph edges
-            // compare_edges: [],  //comparison graph edges
-            // tasks: {},        //response from a task completion request
-            // indicators: {},
-            //coords: [1,1]
         }
     },
     mounted(){
@@ -155,9 +138,6 @@ export default {
             let _store = this.$store;
             let _this = this;
 			this.logSocket = new WebSocket(this.url);
-            //this.logSocket = new WebSocket('ws://127.0.0.1:8000');  //TESTING
-            //this.logSocket = new WebSocket('wss://77a0-2a00-23c8-a417-4a01-9ac7-c293-d47-bdc4.ngrok.io');  //TESTING
-            //this.logSocket = new WebSocket('wss://dc0f-2a00-23c8-a417-4a01-39bc-5e41-de06-20a6.eu.ngrok.io');  //TESTING
             
 			_store.dispatch('setLogSocket', this.logSocket);
             
@@ -165,17 +145,7 @@ export default {
 				console.log('log connection opened at ', this.url);
                 
                 // REQUEST student data automatically
-                this.requestAll();
-                // this.request({"content": 'student_graph'});    
-                // this.request({"content": 'task_identification'});  
-                // this.request({"content": 'indicators'}); 
-                // if(_this.getExperiment == 'spinner'){
-                //     this.request({"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
-                // } else{
-                //     this.request({"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
-                // }
-                  
-                 // this.request({"content": 'centroids'});        
+                this.requestAll();       
 			};
 
             this.logSocket.onmessage = (event) => {

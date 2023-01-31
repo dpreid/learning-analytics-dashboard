@@ -32,10 +32,10 @@
       },
       methods:{
           ...mapActions([
-              'log'
+              'mockLogAnalytics'
           ]),
           send(){
-              this.log(JSON.parse(this.message));
+              this.mockLogAnalytics(JSON.parse(this.message));
           },
           clear(){
               this.message = ''

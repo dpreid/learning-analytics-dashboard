@@ -6,9 +6,9 @@ const loggingStore = {
         //uuid: '8f2d4e23-fd99-44f0-bdbc-82add7c0973c',                      //SET HERE FOR TESTING
         uuid: '', 
         logging_consent_given: false,        //SET HERE FOR TESTING
-        exp: 'pendulum',                     //SET HERE FOR TESTING
-        hardware: 'pend00',                 //FOR MOCK LOGGING
-        course: 'engdes1',                      //needed for differentiating tasks in different classes, defaults to 'engdes1'
+        exp: 'spinner',                     //SET HERE FOR TESTING
+        hardware: '',                 //FOR MOCK LOGGING
+        course: 'engdes1',                      //needed for differentiating tasks in different classes, 'engdes1'
         saved: [],
 
        }),
@@ -34,9 +34,8 @@ const loggingStore = {
             SET_SAVED(state, data){
                 state.saved = data;
             },
-            LOG(state, payload){
-                //only log to server if user has given consent.
-                //Still may require logging internally for achievements etc.
+            // THIS is just for testing to allow mock logging to the analytics client.
+            MOCK_LOG_ANALYTICS(state, payload){
                 if(state.logging_consent_given && state.logSocket != null){
                     state.logSocket.send(JSON.stringify({
                         user: state.uuid,
@@ -48,9 +47,21 @@ const loggingStore = {
                         payload: payload
                     }));
                 }
-                
-                
             },  
+            // For logging to the background logging server, not to analytics
+            LOG(state, payload){
+                if(state.logging_consent_given && state.logSocket != null){
+                    state.logSocket.send(JSON.stringify({
+                        user: state.uuid,
+                        t: Date.now(),          
+                        exp: state.exp,
+                        hardware: state.hardware,
+                        course: state.course,
+                        type: "log",       
+                        payload: payload
+                    }));
+                }
+            },
             REQUEST(state, payload){
                 if(state.logging_consent_given && state.logSocket != null){
                     state.logSocket.send(JSON.stringify({
@@ -101,8 +112,11 @@ const loggingStore = {
             setSaved(context, data){
                 context.commit('SET_SAVED', data);
             },
+            //for testing only
+            mockLogAnalytics(context, payload){
+                context.commit('MOCK_LOG_ANALYTICS', payload);
+            },
             log(context, payload){
-                //context.commit('LOG_PARAMETERS', payload.data);
                 context.commit('LOG', payload);
             },
             request(context, payload){
@@ -116,21 +130,6 @@ const loggingStore = {
                         context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-engdes1-all'}); 
                     }
                 }
-                // context.commit('REQUEST', {"content": 'student_graph'});    
-                // context.commit('REQUEST', {"content": 'task_identification'});  
-                // context.commit('REQUEST', {"content": 'indicators'}); 
-                // if(context.state.exp == 'spinner'){
-                //     if(context.state.course == 'cie3'){
-                //         context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-cie3-all'}); 
-                //     } else{
-                //         context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'spinner-engdes1-all'}); 
-                //     }
-                    
-                // } else{
-                //     context.commit('REQUEST', {"content": 'comparison_graph', "graph": 'pendulum-engdes1-1'}); 
-                // }
-                  
-                // context.commit('REQUEST', {"content": 'centroids'});  
             },
             feedback(context, payload){
                 context.commit('FEEDBACK', payload);
