@@ -15,7 +15,7 @@
                         
                         The feedback provided on this dashboard is based upon a similarity between your graph and a range of comparison graphs.
 
-                        Please note: all analysis is experimental and your data is completely anonymous. 
+                        <b>Please note: all analysis is experimental and your data is completely anonymous.</b>
                     </template>
                 </popup-help>
             </div>

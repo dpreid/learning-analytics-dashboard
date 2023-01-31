@@ -11,7 +11,12 @@
                 <popup-help>
                     <template v-slot:popup-help-header id='p-h-header'>Task Feedback</template>
                     <template v-slot:popup-help-body id='p-h-header'>
-                    This component gives details of the steps you may need to take in order to complete the selected task.
+                    This component aims to provide some hints as to which hardware commands you may need to use or repeat in order to make progress with tasks.
+                    Select a task from the GOAL dropdown and click "Get Feedback" to get feedback based upon the difference between your graph and the selected comparison. 
+
+                    There is no suggestion that you must complete tasks in exactly the way set out by the comparison graphs.
+
+                    <b>Please note: all analysis is experimental and your data is completely anonymous.</b>
                     </template>
                 </popup-help>
             </div>
