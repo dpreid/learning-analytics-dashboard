@@ -12,3 +12,4 @@ This logging is performed when:
 - @mouseenter for each of the analytics dashboard components individually
 - when data is saved by the student using the Save button in the NavigationBar.vue component
 - when any request for data is sent (excluding request_all as pageshow will cover this scenario) in the logging.js data store.
+- when feedback is submitted in the logging.js store.
