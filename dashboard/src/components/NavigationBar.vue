@@ -137,7 +137,7 @@ export default {
         this.$emit('save');
         this.updateDateTime();
         this.displaySave = true;
-        this.$store.dispatch('log', {"log": "analytics-interaction", "type": "save"})
+        this.$store.dispatch('log', {log: "analytics-interaction", type: "save"})
       },
       updateDateTime(){
       let d = new Date();

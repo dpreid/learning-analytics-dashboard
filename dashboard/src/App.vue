@@ -40,8 +40,10 @@ export default {
         this.loadFromLocalStorage();
         this.autoSave();
 
-        window.addEventListener('pagehide', () => {this.autoSave()});				//closing window
-        window.addEventListener('beforeunload', () => {this.autoSave()});			//refreshing page, changing URL
+        let _this = this;
+        window.addEventListener('pagehide', () => {_this.autoSave()});				//closing window
+        window.addEventListener('beforeunload', () => {_this.autoSave()});			//refreshing page, changing URL
+        window.addEventListener('pageshow', () => {_this.log({log:'analytics-interaction', type:'show'})});
   },
   computed:{
         ...mapGetters([
@@ -58,7 +60,7 @@ export default {
   },
   methods:{
         ...mapActions([
-
+            'log'
         ]),
         hasStorage(){
             try {

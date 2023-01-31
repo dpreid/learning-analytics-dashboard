@@ -202,8 +202,8 @@
             return dataset;
         },
         logInteraction(){
-            console.log('mouse entering centroid feedback')
-            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "centroid"})
+            //console.log('mouse entering centroid feedback')
+            this.log({log:"analytics-interaction", type: "mouseenter", component: "centroid"})
         }
         
           

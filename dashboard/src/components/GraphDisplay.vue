@@ -205,8 +205,8 @@
             
         },
         logInteraction(){
-            console.log('mouse entering graph display feedback')
-            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "graph"})
+            //console.log('mouse entering graph display feedback')
+            this.log({log:"analytics-interaction", type: "mouseenter", component: "graph"})
         }
           
       }

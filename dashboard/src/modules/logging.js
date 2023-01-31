@@ -123,7 +123,7 @@ const loggingStore = {
                 context.commit('REQUEST', payload);
 
                 setTimeout(() => {
-                    context.commit('LOG', {"log":"analytics-interaction", "type": "request"});
+                    context.commit('LOG', {log:"analytics-interaction", type: "request"});
                 }, 100);
             },
             requestAll(context){
@@ -136,14 +136,14 @@ const loggingStore = {
                 }
 
                 setTimeout(() => {
-                    context.commit('LOG', {"log":"analytics-interaction", "type": "request-all"});
+                    context.commit('LOG', {log:"analytics-interaction", type: "request-all"});
                 }, 100);
             },
             feedback(context, payload){
                 context.commit('FEEDBACK', payload);
 
                 setTimeout(() => {
-                    context.commit('LOG', {"log":"analytics-interaction", "type": "feedback"});
+                    context.commit('LOG', {log:"analytics-interaction", type: "feedback"});
                 }, 100);
             }
 

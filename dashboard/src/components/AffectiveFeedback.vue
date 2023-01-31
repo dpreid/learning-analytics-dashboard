@@ -131,8 +131,8 @@ export default {
             this.user_input = '';
         },
         logInteraction(){
-            console.log('mouse entering analytics feedback')
-            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "affective-feedback"})
+            //console.log('mouse entering analytics feedback')
+            this.log({log:"analytics-interaction", type: "mouseenter", component: "affective-feedback"})
         }
 
       }

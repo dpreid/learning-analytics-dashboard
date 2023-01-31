@@ -202,8 +202,8 @@
             this.showGraph = !this.showGraph;
         },
         logInteraction(){
-            console.log('mouse entering task completion component')
-            //this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "task-completion"})
+            //console.log('mouse entering task completion component')
+            this.log({log:"analytics-interaction", type: "mouseenter", component: "task-completion"})
         }
           
           

@@ -201,8 +201,8 @@
             this.showGraph = !this.showGraph;
         },
         logInteraction(){
-            console.log('mouse entering indicators feedback')
-            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "learning-indicators"})
+            //console.log('mouse entering indicators feedback')
+            this.log({log:"analytics-interaction", type: "mouseenter", component: "learning-indicators"})
     }
           
           

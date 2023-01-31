@@ -131,8 +131,8 @@
             this.request({"content": 'task_feedback', 'task': this.selected});
         },
         logInteraction(){
-            console.log('mouse entering task feedback')
-            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "task-feedback"})
+            //console.log('mouse entering task feedback')
+            this.log({log:"analytics-interaction", type: "mouseenter", component: "task-feedback"})
         }
         
           
