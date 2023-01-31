@@ -134,10 +134,6 @@ const loggingStore = {
                         context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-engdes1-all'}); 
                     }
                 }
-
-                setTimeout(() => {
-                    context.commit('LOG', {log:"analytics-interaction", type: "request-all"});
-                }, 100);
             },
             feedback(context, payload){
                 context.commit('FEEDBACK', payload);
