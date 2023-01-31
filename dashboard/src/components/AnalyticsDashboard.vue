@@ -36,7 +36,7 @@
     </div>
 
 <!-- Below components are for testing purposes only - remove for production -->
-    <div class='row'>
+    <!-- <div class='row'>
         <div class="col-lg-6">
             <mock-logging />
             <auto-logging />
@@ -45,7 +45,7 @@
             <receive-message :message="response"/>
         </div>
         
-    </div>
+    </div> -->
     
 
 </div>
@@ -55,9 +55,9 @@
 
 import { mapActions, mapGetters } from 'vuex';
 
-import ReceiveMessage from "./ReceiveMessage.vue";      //only for testing
-import MockLogging from "./MockLogging.vue";            //only for testing
-import AutoLogging from './test/AutoLogging.vue';       //only for testing
+// import ReceiveMessage from "./ReceiveMessage.vue";      //only for testing
+// import MockLogging from "./MockLogging.vue";            //only for testing
+// import AutoLogging from './test/AutoLogging.vue';       //only for testing
 
 import GraphDisplay from "./GraphDisplay.vue"
 import TaskCompletion from "./TaskCompletion.vue"
@@ -73,9 +73,9 @@ export default {
         url: String,   
     },
     components: {
-        ReceiveMessage, //TESTING - remove in production
-        MockLogging,    //TESTING - remove in production
-        AutoLogging,        //TESTING - remove in production
+        // ReceiveMessage, //TESTING - remove in production
+        // MockLogging,    //TESTING - remove in production
+        // AutoLogging,        //TESTING - remove in production
 
         GraphDisplay,
         TaskCompletion,
