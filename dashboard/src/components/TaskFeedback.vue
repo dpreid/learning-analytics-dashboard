@@ -1,5 +1,5 @@
 <template>
-    <div class="border-dashed">
+    <div class="border-dashed" @mouseenter="logInteraction">
         <div class="row mb-2">
             <div class="col-lg-3">
 
@@ -122,13 +122,18 @@
       },
       methods:{
           ...mapActions([
-              'request'
+              'request',
+              'log'
           ]),
           
         
         send(){
             this.request({"content": 'task_feedback', 'task': this.selected});
         },
+        logInteraction(){
+            console.log('mouse entering task feedback')
+            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "task-feedback"})
+        }
         
           
           

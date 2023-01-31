@@ -1,6 +1,6 @@
 <template>
   
-    <div class="border-dashed">
+    <div class="border-dashed" @mouseenter="logInteraction">
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
@@ -112,7 +112,8 @@ export default {
       },
       methods: {
         ...mapActions([
-            'feedback'
+            'feedback',
+            'log'
         ]),
         submit(){
             if(this.selected_subject == 'Other'){
@@ -128,7 +129,12 @@ export default {
             this.selected_state = null;
             this.selected_subject = null;
             this.user_input = '';
+        },
+        logInteraction(){
+            console.log('mouse entering analytics feedback')
+            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "affective-feedback"})
         }
+
       }
 }
 </script>

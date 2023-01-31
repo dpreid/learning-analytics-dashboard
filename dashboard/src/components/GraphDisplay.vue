@@ -1,5 +1,5 @@
 <template>
-    <div class="border-dashed">
+    <div class="border-dashed" @mouseenter="logInteraction">
         <div v-if="graph_type == 'student_graph'" class="row">
             <div class="col-lg-3"> </div>
             <div class="col-lg-6"> 
@@ -193,7 +193,8 @@
       },
       methods:{
         ...mapActions([
-            'request'
+            'request',
+            'log'
         ]),
         send(){
             if(this.graph_type == 'student_graph'){
@@ -203,6 +204,10 @@
             }
             
         },
+        logInteraction(){
+            console.log('mouse entering graph display feedback')
+            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "graph"})
+        }
           
       }
   }

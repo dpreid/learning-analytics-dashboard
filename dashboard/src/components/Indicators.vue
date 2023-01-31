@@ -1,5 +1,5 @@
 <template>
-    <div class="border-dashed">
+    <div class="border-dashed" @mouseenter="logInteraction">
         <div class="row">
             <div class="col-lg-6 ps-3">
                 <h2 class="text-start">Learning Indicators</h2>
@@ -157,7 +157,8 @@
       },
       methods:{
           ...mapActions([
-              'request'
+              'request',
+              'log'
           ]),
           getProgress(value, max){
             let width = value*100.0/max;
@@ -196,9 +197,13 @@
         send(){
             this.request({"content": 'indicators'});
         },
-          toggleChart(){
+        toggleChart(){
             this.showGraph = !this.showGraph;
-          }
+        },
+        logInteraction(){
+            console.log('mouse entering indicators feedback')
+            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "learning-indicators"})
+    }
           
           
       }

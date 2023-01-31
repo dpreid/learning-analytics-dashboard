@@ -1,5 +1,5 @@
 <template>
-    <div class='border-dashed'>
+    <div class='border-dashed' @mouseenter="logInteraction">
         <div class="row">
             <div class="col-lg-3">
                 
@@ -67,7 +67,7 @@
       },
       methods:{
         ...mapActions([
-            
+            'log'
         ]),
         createChart() {
             let _this = this;
@@ -200,6 +200,10 @@
                     )
 
             return dataset;
+        },
+        logInteraction(){
+            console.log('mouse entering centroid feedback')
+            this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "centroid"})
         }
         
           

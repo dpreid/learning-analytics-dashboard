@@ -1,5 +1,5 @@
 <template>
-    <div class="border-dashed">
+    <div class="border-dashed" @mouseenter="logInteraction">
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="text-start">Task Completion</h2>
@@ -169,7 +169,8 @@
       },
       methods:{
           ...mapActions([
-              'request'
+              'request',
+              'log'
           ]),
           getProgress(value){
             let closest_value = this.getCompleted[1];
@@ -199,6 +200,10 @@
         },
         toggleChart(){
             this.showGraph = !this.showGraph;
+        },
+        logInteraction(){
+            console.log('mouse entering task completion component')
+            //this.log({"log":"analytics-interaction", "type": "mouseenter", "component": "task-completion"})
         }
           
           
