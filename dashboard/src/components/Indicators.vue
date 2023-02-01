@@ -1,17 +1,32 @@
 <template>
     <div class="border-dashed" @mouseenter="logInteraction">
         <div class="row">
-            <div class="col-lg-6 ps-3">
+            <div class="col-lg-6">
                 <h2 class="text-start">Learning Indicators</h2>
             </div>
-            <!-- <div class="col-sm-4">
-                <button class="btn btn-success button-sm" @click="send">Request Data</button>
-            </div> -->
-            <div class="col-lg-6 pt-3 ps-3">
+            
+            <div class="col-lg-3">
                 <div class="form-check-inline form-switch">
                     <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" @click="toggleChart">
                     <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
                 </div>
+            </div>
+
+            <div class="col-lg-3">
+                <popup-help>
+                    <template v-slot:popup-help-header id='p-h-header'>Learning Indicators</template>
+                    <template v-slot:popup-help-body id='p-h-header'>
+                        This component provides some feedback on different learning indicators. There is no expectation that to complete tasks you must have a specific value in these indicators.
+                        It is simply data for you to reflect on that may help you consider your next steps to approach tasks.<br>
+                        <br>
+                        Most indicators do not provide you with a numerical value, but instead a relative score represented by a bar.
+                        <br>
+                        For an explanation of each indicator, click on the ? in the corresponding row.<br>
+                        <br>
+                        <b>Please note: this component is experimental and calculated values may not accurately reflect the work you have done. </b>
+                        
+                    </template>
+                </popup-help>
             </div>
             
         </div>
@@ -40,7 +55,7 @@
                             <popup-help>
                                 <template v-slot:popup-help-header id='p-h-header'>Exploration</template>
                                 <template v-slot:popup-help-body id='p-h-header'>
-                                    Exploration concerns how much you have investigated hardware modes outside of those necessary to complete tasks.
+                                    Exploration is calculated by considering how many edges exist on your graph that are not necessary to complete tasks when compared to the expected workbook procedure. 
                                 </template>
                             </popup-help>
                         </td>
@@ -59,7 +74,7 @@
                             <popup-help>
                                 <template v-slot:popup-help-header id='p-h-header'>Enjoyment</template>
                                 <template v-slot:popup-help-body id='p-h-header'>
-                                    This is the difference between your positive and negative responses to the lab
+                                    This is the difference between your positive and negative responses to the lab in the Affective State component.
                                 </template>
                             </popup-help>
                         </td>
@@ -78,7 +93,10 @@
                             <popup-help>
                                 <template v-slot:popup-help-header id='p-h-header'>Graph edges</template>
                                 <template v-slot:popup-help-body id='p-h-header'>
-                                    This is the percentage of edges your graph contains in comparison to the expected full procedure.
+                                    This is the percentage of edges your graph contains in comparison to the expected full procedure. It does not consider whether the edges are appropriate for tasks or not, 
+                                    so do not consider 100% as proof that you have finished tasks!
+
+
                                 </template>
                             </popup-help>
                         </td>

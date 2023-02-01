@@ -10,7 +10,13 @@
                 <popup-help>
                     <template v-slot:popup-help-header id='p-h-header'>Affective Reflection</template>
                     <template v-slot:popup-help-body id='p-h-header'>
-                        This component allows you to provide feedback on how you are responding to the remote laboratory and learning analytics data.
+                        This component allows you to provide feedback on your experience of the remote laboratory and learning analytics dashboard.<br>
+                        <br>
+                        Please select an "Affective state" - i.e. how you are feeling - and a "Subject of reflection" - i.e. what you want to provide feedback about. Once you have 
+                        added both, you can click Submit to send your feedback.<br>
+                        <br>
+
+                        <b>Please note: all feedback is completely anonymous and is being used to help develop better remote lab experiences, so your honesty is appreciated.</b>
                         
                     </template>
                 </popup-help>

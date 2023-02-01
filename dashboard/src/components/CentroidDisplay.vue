@@ -11,8 +11,13 @@
                 <popup-help>
                     <template v-slot:popup-help-header id='p-h-header'>Centroid</template>
                     <template v-slot:popup-help-body id='p-h-header'>
-                        This plot displays the weighted average (centroid) hardware mode that you have entered during the remote laboratory.
-                        The position for possible centroids for individual tasks is also provided.
+                        This plot is similar to the graphs above, displaying the same hardware commands as nodes. However, it does not show edges, but instead
+                        the "average" position of all your commands. It is analogous to the centre of mass of your graph. It also shows the "average" position for individual tasks.<br>
+                        <br>
+                        If you save your data or come back to the dashboard at a later date, you may see your previous positions plotted also.<br>
+                        <br>
+                        <b>Please note: this is an experimental component that will have more features added in future</b>
+                        
                     </template>
                 </popup-help>
             </div>
