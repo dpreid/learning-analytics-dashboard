@@ -36,12 +36,17 @@
                             <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-3">Task 3</option>
                             <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-4">Task 4</option>
                             <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-mean-21-22">CIE3 2021-22 Mean</option>
-                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-1">Task 1</option>
-                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-2">Task 2</option>
-                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-all">Full procedure</option>
-                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-1">Task 1</option>
-                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-2">Task 2</option>
-                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-all">Full procedure</option>
+                            
+                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-1-core">Lab 1 Core</option>
+                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-1-ext">Lab 1 Extension</option>
+                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-1-core-ext">Lab 1 Core + Ext.</option>
+                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-2">Lab 2</option>
+                            <option v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" value="pendulum-engdes1-all">All tasks</option>
+                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-1-core">Lab 1 Core</option>
+                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-1-ext">Lab 1 Extension</option>
+                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-1-core-ext">Lab 1 Core + Ext.</option>
+                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-2">Lab 2</option>
+                            <option v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" value="spinner-engdes1-all">All tasks</option>
                         </select> 
                     </div>
                 
