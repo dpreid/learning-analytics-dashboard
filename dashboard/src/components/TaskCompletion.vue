@@ -48,7 +48,9 @@
                 <popup-help>
                     <template v-slot:popup-help-header id='p-h-header'>Task Completion: Pendulum</template>
                     <template v-slot:popup-help-body id='p-h-header'>
-                        This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
+                            This component uses a graph comparison algorithm to predict the task or task combination that you have completed. The relative similarity is to the 
+                            task or task combination that the algorithm thinks you are closest to. A full bar does not necessarily mean that you have fully completed that task, just that 
+                            you are currently closer to completing that task than the others.
                             <br>
                             The tasks represent the practical aspects of the Engineering Design 1 workshop workbook.<br>
                             <br>
