@@ -24,7 +24,18 @@
                             spinner-4: Section 6
                         </div>
                         <div v-if="getCourse == 'engdes1'">
+                            This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
+                            <br>
                             The tasks represent the practical aspects of the Engineering Design 1 workshop workbook.<br>
+                            <br>
+                            spinner-engdes1-1-core -> Lab 1 Core tasks<br>
+                            spinner-engdes1-1-ext -> Lab 1 Extension tasks<br>
+                            spinner-engdes1-1-core-ext -> Lab 1 Core and Extension tasks combined<br>
+                            spinner-engdes1-2 -> Lab 2 Core tasks<br>
+                            spinner-engdes1-all -> all Spinner tasks combined<br>
+                            
+                            <br>
+                            <b>Please note: this component is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.</b>
                             
                         </div>
 
@@ -38,7 +49,18 @@
                     <template v-slot:popup-help-header id='p-h-header'>Task Completion: Pendulum</template>
                     <template v-slot:popup-help-body id='p-h-header'>
                         This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
-                        It is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.
+                            <br>
+                            The tasks represent the practical aspects of the Engineering Design 1 workshop workbook.<br>
+                            <br>
+                            pendulum-engdes1-1-core -> Lab 1 Core tasks<br>
+                            pendulum-engdes1-1-ext -> Lab 1 Extension tasks<br>
+                            pendulum-engdes1-1-core-ext -> Lab 1 Core and Extension tasks combined<br>
+                            pendulum-engdes1-2 -> Lab 2 Core tasks<br>
+                            pendulum-engdes1-all -> all Pendulum tasks combined<br>
+                            
+                            <br>
+                            <b>Please note: this component is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.</b>
+                            
                     </template>
                 </popup-help>
             </div>
