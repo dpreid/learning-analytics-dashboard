@@ -52,6 +52,7 @@
           </ul>
 
           <div class='d-flex'>
+            
             <div v-if="displaySave" class="text-white me-2 mt-2"> {{ dateTime }}</div>
             <button class="btn btn-success me-2" @click="save">Save</button>
             <button class="btn btn-primary" @click="refresh">Refresh</button>
@@ -67,6 +68,15 @@
                     </div>
                   </template>
             </toolbar> -->
+
+            <ul class="navbar-nav dropstart">
+                <li class="nav-item">
+                    <clock class='nav-link' />
+                  </li>
+            </ul>
+           
+         
+
           </div>
 
 
@@ -78,14 +88,14 @@
 
 <script>
 
-//import Toolbar from './elements/Toolbar.vue';
+import Clock from './Clock.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
 
   name: 'NavigationBar',
   components: {
-    //Toolbar
+    Clock
   },
   props:{
       
