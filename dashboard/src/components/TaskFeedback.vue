@@ -13,10 +13,17 @@
                     <template v-slot:popup-help-body id='p-h-header'>
                     This component aims to provide some hints as to which hardware commands you may need to use or repeat in order to make progress with tasks.
                     Select a task from the GOAL dropdown and click "Get Feedback" to get feedback based upon the difference between your graph and the selected comparison. 
-
+                    <br>
+                    <br>
                     There is no suggestion that you must complete tasks in exactly the way set out by the comparison graphs.
+                    <br>
+                    <br>
+                    The core elements of task feedback are 1) whether you run a command the expected number of times consecutively (command repeats) and 2) whether the order in which you 
+                    move between commands is as expected (command transitions).
+                    <br>
+                    <br>
 
-                    <b>Please note: all analysis is experimental and your data is completely anonymous.</b>
+                    <b>Please note: all feedback is automated and experimental, with comparisons made to a single procedural model that is not the only method to complete tasks.</b>
                     </template>
                 </popup-help>
             </div>
@@ -29,7 +36,7 @@
             <div class="col-lg-3 p-4">
                 
                     <div class='input-group'>
-                        <span class='input-group-text' for="graph">GOAL:  </span>
+                        <span class='input-group-text' for="graph">GOAL  </span>
                         <select class='form-select form-select-sm' name="task" id="task" v-model="selected">
                             <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-all">Full procedure</option>
                             <option v-if="getExperiment == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-1-2">Task 1+2</option>
@@ -59,27 +66,27 @@
             <div v-if='Object.keys(this.tasks).length > 0' class="col-lg-9">
                 <div class="row">
                     <div class="col border p-2">
-                        <h4> Hardware repeat runs</h4>
+                        <h4> Control command repeats  </h4>
                         <ul v-if="this.tasks.hardware.length > 0">
-                            <li v-for="mode in this.tasks.hardware" :key="mode">You may wish to remain in hardware mode {{ mode }} for multiple runs.</li>
+                            <li v-for="mode in this.tasks.hardware" :key="mode">You may need to send command <b> {{ mode }} </b> multiple times consecutively.</li>
                         </ul>
                         <div v-else>
                             You have performed repeat runs on the correct hardware modes.
                         </div>
 
                         <ul v-if="this.tasks.hardware_freq.length > 0">
-                            <li v-for="mode in this.tasks.hardware_freq" :key="mode">Try running {{ mode }} more times.</li>
+                            <li v-for="mode in this.tasks.hardware_freq" :key="mode">Perhaps you need to run <b> {{ mode }} </b> additional times.</li>
                         </ul>
                         
                     </div>
 
                     <div class="col border p-2">
-                        <h4> Hardware transitions</h4>
+                        <h4> Control command transitions</h4>
                         <ul v-if="this.tasks.transition.length > 0">
-                            <li v-for="mode in this.tasks.transition" :key="mode">You might need to transition from {{ mode }}.</li>
+                            <li v-for="mode in this.tasks.transition" :key="mode">You may need to transition from <b> {{ mode }} </b>.</li>
                         </ul>
                         <div v-else>
-                            You have made the correct transitions between hardware modes.
+                            You have performed commands in the order we would expect.
                         </div>
 
                         <ul v-if="this.tasks.transition_freq.length > 0">

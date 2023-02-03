@@ -215,7 +215,7 @@
             } else if(value < 20){
                 return 'Looks like you have started this task'
             } else{
-                return 'You have probably not run some key hardware modes yet.'
+                return 'You have probably not sent some key control commands yet.'
             }
             
         },
