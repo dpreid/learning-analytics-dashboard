@@ -142,7 +142,7 @@ export default {
 			_store.dispatch('setLogSocket', this.logSocket);
             
             this.logSocket.onopen = () => {
-				console.log('log connection opened at ', this.url);
+				console.log('log connection opened');
                 
                 // REQUEST student data automatically
                 this.requestAll();       

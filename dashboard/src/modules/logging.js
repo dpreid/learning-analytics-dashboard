@@ -133,6 +133,12 @@ const loggingStore = {
                     } else{
                         context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-engdes1-all'}); 
                     }
+                } else if(context.state.exp == 'pendulum'){
+                    if(context.state.course == 'engdes1'){
+                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'pendulum-engdes1-all'}); 
+                    } else{
+                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'pendulum-engdes1-all'}); 
+                    }
                 }
             },
             feedback(context, payload){
