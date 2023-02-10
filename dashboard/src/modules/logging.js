@@ -55,7 +55,7 @@ const loggingStore = {
                         user: state.uuid,
                         t: Date.now(),          
                         exp: state.exp,
-                        hardware: state.hardware,
+                        //hardware: state.hardware,     //analytics is not aligned with any single piece of hardware
                         course: state.course,
                         type: "log",       
                         payload: payload
