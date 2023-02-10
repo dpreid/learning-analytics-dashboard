@@ -127,15 +127,15 @@ const loggingStore = {
             requestAll(context){
                 if(context.state.exp == 'spinner'){
                     if(context.state.course == 'cie3'){
-                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-cie3-all'}); 
+                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-cie3-1-2'}); 
                     } else{
-                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-engdes1-all'}); 
+                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'spinner-engdes1-1-core'}); 
                     }
                 } else if(context.state.exp == 'pendulum'){
                     if(context.state.course == 'engdes1'){
-                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'pendulum-engdes1-all'}); 
+                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'pendulum-engdes1-1-core'}); 
                     } else{
-                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'pendulum-engdes1-all'}); 
+                        context.commit('REQUEST', {"content": 'all_feedback', "graph": 'pendulum-engdes1-1-core'}); 
                     }
                 }
             },

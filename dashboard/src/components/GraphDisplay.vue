@@ -174,7 +174,7 @@
           }
       },    
       mounted(){
-        this.getCourse == 'cie3' ? this.selected = 'spinner-cie3-all' : this.selected = 'pendulum-engdes1-all';
+        this.setSelected();
         drawGraph(this.id, this.nodes, this.edges, [], this.getExperiment);
       },
       computed:{
@@ -208,6 +208,22 @@
             'request',
             'log'
         ]),
+        setSelected(){
+            if(this.getCourse == 'cie3'){
+                this.selected = 'spinner-cie3-1-2';
+            } else if (this.getCourse == 'engdes1'){
+                if(this.getExperiment == 'pendulum'){
+                    this.selected = 'pendulum-engdes1-1-core';
+                } 
+                else if(this.getExperiment == 'spinner'){
+                    this.selected = 'spinner-engdes1-1-core';
+                }
+                
+            } else{
+                this.selected = ''
+            }
+            
+        },
         send(){
             if(this.graph_type == 'student_graph'){
                 this.request({"content": this.graph_type});
