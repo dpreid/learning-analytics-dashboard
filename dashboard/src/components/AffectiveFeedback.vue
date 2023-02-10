@@ -50,9 +50,14 @@
                 <button v-if="getExperiment == 'spinner' && getCourse == 'cie3'" class="button button-subject button-sm" @click="selected_subject = 'spinner-cie3-3'">Task spinner-cie3-3</button> 
                 <button v-if="getExperiment == 'spinner' && getCourse == 'cie3'" class="button button-subject button-sm" @click="selected_subject = 'spinner-cie3-4'">Task spinner-cie3-4</button> 
             
-                <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-1'">Task pendulum-engdes1-1</button> 
-                <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-2'">Task pendulum-engdes1-2</button> 
+                <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-1-core'">Lab 1 Core</button> 
+                <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-1-ext'">Lab 1 Ext</button> 
+                <button v-if="getExperiment == 'pendulum' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'pendulum-engdes1-2'">Lab 2</button> 
                 
+                <button v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'spinner-engdes1-1-core'">Lab 1 Core</button> 
+                <button v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'spinner-engdes1-1-ext'">Lab 1 Ext</button> 
+                <button v-if="getExperiment == 'spinner' && getCourse == 'engdes1'" class="button button-subject button-sm" @click="selected_subject = 'spinner-engdes1-2'">Lab 2</button> 
+
                 <button class="button button-subject button-sm" @click="selected_subject = 'Other'">Other</button> 
 
             </div>
