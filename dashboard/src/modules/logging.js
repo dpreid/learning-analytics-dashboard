@@ -6,7 +6,7 @@ const loggingStore = {
         //uuid: '8f2d4e23-fd99-44f0-bdbc-82add7c0973c',                      //SET HERE FOR TESTING
         uuid: '', 
         logging_consent_given: false,        //SET HERE FOR TESTING
-        exp: 'pendulum',                     //SET HERE FOR TESTING
+        exp: 'spinner',                     //SET HERE FOR TESTING
         hardware: '',                 //FOR MOCK LOGGING
         course: 'engdes1',                      //needed for differentiating tasks in different classes, 'engdes1'
         saved: [],
@@ -119,12 +119,10 @@ const loggingStore = {
             log(context, payload){
                 context.commit('LOG', payload);
             },
-            request(context, payload){
+            async request(context, payload){
                 context.commit('REQUEST', payload);
-
-                setTimeout(() => {
-                    context.commit('LOG', {log:"analytics-interaction", type: "request"});
-                }, 100);
+                await helpers.delay(100);
+                context.commit('LOG', {log:"analytics-interaction", type: "request"});
             },
             requestAll(context){
                 if(context.state.exp == 'spinner'){
@@ -141,12 +139,10 @@ const loggingStore = {
                     }
                 }
             },
-            feedback(context, payload){
+            async feedback(context, payload){
                 context.commit('FEEDBACK', payload);
-
-                setTimeout(() => {
-                    context.commit('LOG', {log:"analytics-interaction", type: "feedback"});
-                }, 100);
+                await helpers.delay(100);
+                context.commit('LOG', {log:"analytics-interaction", type: "feedback"});
             }
 
        },
@@ -175,6 +171,12 @@ const loggingStore = {
           
        },  
   
+  }
+
+  let helpers = {
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    },
   }
 
   export default loggingStore;

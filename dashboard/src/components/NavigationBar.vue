@@ -5,7 +5,7 @@
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark background-primary">
     <div class="container-fluid">
         <img src="../../public/images/practable-icon.png" width="30" height="30" alt="">
-      <a class="navbar-brand" href="#">Learning Analytics Dashboard: Student</a>
+      <a class="navbar-brand" href="#">Learning Analytics Dashboard: {{ getExperiment }}</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -40,7 +40,9 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown2">
                     <li><a class="dropdown-item" id='toggleconsentbutton' href="#" @click='this.$emit("toggleconsent")'>Change consent</a></li>
-                  </ul>
+                    <!-- <li v-if="getExperiment == 'pendulum'"><a class="dropdown-item" id='changeexperiment' href="#" @click='changeExperiment("spinner")'>Spinner</a></li>
+                    <li v-if="getExperiment == 'spinner'"><a class="dropdown-item" id='changeexperiment' href="#" @click='changeExperiment("pendulum")'>Pendulum</a></li> -->
+                </ul>
               </li>
 
               <li class="nav-item dropdown">
@@ -111,13 +113,15 @@ export default {
   },
   computed:{
     ...mapGetters([
-        'getLogUUID'
+        'getLogUUID',
+        'getExperiment'
     ]),
 
   },
   methods: {
     ...mapActions([
         'requestAll',
+        // 'setExperiment'
     ]),
       toggleComponent(component){
           this.$emit('toggle' + component);
@@ -154,7 +158,11 @@ export default {
     },
     refresh(){
       this.requestAll();
-    }
+    },
+    // changeExperiment(exp){
+    //     this.setExperiment(exp);
+    //     this.requestAll();
+    // }
   }
 }
 </script>
