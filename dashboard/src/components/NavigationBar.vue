@@ -57,7 +57,7 @@
             
             <div v-if="displaySave" class="text-white me-2 mt-2"> {{ dateTime }}</div>
             <button class="btn btn-success me-2" @click="save">Save</button>
-            <button class="btn btn-primary" @click="refresh">Refresh</button>
+            <!-- <button class="btn btn-primary" @click="refresh">Refresh</button> -->
             <!-- <toolbar class='me-5' parentCanvasID="" parentDivID="navbar" parentComponentName="navbar" :showDownload="false" :showOptions="false" :showPopupHelp="true">
                   <template v-slot:popup-help-body id='navbar-popup'>
                     <div class='row'>

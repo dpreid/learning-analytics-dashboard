@@ -6,7 +6,6 @@
             </div>
             <div class="col-lg-6">
                 <h2>Hardware Centroid</h2>
-                <button class='btn button-sm btn-success' id="request_centroid" @click="send">Get centroid</button>
             </div>
             <div class="col-lg-3">
                 <popup-help>
