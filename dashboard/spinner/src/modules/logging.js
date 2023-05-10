@@ -3,12 +3,11 @@
 const loggingStore = {
     state: () => ({
         logSocket: null,
-        //uuid: '8f2d4e23-fd99-44f0-bdbc-82add7c0973c',                      //SET HERE FOR TESTING
         uuid: '', 
-        logging_consent_given: false,        //SET HERE FOR TESTING
+        logging_consent_given: false,    
         exp: 'spinner',                     
-        hardware: '',                 //FOR MOCK LOGGING
-        course: '',                      //GETS SET IN STREAMS.VUE FROM URL QUERY PARAM
+        hardware: '',                 
+        course: '',                //GETS SET IN STREAMS.VUE FROM URL QUERY PARAM
         saved: [],
 
        }),
