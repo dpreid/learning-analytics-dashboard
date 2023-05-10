@@ -33,8 +33,7 @@ export default {
   },
   created(){
     this.$store.dispatch('setUsesLocalStorage', this.hasStorage());
-    this.getUUID();
-    this.checkConsent();
+    
   },
   mounted(){
         this.loadFromLocalStorage();
@@ -58,6 +57,12 @@ export default {
             'getUsesLocalStorage'
         ])
   },
+  watch:{
+    getCourse(){
+        this.getUUID();
+        this.checkConsent();
+    }
+},
   methods:{
         ...mapActions([
             'log'

@@ -8,7 +8,7 @@ const loggingStore = {
         logging_consent_given: false,        //SET HERE FOR TESTING
         exp: 'spinner',                     
         hardware: '',                 //FOR MOCK LOGGING
-        course: 'engdes1',                      //needed for differentiating tasks in different classes, 'engdes1'
+        course: '',                      //GETS SET IN STREAMS.VUE FROM URL QUERY PARAM
         saved: [],
 
        }),
