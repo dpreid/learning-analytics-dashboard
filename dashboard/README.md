@@ -1,4 +1,4 @@
-# dashboard
+# Learning Analytics Dashboard
 
 ## Project setup
 ```
