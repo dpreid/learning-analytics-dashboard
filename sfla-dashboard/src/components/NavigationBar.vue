@@ -22,12 +22,12 @@
                   </ul>
               </li>
 
-  
-
-
-                <li class="nav-item">
-                    <clock class='nav-link' />
+              <li class="nav-item">
+                  <a class="nav-link" >
+                    UUID: {{ getLogUUID }}
+                  </a>
                 </li>
+
 
           </ul>
 
@@ -73,7 +73,6 @@
 <script>
 
 import Toolbar from './elements/Toolbar.vue';
-import Clock from "./Clock.vue";
 import Chat from "./Chat.vue";
 import { mapGetters } from 'vuex';
 
@@ -87,14 +86,14 @@ export default {
     }
   },
   components: {
-    Clock,
     Toolbar,
     Chat
   },
   computed:{
       ...mapGetters([
         'getDarkTheme',
-        'getIsChatOn'
+        'getIsChatOn',
+        'getLogUUID'
       ])
   },
   methods: {

@@ -2,12 +2,10 @@
   <div id="app" class='container-fluid-sm m-0'>
        <navigation-bar />
 
-        <streams id='streams' />
-
         <div v-if='!isMobile' class='row' id='component-grid'>
 
             <div class='col-lg-6' id='left-screen'>
-                <div class='col drop-area' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
+                <div class='col drop-area' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><affective-feedback id='affective-feedback' /></div>
                 <div class='col drop-area' id='drop_1_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
                 <div class='col drop-area' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
                 <div class='col drop-area' id='drop_3_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
@@ -27,7 +25,7 @@
         <div v-else class='row' id='component-grid'>
 
             <div class='col-12' id='left-screen'>
-                <div class='col drop-area' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
+                <div class='col drop-area' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><affective-feedback id='affective-feedback' /></div>
                 <div class='col drop-area' id='drop_1_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
                 <div class='col drop-area' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
                 <div class='col drop-area' id='drop_3_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
@@ -51,7 +49,7 @@
 <script>
 
 import NavigationBar from "./components/NavigationBar.vue";
-
+import AffectiveFeedback from "./components/AffectiveFeedback.vue";
 
 import { mapGetters } from 'vuex'
 
@@ -59,7 +57,7 @@ export default {
   name: 'App',
   components: {
     NavigationBar,
-
+    AffectiveFeedback,
   },
   mounted(){
     
@@ -74,6 +72,29 @@ export default {
   },
   mounted(){
     this.updateUUID();
+
+    try {
+      let query = new URLSearchParams(window.location.search);
+
+      //let decodedStreams = JSON.parse(decodeURIComponent(String(streams)));
+
+      let course = query.get('course');
+      if(course != null){
+        this.$store.dispatch('setCourse', course);
+      } else{
+        this.$store.dispatch('setCourse', 'none');
+      }
+
+      let hardware = query.get('hardware');
+      if(hardware != null){
+        this.$store.dispatch('setHardwareOptions', hardware);
+      } else{
+        this.$store.dispatch('setHardwareOptions', []);
+      }
+      
+    } catch (e) {
+      console.log("error decoding streams");
+    }
   },
   computed:{
     ...mapGetters([

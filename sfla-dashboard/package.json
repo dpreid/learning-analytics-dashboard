@@ -18,7 +18,8 @@
     "vite": "^2.9.15",
     "vitest": "^0.29.1",
     "vue": "^3.2.31",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "vis-network": "^9.1.2"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.2.20",
