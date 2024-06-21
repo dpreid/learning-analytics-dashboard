@@ -14,11 +14,20 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto">
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="menu dropdown">
                    Menu
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <!-- <li><a class="dropdown-item" href="#" @click='toggleComponent("graph")'>Graph</a></li> -->
+                  </ul>
+              </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="lab-select" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="select lab dropdown">
+                   Change Hardware
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li v-for="hardware in getHardwareOptions"><a class="dropdown-item" href="#" :id="`hardware-select-${hardware}`" @click='setSelectedHardware(hardware)'>{{ hardware }}</a></li>
                   </ul>
               </li>
 
@@ -74,7 +83,7 @@
 
 import Toolbar from './elements/Toolbar.vue';
 import Chat from "./Chat.vue";
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
@@ -93,10 +102,14 @@ export default {
       ...mapGetters([
         'getDarkTheme',
         'getIsChatOn',
-        'getLogUUID'
+        'getLogUUID',
+        'getHardwareOptions'
       ])
   },
   methods: {
+    ...mapActions([
+      'setSelectedHardware'
+    ]),
       addTool(tool){
           this.toggleComponent('workspace');
           setTimeout(() => {this.$emit('add' + tool)}, 100);  //give the workspace time to initialise and then send tool event
