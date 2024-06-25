@@ -52,6 +52,8 @@ TODO:
 
 ### Indicators
 
+Indicators component currently only shows total edge percentage. Will need to integrate TaskExploration at least, but the separation of TaskExploration from other indicators in the backend means a different approach to showing it in front-end OR reintegrate it into the indicators response from backend.
+
 ### Task Feedback
 
 
