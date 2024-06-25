@@ -43,6 +43,12 @@ TODO:
 
 ### Task Completion
 
+TODO:
+
+- Update simple line chart to reflect changes in latest chart.js version. Colours in chart need to loop colour array, not use a fixed array index.
+- Need to reconsider the comments being used
+- Provide multiple visualisations of task completion e.g. relative similarity, TaskCompare through time, change in TC score for each task (i.e. no time axis)
+
 
 ### Indicators
 
