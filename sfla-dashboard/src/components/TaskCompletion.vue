@@ -18,7 +18,6 @@
 
             <div v-if="getSelectedHardware == 'spinner'">
                 <toolbar parentCanvasID="" parentComponentName="" parentDivID="task-completion" :showDownload='false' :showPopupHelp="true" :showOptions="false">  
-                    <template v-slot:popup-help-header id='p-h-header'>Task Completion: Spinner</template>
                     <template v-slot:popup id='task-completion-help'>
                         This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
                         It is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.<br>
