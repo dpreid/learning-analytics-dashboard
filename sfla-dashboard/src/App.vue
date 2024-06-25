@@ -5,10 +5,10 @@
         <div v-if='!isMobile' class='row' id='component-grid'>
 
             <div class='col-lg-6' id='left-screen'>
-                <div class='col drop-area' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><task-completion id='task-completion'/></div>
+                <div class='col drop-area' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><indicators id='indicators' /></div>
                 <div class='col drop-area' id='drop_1_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><affective-feedback id='affective-feedback' /></div>
                 <div class='col drop-area' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><usage-stats id='usage-stats' /></div>
-                <div class='col drop-area' id='drop_3_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
+                <div class='col drop-area' id='drop_3_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><task-completion id='task-completion'/></div>
                 <div class='col drop-area' id='drop_4_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
             </div>
 
@@ -29,7 +29,7 @@
                 <div class='col drop-area' id='drop_1_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><graph-display id="comparison-graph-display" graph_id="comparison-graph" title="Comparison Graph" graph_type="comparison_graph" /></div>
                 <div class='col drop-area' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><affective-feedback id='affective-feedback' /></div>
                 <div class='col drop-area' id='drop_3_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><usage-stats id='usage-stats' /></div>
-                <div class='col drop-area' id='drop_4_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
+                <div class='col drop-area' id='drop_4_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><task-completion id='task-completion'/></div>
             </div>
 
             <div class='col-12' id='right-screen'>
@@ -53,6 +53,7 @@ import GraphDisplay from "./components/GraphDisplay.vue";
 import AffectiveFeedback from "./components/AffectiveFeedback.vue";
 import UsageStats from './components/UsageStats.vue'
 import TaskCompletion from "./components/TaskCompletion.vue";
+import Indicators from "./components/Indicators.vue";
 
 import { mapGetters } from 'vuex'
 
@@ -63,7 +64,8 @@ export default {
     GraphDisplay,
     AffectiveFeedback,
     UsageStats,
-    TaskCompletion
+    TaskCompletion,
+    Indicators
   },
   mounted(){
     
