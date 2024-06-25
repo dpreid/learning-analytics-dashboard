@@ -62,7 +62,7 @@ body.dark-theme {
     border-style: solid;
     border-radius:6px;
     border-width: 1px;
-    border-color: var(--border-color)
+    border-color: var(--border-color);
 }
 
 .drop-area-highlighted {
@@ -72,7 +72,7 @@ body.dark-theme {
     border-style: dashed;
     border-radius:6px;
     border-width: 1px;
-    border-color: var(--border-color)
+    border-color: var(--border-color);
 }
 
 .practable-component{

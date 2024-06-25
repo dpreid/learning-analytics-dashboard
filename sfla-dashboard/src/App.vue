@@ -92,6 +92,7 @@ export default {
       let hardware = query.getAll('hardware');    //gets all recurrences of the hardware param in the URL as an array
       if(hardware != null){
         this.$store.dispatch('setHardwareOptions', hardware);
+        this.$store.dispatch('setSelectedHardware', hardware[0])
       } else{
         this.$store.dispatch('setHardwareOptions', []);
       }

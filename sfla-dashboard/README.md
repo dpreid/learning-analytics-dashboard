@@ -16,9 +16,44 @@ The dashboard also displays other learning indicators calculated by the learning
 
 ![LA UI Lower](./img/LA_UI_lower.png)
 
-# Development TODO
+# Components
 
-## Setup
+## GraphDisplay
+
+Used for both the student and comparison graphs
+
+## UsageStats (NEW)
+
+Descriptive statistics that are not necessarily connected to TaskCompare or other learning analytics, but are associated with engagement with the system. Perhaps most relevant for staff/researchers organising access to the system and to understand when students are using remote labs, but available to students as well. Current statistics:
+
+- counts of logged interactions
+- total count of logs
+- number of different days a student has interacted with the system
+
+TODO:
+
+- time of day count (within specific intervals e.g. morning, afternoon, evening?)
+- interaction timeline - select an interaction log and provides a timeline of when these interactions took place
+
+### Affective Reflection
+
+TODO:
+
+- requires connection with logging analytics to log student responses
+
+### Task Completion
+
+
+### Indicators
+
+### Task Feedback
+
+
+
+### Cohort Comparison (NEW)
+
+
+# Setup
 
 Basics:
 - Clone this repo to your local machine.
