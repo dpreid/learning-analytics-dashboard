@@ -88,9 +88,65 @@ describe('Indicators.vue tests', () => {
       }
     });
 
-    
-
     expect(wrapper.vm.getExplorationComment(102)).toEqual('You have explored well beyond expectations!');
+  
+  })
+
+  test('Exploration indicator display for value > 75', async () => {
+    const store = createVuexStore();
+    store.dispatch('setConfigJSON', config);
+    store.dispatch('setSelectedHardware', 'spinner');
+    const wrapper = mount(Indicators, {
+      global:{
+        plugins: [store]
+      }
+    });
+
+    expect(wrapper.vm.getExplorationComment(80)).toEqual('You have been trying out other hardware modes');
+  
+  })
+
+  test('Exploration indicator display for value > 50', async () => {
+    const store = createVuexStore();
+    store.dispatch('setConfigJSON', config);
+    store.dispatch('setSelectedHardware', 'spinner');
+    const wrapper = mount(Indicators, {
+      global:{
+        plugins: [store]
+      }
+    });
+
+    expect(wrapper.vm.getExplorationComment(65)).toEqual('You have followed the tasks quite closely');
+  
+  })
+
+
+  test('Exploration indicator display for value > 25', async () => {
+    const store = createVuexStore();
+    store.dispatch('setConfigJSON', config);
+    store.dispatch('setSelectedHardware', 'spinner');
+    const wrapper = mount(Indicators, {
+      global:{
+        plugins: [store]
+      }
+    });
+
+    expect(wrapper.vm.getExplorationComment(30)).toEqual('You have followed the tasks quite closely');
+  
+  })
+
+
+  test('Exploration indicator display for value > 0', async () => {
+    const store = createVuexStore();
+    store.dispatch('setConfigJSON', config);
+    store.dispatch('setSelectedHardware', 'spinner');
+    const wrapper = mount(Indicators, {
+      global:{
+        plugins: [store]
+      }
+    });
+
+    expect(wrapper.vm.getExplorationComment(2)).toEqual('You probably haven\'t completed the main tasks yet');
   
   })
 

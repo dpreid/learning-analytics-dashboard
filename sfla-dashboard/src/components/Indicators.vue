@@ -179,15 +179,13 @@
         },
         getExplorationComment(value){
             let comments = this.getConfigJSON['parameters'][this.getSelectedHardware]['indicators']['exploration'];
-            comments.forEach(comment => {
-                
-                //requires that comments are in value order
-                if(value > comment['value']){
-                    console.log(comment['comment'])
-                    return comment['comment'];
-                }
-            })
             
+            for (let i=0; i<comments.length;i++){
+                //requires that comments are in value order
+                if(value > comments[i]['value']){
+                    return comments[i]['comment'];
+                }
+            }
         },
         getEdgesComment(value){
             return 'Your graph contains ' + value.toFixed(0) + '% of the expected number of edges.'
