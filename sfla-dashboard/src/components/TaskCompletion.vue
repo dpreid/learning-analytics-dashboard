@@ -49,12 +49,6 @@
                 </popup-help>
             </div>
             <div v-if="getSelectedHardware == 'pendulum'">
-                <toolbar parentCanvasID="" parentComponentName="" parentDivID="task-completion" :showDownload='false' :showPopupHelp="true" :showOptions="false"> 
-                    <template v-slot:popup-help-header id='p-h-header'>Task Completion: Pendulum</template>
-                    <template v-slot:popup id='task-completion-help'>
-                           
-                    </template>
-                </toolbar>
                 <popup-help class="me-2" id="popup-help-task-completion">
                     <template v-slot:header>
                         <h5> Task completion Help </h5>

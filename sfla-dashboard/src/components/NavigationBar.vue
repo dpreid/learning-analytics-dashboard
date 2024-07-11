@@ -47,21 +47,7 @@
                 </li>
 
                 <li class="nav-item me-1">
-                  <toolbar parentCanvasID="" parentDivID="navbar" parentComponentName="navbar" :showDownload="false" :showOptions="false" :showPopupHelp="true">
-                      <template v-slot:popup>
-                          <div class='row'>
-                          <div class='col-lg-6'>
-                              <h2>Example Popup</h2>
-                              
-                          </div>
-                          <div class='col-lg-6'>
-                              <h2>Example Popup</h2>
-                              
-                          </div>
-                          </div>
-                      </template>
-                  </toolbar>
-                  <popup-help class="me-2" id="popup-help-student-graph">
+                  <popup-help class="me-2" id="popup-help-navigation-bar">
                     <template v-slot:header>
                         <h5> Help </h5>
                     </template>
@@ -147,7 +133,8 @@ export default {
           }, 1000);
           document.body.classList.toggle("dark-theme");
           this.$store.dispatch('setDarkTheme', document.body.classList.contains("dark-theme"));
-      }
+      },
+      
   }
 }
 </script>

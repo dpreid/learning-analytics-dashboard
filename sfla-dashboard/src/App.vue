@@ -69,9 +69,11 @@ export default {
   },
   created(){
     this.$store.dispatch('setUsesLocalStorage', this.hasStorage());
+    this.SET_CONFIG_DEV();    //REMOVE IN PRODUCTION
   },
   mounted(){
     this.updateUUID();
+    
 
     try {
       let query = new URLSearchParams(window.location.search);
@@ -91,6 +93,21 @@ export default {
         this.$store.dispatch('setSelectedHardware', hardware[0])
       } else{
         this.$store.dispatch('setHardwareOptions', []);
+      }
+
+      //get configuration parameters
+      let conf_url = query.get('config');
+      if(conf_url != null){
+        try{
+          fetch(conf_url)
+            .then(response => response.json())
+            .then(data => this.$store.dispatch('setConfigJSON', data));
+        } 
+        catch(e){
+          console.log(e);
+        }
+      } else{
+        console.log('no configuration file available');
       }
       
     } catch (e) {
@@ -217,6 +234,73 @@ export default {
           this.$store.dispatch('setUUID', 'null');
         }
       },
+      //remove for production
+      SET_CONFIG_DEV(){
+        //paste in the config file here for local testing
+        let dev_config = {
+"name": "ed1", 
+"version": "1.0", 
+"date": 1720705810, 
+"aud": "https://app.practable.io/ed0/sfla-dashboard-default-2.0", 
+"images": [], 
+"parameters": {
+	"spinner":{
+		"tasks": [
+			{"readable_string": "Lab 1 Core", "code_string": "spinner-ed1-1-core"},
+			{"readable_string": "Lab 1 Extension", "code_string": "spinner-ed1-1-ext"},
+			{"readable_string": "Lab 1 Core + Ext.", "code_string": "spinner-ed1-1-core-ext"},
+			{"readable_string": "Lab 2", "code_string": "spinner-ed1-2"},
+			{"readable_string": "All tasks", "code_string": "spinner-ed1-all"},
+		],
+		"indicators": {
+			"total_edges": [
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+			],
+		
+		},
+		"task_completion": [
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+			]
+		},
+	"pendulum":{
+		"tasks": [
+			{"readable_string": "Lab 1 Core", "code_string": "pendulum-ed1-1-core"},
+			{"readable_string": "Lab 1 Extension", "code_string": "pendulum-ed1-1-ext"},
+			{"readable_string": "Lab 1 Core + Ext.", "code_string": "pendulum-ed1-1-core-ext"},
+			{"readable_string": "Lab 2", "code_string": "pendulum-ed1-2"},
+			{"readable_string": "All tasks", "code_string": "pendulum-ed1-all"},
+		],
+		"indicators": {
+			"total_edges": [
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+			],
+		
+		},
+		"task_completion": [
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+				{"comment": "", "value": 0},
+			]
+		},
+	}
+}
+
+        this.$store.dispatch('setConfigJSON', dev_config);
+      }
       
   },
 }

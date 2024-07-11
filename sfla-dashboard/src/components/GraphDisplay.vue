@@ -47,7 +47,17 @@
 
         <div v-if="graph_type == 'comparison_graph'" class="row">
             <div class="col-lg-6 mt-2">
-                <div class='input-group'>
+                <label for="task-select-dropdown">Selected Task</label>
+					<div class="dropdown">
+						<button class="button-sm button-dropdown dropdown-toggle" type="button" id="task-select-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+							{{ selectedTask }}
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="task-dropdown-menu">
+							<li v-for="task in task_list"><a class="dropdown-item" :id='task["code_string"] + "-mode-select"' :aria-label="task['readable_string']" @click="selectedTask = task['code_string']">{{ task['readable_string'] }}</a></li>
+						</ul>
+					</div>
+                    <!-- TO DELETE BELOW-->
+                <!-- <div class='input-group'>
                     <span class='input-group-text' for="graph">Graph:  </span>
                     <select class='form-select form-select-sm' name="task-select" id="task-select" v-model="selectedTask">
                         <option v-if="getSelectedHardware == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-all">Full procedure</option>
@@ -67,7 +77,8 @@
                         <option v-if="getSelectedHardware == 'spinner' && getCourse == 'ed1'" value="spinner-ed1-all">All tasks</option>
                         
                     </select> 
-                </div>
+                </div> -->
+                <!-- TO DELETE ABOVE-->
             </div>
             <div class="col-lg-6">
                 <button class='btn button-sm btn-success' id="request_comparison_button" @click="requestComparisonGraph">Request Graph</button>
@@ -168,13 +179,14 @@
       data(){
           return{
               selectedTask: '', 
+              task_list: []
           }
       },  
       watch:{
         
       },  
       mounted(){
-        this.setSelectedTask();
+        //this.setSelectedTask();
         //drawGraph(this.graph_id, this.nodes, this.edges, [], this.getExperiment);
     
       },
@@ -182,29 +194,23 @@
             ...mapGetters([
                 'getSelectedHardware',
                 'getCourse',
-                'getLogUUID'
+                'getLogUUID',
+                'getConfigJSON'
             ]),
       },
       watch:{
-        
+        getSelectedHardware(hardware){
+            this.setSelectedTask(hardware);
+            this.setTaskList(hardware);
+            console.log(this.task_list)
+        }
       },
       methods:{
         ...mapActions([
             'setDraggable'
         ]),
-        setSelectedTask(){
-            if(this.getCourse == 'cie3'){
-                this.selectedTask = 'spinner-cie3-1-2';
-            } else if (this.getCourse == 'ed1'){
-                if(this.getSelectedHardware == 'pendulum'){
-                    this.selectedTask = 'pendulum-engdes1-1-core';
-                } 
-                else if(this.getSelectedHardware == 'spinner'){
-                    this.selectedTask = 'spinner-engdes1-1-core';
-                }
-            } else{
-                this.selectedTask = 'none'
-            }
+        setSelectedTask(hardware){
+            this.selectedTask = this.getConfigJSON['parameters'][hardware]['tasks'][0]['code_string'];
         },
         requestStudentGraph(){
             let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/studentGraph?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
@@ -227,19 +233,22 @@
 				.catch((err) => console.log(err));
         },
         getNodeTitles(node_info){
-                if(node_info != undefined){
-                    let info = {}
-                    Object.keys(node_info['in_centrality']).forEach((key) => {
-                        info[key] = 'centrality = ' + node_info['in_centrality'][key].toFixed(2)
-                    })
-                    return info
+            if(node_info != undefined){
+                let info = {}
+                Object.keys(node_info['in_centrality']).forEach((key) => {
+                    info[key] = 'centrality = ' + node_info['in_centrality'][key].toFixed(2)
+                })
+                return info
 
-                } else{
+            } else{
 
-                    return {}
-                }
-                
+                return {}
             }
+        },
+        setTaskList(hardware){
+            this.task_list = this.getConfigJSON['parameters'][hardware]['tasks'];
+        }
+        
         
       }
   }

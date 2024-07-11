@@ -29,6 +29,7 @@ If a course uses multiple labs, then each can be added as a `hardware=` paramete
 # TODO
 
 - Update CSS style and check responsive design
+- Use a config file to generate the necessary comments etc for specific course and hardware combinations instead of hard coding different hardware into the UI
 - Add all existing components and update as necessary
 - Create new components
 - Add security
@@ -73,6 +74,7 @@ Indicators component currently only shows total edge percentage. Will need to in
 
 ### Task Feedback
 
+Needs the backend implemented and redone with a configuration file
 
 
 ### Cohort Comparison (NEW TODO)

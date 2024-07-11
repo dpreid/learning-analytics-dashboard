@@ -93,14 +93,6 @@
                         </td>
                         <td v-if="indicators['total_edges']">{{ getEdgesComment(indicators['total_edges']) }}</td>
                         <td v-if="indicators['total_edges']">
-                            <!-- <toolbar parentCanvasID="" parentComponentName="" parentDivID="indicators-table" :showDownload='false' :showPopupHelp="true" :showOptions="false"> 
-                                <template v-slot:popup id='indicators-help'>
-                                    This is the percentage of edges your graph contains in comparison to the expected full procedure. It does not consider whether the edges are appropriate for tasks or not, 
-                                    so do not consider 100% as proof that you have finished tasks!
-
-
-                                </template>
-                            </toolbar> -->
                             <popup-help class="me-2" id="popup-help-total-edges">
                                 <template v-slot:header>
                                     <h5> Total Edges Help </h5>
