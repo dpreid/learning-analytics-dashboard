@@ -64,24 +64,6 @@
                         </td>
                     </tr> -->
 
-                     <!-- ENJOYMENT INDICATOR -->
-                     <!-- <tr>
-                        <td v-if="response['enjoyment']">enjoyment</td>
-                        <td v-if="response['enjoyment']">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgressMidZero(response['enjoyment'], 20)"></div>
-                            </div>
-                        </td>
-                        <td v-if="response['enjoyment']">{{ getEnjoymentComment(response['enjoyment']) }}</td>
-                        <td v-if="response['enjoyment']">
-                            <popup-help>
-                                <template v-slot:popup-help-header id='p-h-header'>Enjoyment</template>
-                                <template v-slot:popup-help-body id='p-h-header'>
-                                    This is the difference between your positive and negative responses to the lab in the Affective State component.
-                                </template>
-                            </popup-help>
-                        </td>
-                    </tr> -->
 
                     <!-- Number of runs INDICATOR -->
                     <tr>
@@ -145,7 +127,8 @@
         ...mapGetters([
             'getLogUUID',
             'getCourse',
-            'getSelectedHardware'
+            'getSelectedHardware',
+            'getConfigJSON'
         ]),
         getXLabels(){
             let labels = []
@@ -195,27 +178,16 @@
             return 'width: ' + width.toFixed(2) + '%';
         },
         getExplorationComment(value){
-            if(value > 100){
-                return 'You have explored well beyond expectations!'
-            }
-            else if(value > 75){
-                return 'You have been trying out other hardware modes'
-            }
-            else if(value > 25){
-                return 'You have followed the tasks quite closely'
-            } else{
-                return 'You probably haven\'t completed the main tasks yet'
-            }
+            let comments = this.getConfigJSON['parameters'][this.getSelectedHardware]['indicators']['exploration'];
+            comments.forEach(comment => {
+                
+                //requires that comments are in value order
+                if(value > comment['value']){
+                    console.log(comment['comment'])
+                    return comment['comment'];
+                }
+            })
             
-        },
-        getEnjoymentComment(value){
-            if(value == 0){
-                return 'Not sure if you are enjoying it or not?'
-            } else if(value > 0){
-                return 'Seems like you are enjoying the remote lab'
-            } else{
-                return 'Let us know if there is anything that would help improve your experience'
-            }
         },
         getEdgesComment(value){
             return 'Your graph contains ' + value.toFixed(0) + '% of the expected number of edges.'
