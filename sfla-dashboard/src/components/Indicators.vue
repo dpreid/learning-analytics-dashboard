@@ -15,20 +15,21 @@
                 </svg>
             </button>
 
-           
-            <toolbar parentCanvasID="" parentComponentName="" parentDivID="indicators" :showDownload='false' :showPopupHelp="true" :showOptions="false"> 
-                <template v-slot:popup id='indicators-help'>
-                    This component provides some feedback on different learning indicators. There is no expectation that to complete tasks you must have a specific value in these indicators.
-                    It is simply data for you to reflect on that may help you consider your next steps to approach tasks.<br>
-                    <br>
-                    Most indicators do not provide you with a numerical value, but instead a relative score represented by a bar.
-                    <br>
-                    For an explanation of each indicator, click on the ? in the corresponding row.<br>
-                    <br>
-                    <b>Please note: this component is experimental and calculated values may not accurately reflect the work you have done. </b>
-                    
-                </template>
-            </toolbar>
+            <popup-help class="me-2" id="popup-help-indicators">
+                    <template v-slot:header>
+                        <h5> Indicators Help </h5>
+                    </template>
+                    <template v-slot:body>
+                        This component provides some feedback on different learning indicators. There is no expectation that to complete tasks you must have a specific value in these indicators.
+                        It is simply data for you to reflect on that may help you consider your next steps to approach tasks.<br>
+                        <br>
+                        Most indicators do not provide you with a numerical value, but instead a relative score represented by a bar.
+                        <br>
+                        For an explanation of each indicator, click on the ? in the corresponding row.<br>
+                        <br>
+                        <b>Please note: this component is experimental and calculated values may not accurately reflect the work you have done. </b>
+                    </template>
+                </popup-help>
            
             
         </div>
@@ -92,14 +93,24 @@
                         </td>
                         <td v-if="indicators['total_edges']">{{ getEdgesComment(indicators['total_edges']) }}</td>
                         <td v-if="indicators['total_edges']">
-                            <toolbar parentCanvasID="" parentComponentName="" parentDivID="indicators-table" :showDownload='false' :showPopupHelp="true" :showOptions="false"> 
+                            <!-- <toolbar parentCanvasID="" parentComponentName="" parentDivID="indicators-table" :showDownload='false' :showPopupHelp="true" :showOptions="false"> 
                                 <template v-slot:popup id='indicators-help'>
                                     This is the percentage of edges your graph contains in comparison to the expected full procedure. It does not consider whether the edges are appropriate for tasks or not, 
                                     so do not consider 100% as proof that you have finished tasks!
 
 
                                 </template>
-                            </toolbar>
+                            </toolbar> -->
+                            <popup-help class="me-2" id="popup-help-total-edges">
+                                <template v-slot:header>
+                                    <h5> Total Edges Help </h5>
+                                </template>
+                                <template v-slot:body>
+                                    This is the percentage of edges your graph contains in comparison to the expected full procedure. It does not consider whether the edges are appropriate for tasks or not, 
+                                    so do not consider 100% as proof that you have finished tasks!
+                                </template>
+                        </popup-help>
+                            
                         </td>
                     </tr>
 
@@ -114,7 +125,7 @@
   
   <script>
   import {mapActions, mapGetters} from 'vuex';
-  import Toolbar from './elements/Toolbar.vue';
+  import PopupHelp from './elements/PopupHelp.vue';
   import SimpleLineGraph from './elements/SimpleLineGraph.vue';
 
   import axios from 'axios';
@@ -122,7 +133,7 @@
   export default {
       name: "Indicators",
       components:{
-        Toolbar,
+        PopupHelp,
         SimpleLineGraph
       },
       props: [],

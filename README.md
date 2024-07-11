@@ -19,6 +19,7 @@ D. P. Reid and T. D. Drysdale, ‘Student-Facing Learning Analytics Dashboard fo
 
 This is the student-facing version of the analytics dashboard. Currently being updated to v2 to work with the new [analytics](https://github.com/practable/analytics) back-end system.
 
+
 ### Future developments
 
 - Researcher-facing learning analytics (RFLA) dashboard

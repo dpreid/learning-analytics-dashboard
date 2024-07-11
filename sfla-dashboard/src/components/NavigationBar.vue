@@ -1,7 +1,7 @@
 
 <template>
 
-    <nav :class="getDarkTheme ? 'navbar navbar-light fixed-top navbar-expand-lg navbar-background' : 'navbar navbar-dark fixed-top navbar-expand-lg  navbar-background'" id='navbar'>
+    <nav :class="getDarkTheme ? 'navbar navbar-dark fixed-top navbar-expand-lg navbar-background' : 'navbar navbar-light fixed-top navbar-expand-lg  navbar-background'" id='navbar'>
     <div class="container-fluid">
       <div class="navbar-brand">
           <img src="/images/practable-icon.png" width="30" height="30" alt="practable.io logo">
@@ -61,6 +61,23 @@
                           </div>
                       </template>
                   </toolbar>
+                  <popup-help class="me-2" id="popup-help-student-graph">
+                    <template v-slot:header>
+                        <h5> Help </h5>
+                    </template>
+                    <template v-slot:body>
+                        <div class='row'>
+                          <div class='col-lg-6'>
+                              <h2>Example Popup</h2>
+                              
+                          </div>
+                          <div class='col-lg-6'>
+                              <h2>Example Popup</h2>
+                              
+                          </div>
+                        </div>
+                    </template>
+                </popup-help>
                 </li>
               
                 <li class="nav-item me-1">
@@ -81,7 +98,7 @@
 
 <script>
 
-import Toolbar from './elements/Toolbar.vue';
+import PopupHelp from './elements/PopupHelp.vue';
 import Chat from "./Chat.vue";
 import { mapGetters, mapActions } from 'vuex';
 
@@ -95,7 +112,7 @@ export default {
     }
   },
   components: {
-    Toolbar,
+    PopupHelp,
     Chat
   },
   computed:{

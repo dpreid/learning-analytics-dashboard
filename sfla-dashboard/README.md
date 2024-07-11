@@ -16,6 +16,23 @@ The dashboard also displays other learning indicators calculated by the learning
 
 ![LA UI Lower](./img/LA_UI_lower.png)
 
+# Required query params
+
+When accessing the SFLA dashboard, the dashboard needs to know the course and hardware so that it can access the correct logging data and expectation graphs. This info is passed in URL query parameters e.g.:
+
+```
+https://<url-for-dashboard-ui/?course=ed1&hardware=spinner&hardware=pendulum
+```
+
+If a course uses multiple labs, then each can be added as a `hardware=` parameter and this gets combined into an array in javascript.
+
+# TODO
+
+- Update CSS style and check responsive design
+- Add all existing components and update as necessary
+- Create new components
+- Add security
+
 # Components
 
 ## GraphDisplay
@@ -58,10 +75,10 @@ Indicators component currently only shows total edge percentage. Will need to in
 
 
 
-### Cohort Comparison (NEW)
+### Cohort Comparison (NEW TODO)
 
 
-### TaskComplexity
+### TaskComplexity (NEW TODO)
 
 
 # Setup

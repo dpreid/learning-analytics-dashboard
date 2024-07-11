@@ -6,19 +6,20 @@
                 <h2 >{{ title }} {{ getSelectedHardware }}</h2>
             </div>
             <div class="col-lg-3"> 
-                <toolbar parentCanvasID="" parentComponentName="" parentDivID="graph-display" :showDownload='false' :showPopupHelp="true" :showOptions="false">  
-                    <template v-slot:popup id='student-graph-help'>
-                        <div>
-                            This graph (network) is a concise visualisation of the procedure you have followed during your remote lab work.
+                <popup-help class="me-2" id="popup-help-student-graph">
+                    <template v-slot:header>
+                        <h5> Student Graph Help </h5>
+                    </template>
+                    <template v-slot:body>
+                        This graph (network) is a concise visualisation of the procedure you have followed during your remote lab work.
                             The nodes of the graph represent the different commands you can send to the remote lab hardware.
                             Graph edges represent the order that commands have been sent and the number of times those commands have been used.
                             
                             The feedback provided on this dashboard is based upon a similarity between your graph and a range of comparison graphs.
 
                             <b>Please note: all analysis is experimental and your data is completely anonymous.</b>
-                        </div>
                     </template>
-                </toolbar>
+                </popup-help>
             </div>
         </div>
         <div v-else class="row">
@@ -27,17 +28,18 @@
                 <h2 >{{ title }}: {{ selectedTask }}</h2>
             </div>
             <div class="col-lg-2"> 
-                <toolbar parentCanvasID="" parentComponentName="" parentDivID="graph-display" :showDownload='false' :showPopupHelp="true" :showOptions="false">  
-                    <template v-slot:popup id='comparison-graph-help'>
-                        <div>
-                            You can display different possible comparison graphs here. It is not expected that your graph will match any particular comparison graph in this list 
+                <popup-help class="me-2" id="popup-help-comparison-graph">
+                    <template v-slot:header>
+                        <h5> Comparison Graph Help </h5>
+                    </template>
+                    <template v-slot:body>
+                        You can display different possible comparison graphs here. It is not expected that your graph will match any particular comparison graph in this list 
                             and it is not the aim of the practical work to get "close" to any particular graph. These are intended as demonstrations of possible procedures to complete tasks 
                             and to help you overcome any difficulties you are having with the practical tasks.  
                             
                             Use the dropdown menu and request graph button at the bottom to display a different example graph.
-                        </div>
                     </template>
-                </toolbar>
+                </popup-help>
             </div>
         </div>
 
@@ -89,7 +91,7 @@
   <script>
   import {mapActions, mapGetters} from 'vuex';
   import { DataSet, Network } from 'vis-network/standalone'
-  import Toolbar from './elements/Toolbar.vue'
+  import PopupHelp from './elements/PopupHelp.vue';
   import axios from "axios";
  
     // initialize global variables.
@@ -160,7 +162,7 @@
   export default {
       name: "GraphDisplay",
       components:{
-          Toolbar,
+          PopupHelp,
       },
       props:['graph_id', 'title', 'graph_type'],
       data(){
@@ -246,8 +248,8 @@
   <style scoped>
   .mynetwork {
             width: 100%;
-            height: 50vh;
-            background-color: #ffffff;
+            height: 40dvh;
+            background-color: var(--background-color-highlight);
             position: relative;
             float: left;
         }

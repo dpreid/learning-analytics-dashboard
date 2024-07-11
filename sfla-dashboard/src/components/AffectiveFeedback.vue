@@ -7,11 +7,12 @@
                 <h2>Affective Reflection</h2>
             </div>
             <div class="col-lg-3">
-                <toolbar parentCanvasID="" parentComponentName="" parentDivID="affective-reflection" :showDownload='false' :showPopupHelp="true" :showOptions="false">  
-                
-                <template v-slot:popup id='affective-reflection-help'>
-                    
-                    <div>
+            <popup-help class="me-2" id="popup-help-affective-reflection">
+                    <template v-slot:header>
+                        <h5> Affective Reflection </h5>
+                    </template>
+                    <template v-slot:body>
+                        <div>
                         This component allows you to provide feedback on your experience of the remote laboratory and learning analytics dashboard.<br>
                         <br>
                         Please select an "Affective state" - i.e. how you are feeling - and a "Subject of reflection" - i.e. what you want to provide feedback about. Once you have 
@@ -21,10 +22,8 @@
                         <b>Please note: all feedback is completely anonymous and is being used to help develop better remote lab experiences, so your honesty is appreciated.</b>
                         
                     </div>
-                    
-
-                </template>
-            </toolbar>
+                    </template>
+                </popup-help>
         </div>
         </div>
         
@@ -77,12 +76,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Toolbar from './elements/Toolbar.vue'
+import PopupHelp from './elements/PopupHelp.vue'
 
 export default {
     name: "AffectiveFeedback",
       components:{
-          Toolbar,
+        PopupHelp,
       },
       props: [],
       data(){

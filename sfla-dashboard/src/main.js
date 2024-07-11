@@ -10,7 +10,7 @@ import 'es6-promise/auto'
 
 // Load CSS style sheets for main components
 //import '@/styles/theme-default.css'
-import '@/styles/theme-test.css'
+import '@/styles/theme-new.css'
 
 const app = createApp(App)
 app.use(store)

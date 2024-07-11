@@ -36,7 +36,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Toolbar from './elements/Toolbar.vue'
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
@@ -46,7 +45,7 @@ var pie_chart = null;
 export default {
     name: "UsageStats",
       components:{
-          Toolbar,
+          
       },
       props: [],
       data(){

@@ -17,8 +17,11 @@
             </button>
 
             <div v-if="getSelectedHardware == 'spinner'">
-                <toolbar parentCanvasID="" parentComponentName="" parentDivID="task-completion" :showDownload='false' :showPopupHelp="true" :showOptions="false">  
-                    <template v-slot:popup id='task-completion-help'>
+                <popup-help class="me-2" id="popup-help-task-completion">
+                    <template v-slot:header>
+                        <h5> Task completion Help </h5>
+                    </template>
+                    <template v-slot:body>
                         This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
                         It is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.<br>
                         <br>
@@ -43,13 +46,21 @@
                             <b>Please note: this component is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.</b>
                         </div>
                     </template>
-                </toolbar>
+                </popup-help>
             </div>
             <div v-if="getSelectedHardware == 'pendulum'">
                 <toolbar parentCanvasID="" parentComponentName="" parentDivID="task-completion" :showDownload='false' :showPopupHelp="true" :showOptions="false"> 
                     <template v-slot:popup-help-header id='p-h-header'>Task Completion: Pendulum</template>
                     <template v-slot:popup id='task-completion-help'>
-                            This component uses a graph comparison algorithm to predict the task or task combination that you have completed. The relative similarity is to the 
+                           
+                    </template>
+                </toolbar>
+                <popup-help class="me-2" id="popup-help-task-completion">
+                    <template v-slot:header>
+                        <h5> Task completion Help </h5>
+                    </template>
+                    <template v-slot:body>
+                        This component uses a graph comparison algorithm to predict the task or task combination that you have completed. The relative similarity is to the 
                             task or task combination that the algorithm thinks you are closest to. A full bar does not necessarily mean that you have fully completed that task, just that 
                             you are currently closer to completing that task than the others.
                             <br>
@@ -65,7 +76,7 @@
                             <b>Please note: this component is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.</b>
                             
                     </template>
-                </toolbar>
+                </popup-help>
             </div>
         </div>
 
@@ -104,7 +115,7 @@
   <script>
   import {mapActions, mapGetters} from 'vuex'
   import SimpleLineGraph from './elements/SimpleLineGraph.vue'
-  import Toolbar from './elements/Toolbar.vue'
+  import PopupHelp from './elements/PopupHelp.vue'
 
   import axios from 'axios'
   
@@ -112,7 +123,7 @@
       name: "TaskCompletion",
       components:{
           SimpleLineGraph,
-          Toolbar,
+          PopupHelp,
       },
       props: [],
       data(){
