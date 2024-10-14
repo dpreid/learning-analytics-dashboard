@@ -5,7 +5,7 @@
         <div v-if='!isMobile' class='row' id='component-grid'>
           <!-- Have a layout for desktop -->
             <div class='d-flex' id='first-row'>
-              <div class='drop-area drop-area-half' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
+              <div class='drop-area drop-area-half' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><download-logs id='download-logs' /></div>
               <div class='drop-area drop-area-half' id='drop_0_1' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
             </div>
 
@@ -25,7 +25,7 @@
         <div v-else class='d-flex flex-column' id='component-grid'>
           <!-- and a layout for mobile -->
             
-            <div class='drop-area drop-area-mobile' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
+            <div class='drop-area drop-area-mobile' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><download-logs id='download-logs' /></div>
             <div class='drop-area drop-area-mobile' id='drop_1_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
             <div class='drop-area drop-area-mobile' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
             <div class='drop-area drop-area-mobile' id='drop_3_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"></div>
@@ -39,15 +39,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 
 import NavigationBar from "./components/NavigationBar.vue";
+import DownloadLogs from './components/DownloadLogs.vue';
 
-import { mapGetters } from 'vuex'
+
 
 export default {
   name: 'App',
   components: {
     NavigationBar,
+    DownloadLogs
   },
   mounted(){
     
@@ -68,6 +71,11 @@ export default {
       let query = new URLSearchParams(window.location.search);
 
       //let decodedStreams = JSON.parse(decodeURIComponent(String(streams)));
+      let la_host = query.get('lh');
+      if(la_host != null){
+        this.setLAHost(decodeURIComponent(la_host));
+      }
+      
 
       let course = query.get('course');
       if(course != null){
@@ -117,6 +125,9 @@ export default {
     }
   },
   methods:{
+    ...mapActions([
+        'setLAHost'
+    ]),
     dragComponent(event){
         event.dataTransfer.effectAllowed = 'move';
          let element = event.target;

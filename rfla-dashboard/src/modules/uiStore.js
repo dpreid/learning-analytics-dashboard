@@ -10,7 +10,8 @@ const uiStore = {
        darkTheme: document.body.classList.contains('dark-theme') ? true : false,
        course: 'none',
        hardware_options: [],
-       selected_hardware: 'none'
+       selected_hardware: 'none',
+       lh: ''
        }),
        mutations:{
          SET_DRAGGABLE(state, draggable){
@@ -36,6 +37,9 @@ const uiStore = {
         },
         SET_SELECTED_HARDWARE(state, hardware){
          state.selected_hardware = hardware;
+        },
+        SET_LA_HOST(state, host){
+         state.lh = host;
         }
          
 
@@ -64,6 +68,9 @@ const uiStore = {
         },
         setSelectedHardware(context, hardware){
          context.commit('SET_SELECTED_HARDWARE', hardware);
+        },
+        setLAHost(context, host){
+         context.commit('SET_LA_HOST', host);
         }
 
 
@@ -92,6 +99,9 @@ const uiStore = {
         },
         getSelectedHardware(state){
          return state.selected_hardware;
+        },
+        getLAHost(state){
+         return state.lh;
         }
          
          
