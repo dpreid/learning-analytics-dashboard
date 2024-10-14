@@ -66,7 +66,7 @@ export default {
                 }  
             })
             .then(response => {
-                console.log(response)
+                //console.log(response)
                 //var blob = new Blob([response.data], { type: 'application/zip' });
                 const url = URL.createObjectURL(response.data);
                 const link = document.createElement('a');
