@@ -1,7 +1,22 @@
 <template>
-    <button type='button' class="button-lg button-primary" id="download-logs-button" @click="requestDownloadAllLogs" aria-label="download logs button">
-        Download All Logs    
-    </button>
+    <div class="row">
+        <div class="col-6">
+            <div class="d-flex flex-column align-items-start">
+                <label id="user-label" for="user-input">Username: </label>
+                <input type="text" id='user-input' v-model="username" />
+
+                <label id="password-label" for="password-input">Password: </label>
+                <input type="password" id='password-input' v-model="password" />
+
+                <button type='button' class="button-lg button-primary" id="download-logs-button" @click="requestDownloadAllLogs" aria-label="download logs button">
+                        Download All Logs    
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
 </template>
 
 <script>
@@ -14,7 +29,8 @@ export default {
   name: 'DownloadLogs',
   data () {
     return {
-        
+        username: '',
+        password: ''
     }
   },
   components: {
@@ -37,14 +53,16 @@ export default {
   },
   methods: {
     requestDownloadAllLogs(){
+        var credentials = btoa(this.username + ':' + this.password);
+        var basicAuth = 'Basic ' + credentials;
         let accessURL = `${this.getLAHost}/download-logs`
         axios
             .get(accessURL, { 
                 responseType: 'blob',
                 headers: 
                 { 
-                  'Content-Type': 'application/json',
-                //   'Authorization': 'Basic ' + this.la_auth   //will be asked for password on request
+                   'Content-Type': 'application/zip',
+                   'Authorization': basicAuth
                 }  
             })
             .then(response => {
