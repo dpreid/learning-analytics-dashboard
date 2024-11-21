@@ -1,6 +1,6 @@
 # Learning Analytics Dashboard
 
-![Learning Analytics Dashboard](./img/learning_analytics_dashboard_icon.png)
+![Learning Analytics Dashboard](../img/learning_analytics_dashboard_icon.png)
 
 This repo is under active development and is not yet in a release state.
 
@@ -10,19 +10,21 @@ The LAD requires the learning analytics server to be running as well. See detail
 
 The core of the dashboard is the display of a user graph representing the procedure followed by a student during remote lab work.
 
-![LA UI Upper](./img/LA_UI_upper.png)
+![LA UI Upper](../img/LA_UI_upper.png)
 
 The dashboard also displays other learning indicators calculated by the learning analytics server.
 
-![LA UI Lower](./img/LA_UI_lower.png)
+![LA UI Lower](../img/LA_UI_lower.png)
 
 # Required query params
 
 When accessing the SFLA dashboard, the dashboard needs to know the course and hardware so that it can access the correct logging data and expectation graphs. This info is passed in URL query parameters e.g.:
 
 ```
-https://<url-for-dashboard-ui/?course=ed1&hardware=spinner&hardware=pendulum
+http://localhost:5173/?course=ed1&hardware=spinner&hardware=pendulum&config=/local/config.json
 ```
+
+The config file is stored locally in public for development purposes.
 
 If a course uses multiple labs, then each can be added as a `hardware=` parameter and this gets combined into an array in javascript.
 
@@ -30,6 +32,7 @@ If a course uses multiple labs, then each can be added as a `hardware=` paramete
 
 - Update CSS style and check responsive design
 - Use a config file to generate the necessary comments etc for specific course and hardware combinations instead of hard coding different hardware into the UI
+- Remove the current development config, which is loaded from a local file i.e. remove /local from the /public directory
 - Add all existing components and update as necessary
 - Create new components
 - Add security

@@ -1,5 +1,5 @@
 <template>
-    <div class="practable-component" >
+<div class="practable-component" >
         <div v-if="graph_type == 'student_graph'" class="row">
             <div class="col-lg-3"> </div>
             <div class="col-lg-6"> 
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class='mynetwork' :id="graph_id" @mousedown="setDraggable(false)" @mouseup="setDraggable(true)"></div>
+        
 
         <div v-if="graph_type == 'comparison_graph'" class="row">
             <div class="col-lg-6 mt-2">
@@ -56,29 +56,6 @@
 							<li v-for="task in task_list"><a class="dropdown-item" :id='task["code_string"] + "-mode-select"' :aria-label="task['readable_string']" @click="selectedTask = task['code_string']">{{ task['readable_string'] }}</a></li>
 						</ul>
 					</div>
-                    <!-- TO DELETE BELOW-->
-                <!-- <div class='input-group'>
-                    <span class='input-group-text' for="graph">Graph:  </span>
-                    <select class='form-select form-select-sm' name="task-select" id="task-select" v-model="selectedTask">
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-all">Full procedure</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-1-2">Task 1+2</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-3">Task 3</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-4">Task 4</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'cie3'" value="spinner-cie3-mean-21-22">CIE3 2021-22 Mean</option>
-                        <option v-if="getSelectedHardware == 'pendulum' && getCourse == 'ed1'" value="pendulum-ed1-1-core">Lab 1 Core</option>
-                        <option v-if="getSelectedHardware == 'pendulum' && getCourse == 'ed1'" value="pendulum-ed1-1-ext">Lab 1 Extension</option>
-                        <option v-if="getSelectedHardware == 'pendulum' && getCourse == 'ed1'" value="pendulum-ed1-1-core-ext">Lab 1 Core + Ext.</option>
-                        <option v-if="getSelectedHardware == 'pendulum' && getCourse == 'ed1'" value="pendulum-ed1-2">Lab 2</option>
-                        <option v-if="getSelectedHardware == 'pendulum' && getCourse == 'ed1'" value="pendulum-ed1-all">All tasks</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'ed1'" value="spinner-ed1-1-core">Lab 1 Core</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'ed1'" value="spinner-ed1-1-ext">Lab 1 Extension</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'ed1'" value="spinner-ed1-1-core-ext">Lab 1 Core + Ext.</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'ed1'" value="spinner-ed1-2">Lab 2</option>
-                        <option v-if="getSelectedHardware == 'spinner' && getCourse == 'ed1'" value="spinner-ed1-all">All tasks</option>
-                        
-                    </select> 
-                </div> -->
-                <!-- TO DELETE ABOVE-->
             </div>
             <div class="col-lg-6">
                 <button class='btn button-sm btn-success' id="request_comparison_button" @click="requestComparisonGraph">Request Graph</button>
@@ -96,7 +73,9 @@
         <div v-else class="row">
             <div class="col-sm-12"></div>
         </div>
-    </div>
+
+        <div class='mynetwork' :id="graph_id" @mousedown="setDraggable(false)" @mouseup="setDraggable(true)"></div>
+</div>
 </template>
   
   <script>
@@ -199,9 +178,9 @@
             ]),
       },
       watch:{
-        getSelectedHardware(hardware){
-            this.setSelectedTask(hardware);
-            this.setTaskList(hardware);
+        getConfigJSON(){
+            this.setSelectedTask(this.getSelectedHardware);
+            this.setTaskList(this.getSelectedHardware);
             console.log(this.task_list)
         }
       },
@@ -210,6 +189,7 @@
             'setDraggable'
         ]),
         setSelectedTask(hardware){
+            console.log(this.getConfigJSON)
             this.selectedTask = this.getConfigJSON['parameters'][hardware]['tasks'][0]['code_string'];
         },
         requestStudentGraph(){

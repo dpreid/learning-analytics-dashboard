@@ -5,8 +5,8 @@
         <div v-if='!isMobile' class='row' id='component-grid'>
           <!-- Have a layout for desktop -->
             <div class='d-flex' id='first-row'>
-              <div class='drop-area drop-area-half' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><graph-display id="comparison-graph-display" graph_id="comparison-graph" title="Comparison Graph" graph_type="comparison_graph" /></div>
-              <div class='drop-area drop-area-half' id='drop_0_1' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><graph-display id="student-graph-display" graph_id="student-graph" title="Your Graph" graph_type="student_graph" /></div>
+              <div class='drop-area drop-area-half' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><graph-display id="student-graph-display" graph_id="student-graph" title="Your Graph" graph_type="student_graph" /></div>
+              <div class='drop-area drop-area-half' id='drop_0_1' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><graph-display id="comparison-graph-display" graph_id="comparison-graph" title="Comparison Graph" graph_type="comparison_graph" /></div>
             </div>
 
             <div class='d-flex' id='second-row'>
@@ -69,7 +69,6 @@ export default {
   },
   created(){
     this.$store.dispatch('setUsesLocalStorage', this.hasStorage());
-    this.SET_CONFIG_DEV();    //REMOVE IN PRODUCTION
   },
   mounted(){
     this.updateUUID();
@@ -234,74 +233,6 @@ export default {
           this.$store.dispatch('setUUID', 'null');
         }
       },
-      //remove for production
-      SET_CONFIG_DEV(){
-        //paste in the config file here for local testing
-        let dev_config = {
-"name": "ed1", 
-"version": "1.0", 
-"date": 1720705810, 
-"aud": "https://app.practable.io/ed0/sfla-dashboard-default-2.0", 
-"images": [], 
-"parameters": {
-	"spinner":{
-		"tasks": [
-			{"readable_string": "Lab 1 Core", "code_string": "spinner-ed1-1-core"},
-			{"readable_string": "Lab 1 Extension", "code_string": "spinner-ed1-1-ext"},
-			{"readable_string": "Lab 1 Core + Ext.", "code_string": "spinner-ed1-1-core-ext"},
-			{"readable_string": "Lab 2", "code_string": "spinner-ed1-2"},
-			{"readable_string": "All tasks", "code_string": "spinner-ed1-all"},
-		],
-		"indicators": {
-			"total_edges": [
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-			],
-		
-		},
-		"task_completion": [
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-			]
-		},
-	"pendulum":{
-		"tasks": [
-			{"readable_string": "Lab 1 Core", "code_string": "pendulum-ed1-1-core"},
-			{"readable_string": "Lab 1 Extension", "code_string": "pendulum-ed1-1-ext"},
-			{"readable_string": "Lab 1 Core + Ext.", "code_string": "pendulum-ed1-1-core-ext"},
-			{"readable_string": "Lab 2", "code_string": "pendulum-ed1-2"},
-			{"readable_string": "All tasks", "code_string": "pendulum-ed1-all"},
-		],
-		"indicators": {
-			"total_edges": [
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-			],
-		
-		},
-		"task_completion": [
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-				{"comment": "", "value": 0},
-			]
-		},
-	}
-}
-
-        this.$store.dispatch('setConfigJSON', dev_config);
-      }
-      
   },
 }
 </script>
