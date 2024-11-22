@@ -1,33 +1,51 @@
 <template>
 <div class="practable-component" >
         <div v-if="graph_type == 'student_graph'" class="row">
-            <div class="col-lg-3"> </div>
-            <div class="col-lg-6"> 
-                <h2 >{{ title }} {{ getSelectedHardware }}</h2>
-            </div>
-            <div class="col-lg-3"> 
-                <popup-help class="me-2" id="popup-help-student-graph">
-                    <template v-slot:header>
-                        <h5> Student Graph Help </h5>
-                    </template>
-                    <template v-slot:body>
-                        This graph (network) is a concise visualisation of the procedure you have followed during your remote lab work.
-                            The nodes of the graph represent the different commands you can send to the remote lab hardware.
-                            Graph edges represent the order that commands have been sent and the number of times those commands have been used.
-                            
-                            The feedback provided on this dashboard is based upon a similarity between your graph and a range of comparison graphs.
+            <div class="d-flex flex-row justify-content-end align-items-center"> 
+                
+                    <h4 class="me-2 text-start flex-fill">Your {{ getSelectedHardware }} graph for {{ getCourse }}</h4>
 
-                            <b>Please note: all analysis is experimental and your data is completely anonymous.</b>
-                    </template>
-                </popup-help>
+                    <button type='button' class='button-toolbar button-primary me-2' id="request_student_button" aria-label='request student graph' @click="requestStudentGraph">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                        </svg>
+                    </button>
+
+                    <popup-help class="me-2" id="popup-help-student-graph">
+                        <template v-slot:header>
+                            <h5> Student Graph Help </h5>
+                        </template>
+                        <template v-slot:body>
+                            This graph (network) is a concise visualisation of the procedure you have followed during your remote lab work.
+                                The nodes of the graph represent the different commands you can send to the remote lab hardware.
+                                Graph edges represent the order that commands have been sent and the number of times those commands have been used.
+                                
+                                The feedback provided on this dashboard is based upon a similarity between your graph and a range of comparison graphs.
+
+                                <b>Please note: all analysis is experimental and your data is completely anonymous.</b>
+                        </template>
+                    </popup-help>
             </div>
         </div>
-        <div v-else class="row">
-            <div class="col-lg-2"> </div>
-            <div class="col-lg-8"> 
-                <h2 >{{ title }}: {{ selectedTask }}</h2>
-            </div>
-            <div class="col-lg-2"> 
+
+
+
+        <div v-else-if="graph_type == 'comparison_graph'" class="row">
+            <div class="d-flex flex-row justify-content-end align-items-center"> 
+
+                <h4 class="me-2 text-start flex-fill">Comparison Graph</h4>
+
+                <label for="task-select-dropdown">Select Task: </label>
+                <div class="dropdown me-4">
+                    <button class="button-sm button-dropdown dropdown-toggle" type="button" id="task-select-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ selectedTask['readable_string'] }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="task-dropdown-menu">
+                        <li v-for="task in task_list"><a class="dropdown-item" :id='task["code_string"] + "-mode-select"' :aria-label="task['readable_string']" @click="selectedTask = task; requestComparisonGraph()">{{ task['readable_string'] }}</a></li>
+                    </ul>
+                </div>
+              
                 <popup-help class="me-2" id="popup-help-comparison-graph">
                     <template v-slot:header>
                         <h5> Comparison Graph Help </h5>
@@ -40,34 +58,28 @@
                             Use the dropdown menu and request graph button at the bottom to display a different example graph.
                     </template>
                 </popup-help>
-            </div>
-        </div>
 
-        
+            </div>
 
-        <div v-if="graph_type == 'comparison_graph'" class="row">
-            <div class="col-lg-6 mt-2">
-                <label for="task-select-dropdown">Selected Task</label>
-					<div class="dropdown">
-						<button class="button-sm button-dropdown dropdown-toggle" type="button" id="task-select-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-							{{ selectedTask }}
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="task-dropdown-menu">
-							<li v-for="task in task_list"><a class="dropdown-item" :id='task["code_string"] + "-mode-select"' :aria-label="task['readable_string']" @click="selectedTask = task['code_string']">{{ task['readable_string'] }}</a></li>
-						</ul>
-					</div>
-            </div>
-            <div class="col-lg-6">
-                <button class='btn button-sm btn-success' id="request_comparison_button" @click="requestComparisonGraph">Request Graph</button>
-            </div>
+            <!-- <div class="d-flex flex-row justify-content-center align-items-center"> 
+                
+            </div> -->
+            
+
+
+            <!-- <div class="col-lg-2">
+                <button class='button-toolbar button-primary' id="request_comparison_button" @click="requestComparisonGraph">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                </svg>
+                </button>
+            </div> -->
+            
             
         </div>
 
-        <div v-else-if="graph_type == 'student_graph'">
-            <div class="col-lg-6">
-                <button class='btn button-sm btn-success' id="request_student_button" @click="requestStudentGraph">Request Graph</button>
-            </div>
-        </div>
+
 
         <!-- Ensures that border around component reaches to below the graph-->
         <div v-else class="row">
@@ -190,7 +202,7 @@
         ]),
         setSelectedTask(hardware){
             console.log(this.getConfigJSON)
-            this.selectedTask = this.getConfigJSON['parameters'][hardware]['tasks'][0]['code_string'];
+            this.selectedTask = this.getConfigJSON['parameters'][hardware]['tasks'][0];
         },
         requestStudentGraph(){
             let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/studentGraph?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
@@ -203,7 +215,7 @@
 				.catch((err) => console.log(err));
         },
         requestComparisonGraph(){
-            let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/comparisonGraph?taskcode=${this.selectedTask}&username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/comparisonGraph?taskcode=${this.selectedTask['code_string']}&username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
             axios
 				.get(accessURL, {}, { headers: { Authorization: '' } })
 				.then((response) => {
@@ -237,7 +249,7 @@
   <style scoped>
   .mynetwork {
             width: 100%;
-            height: 40dvh;
+            height: 50dvh;
             background-color: var(--background-color-highlight);
             position: relative;
             float: left;

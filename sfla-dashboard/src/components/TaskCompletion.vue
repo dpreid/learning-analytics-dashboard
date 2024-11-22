@@ -1,15 +1,15 @@
 <template>
     <div class="practable-component">
-        <div class="d-flex justify-content-end align-items-center">
+        <div class="d-flex flex-row justify-content-end align-items-center mb-2"> 
             
-            <h2 class="me-2">Task Completion</h2>
+            <h4 class="me-2 text-start flex-fill">Task Completion</h4>
             
             <div class="form-check-inline form-switch">
                 <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" @click="toggleChart">
                 <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
             </div>
            
-            <button type='button' class='button-toolbar button-secondary me-2' id="request_usage_stats" aria-label='request usage statistics' @click="requestTaskCompletion">
+            <button type='button' class='button-toolbar button-primary me-2' id="request_usage_stats" aria-label='request usage statistics' @click="requestTaskCompletion">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
@@ -74,10 +74,6 @@
             </div>
         </div>
 
-       
-        
-      
-        
 
         <simple-line-graph v-if="showGraph" id="taskcompletion-line-chart" heading="TaskCompletion" :x_labels="getXLabels" :y_values="getYValues" :hide_y_axis='hide_axis' :invert="invert"/>
 
@@ -90,7 +86,8 @@
                     </tr>
                 </thead>
                     <tr v-for="key in Object.keys(task_dissimilarity)" :key="key">
-                        <td>{{ key }}</td>
+                        <!-- <td>{{ key }}</td> -->
+                        <td>{{ getTaskReadableFromCode(key) }}</td>
                         <td>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgressAsString(task_dissimilarity[key])"></div>
@@ -136,7 +133,8 @@
         ...mapGetters([
             'getSelectedHardware',
             'getCourse',
-            'getLogUUID'
+            'getLogUUID',
+            'getConfigJSON'
         ]),
         
         getSeparateCompleted(){
@@ -197,6 +195,10 @@
           ...mapActions([
               
           ]),
+          getTaskReadableFromCode(code){
+            const readable = this.getConfigJSON['parameters'][this.getSelectedHardware]['tasks'].find((task) => task['code_string'] == code);
+            return readable['readable_string']
+          },
           getProgress(value){
             let closest_value = this.getCompleted[1];
             let width = closest_value*100.0/value;
@@ -209,14 +211,13 @@
         getComment(value){
             let closest_value = this.getCompleted[1];
             if(value == closest_value){
-                return 'Looks like you are closest to completing this task combination'
+                return this.getConfigJSON['parameters'][this.getSelectedHardware]['task_completion'].find((comment) => comment['value'] == "completed")['comment'];
             }
-            else if(value < 10){
-                return 'Good progress on this task'
-            } else if(value < 20){
-                return 'Looks like you have started this task'
-            } else{
-                return 'You have probably not sent some key control commands yet.'
+            else if(value >= this.getConfigJSON['parameters'][this.getSelectedHardware]['max_task_completion_value']){
+                return this.getConfigJSON['parameters'][this.getSelectedHardware]['task_completion'].find((comment) => comment['value'] == "other")['comment'];
+            }
+            else {
+                return this.getConfigJSON['parameters'][this.getSelectedHardware]['task_completion'].find((comment) => comment['value'] >= value)['comment'];
             }
             
         },

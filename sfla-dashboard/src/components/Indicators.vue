@@ -1,14 +1,14 @@
 <template>
     <div class="practable-component">
-        <div class="d-flex justify-content-end align-items-center">
-            <h2 class="text-start me-2">Engagement Indicators</h2>
+        <div class="d-flex flex-row justify-content-end align-items-center mb-2"> 
+            <h4 class="flex-fill text-start me-2">Engagement Indicators</h4>
             
             <div class="form-check-inline form-switch">
                 <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" @click="toggleChart">
                 <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
             </div>
 
-            <button type='button' class='button-toolbar button-secondary me-2' id="request_engagement_indicators" aria-label='request engagement indicators' @click="requestIndicators">
+            <button type='button' class='button-toolbar button-primary me-2' id="request_engagement_indicators" aria-label='request engagement indicators' @click="requestIndicators">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>

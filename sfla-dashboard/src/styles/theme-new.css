@@ -246,7 +246,7 @@ body.dark-theme {
 .button-primary{
     background-color: var(--background-color-secondary);
     color: var(--text-color);
-    border-width: 1px;
+    border-width: 3px;
     border-style: solid;
     border-color: var(--button-color-primary);
 }
@@ -272,7 +272,7 @@ body.dark-theme {
 .button-tertiary{
     background-color: var(--background-color-secondary);
     color: var(--text-color);
-    border-width: 1px;
+    border-width: 3px;
     border-style: solid;
     border-color: var(--button-color-tertiary);
 }

@@ -20,16 +20,23 @@
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0}
-			]
-		
-		},
-		"task_completion": [
+			],
+			"exploration": [
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0}
 			]
+		},
+		"task_completion": [
+				{"comment": "Looks like you are closest to completing this task combination", "value": "completed"},
+				{"comment": "Good progress on this task", "value": 10},
+				{"comment": "Looks like you have started this task", "value": 20},
+				{"comment": "You have probably not sent some key control commands yet.", "value": 99},
+				{"comment": "Have you connected to the remote lab yet?", "value": "other" }
+			],
+		"max_task_completion_value": 100
 		},
 	"pendulum":{
 		"tasks": [
@@ -46,15 +53,22 @@
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0}
-			]
-		
-		},
-		"task_completion": [
+			],
+			"exploration": [
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0},
 				{"comment": "", "value": 0}
+			]
+		
+		},
+		"task_completion": [
+				{"comment": "Looks like you are closest to completing this task combination", "value": "completed"},
+				{"comment": "Good progress on this task", "value": 10},
+				{"comment": "Looks like you have started this task", "value": 20},
+				{"comment": "You have probably not sent some key control commands yet.", "value": 100},
+				{"comment": "Have you connected to the remote lab yet?", "value": "NA"}
 			]
 		}
 	}
