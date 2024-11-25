@@ -15,10 +15,13 @@
           <ul class="navbar-nav me-auto">
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="menu dropdown">
-                   Menu
+                   Add Component
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <!-- <li><a class="dropdown-item" href="#" @click='toggleComponent("graph")'>Graph</a></li> -->
+                    <li><a :class="isTaskCompletionOn ? 'dropdown-item dropdown-checked' : 'dropdown-item'" id='taskcompletionmenu' href="#" @click='toggleComponent("taskcompletion")'>Task Completion</a></li>
+                    <li><a :class="isIndicatorsOn ? 'dropdown-item dropdown-checked' : 'dropdown-item'" id='indicatorsmenu' href="#" @click='toggleComponent("indicators")'>Indicators</a></li>
+                    <li><a :class="isAffectiveReflectionOn ? 'dropdown-item dropdown-checked' : 'dropdown-item'" id='affectivereflectionmenu' href="#" @click='toggleComponent("affectivereflection")'>Affective feedback</a></li>
+                    <li><a :class="isUsageStatsOn ? 'dropdown-item dropdown-checked' : 'dropdown-item'" id='usagestatsmenu' href="#" @click='toggleComponent("usagestats")'>Usage Statistics</a></li>
                   </ul>
               </li>
 
@@ -91,7 +94,8 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
 
   name: 'NavigationBar',
-  emits:[],
+  props:['isAffectiveReflectionOn', 'isIndicatorsOn', 'isTaskCompletionOn', 'isUsageStatsOn'],
+  emits:['toggleaffectivereflection', 'toggleindicators', 'toggletaskcompletion', 'toggleusagestats'],
   data () {
     return {
       disableThemeButton: false,
@@ -141,6 +145,11 @@ export default {
 </script>
 
 <style scoped>
-
+.dropdown-checked::before{
+  position: absolute;
+  left: .2rem;
+  content: '✓';
+  font-weight: 600;
+}
 
 </style>

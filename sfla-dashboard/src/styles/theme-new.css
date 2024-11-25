@@ -285,7 +285,7 @@ body.dark-theme {
 .button-dropdown{
     background-color: var(--background-color);
     color: var(--text-color);
-    border-width: 1px;
+    border-width: 3px;
     border-style: solid;
     border-color: var(--button-color-primary);
 }

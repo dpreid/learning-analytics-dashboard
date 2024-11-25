@@ -1,34 +1,31 @@
 <template>
     <div class="practable-component">
-        <div class="d-flex flex-row-reverse">
-            <button type='button' class='button-toolbar button-secondary' id="request_usage_stats" aria-label='request usage statistics' @click="requestUsageStats">
+        <div class="d-flex flex-row justify-content-end align-items-center mb-2"> 
+            <h4 class="me-2 text-start flex-fill">Usage statistics</h4>
+
+            <button type='button' class='button-toolbar button-primary' id="request_usage_stats" aria-label='request usage statistics' @click="requestUsageStats">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
                 </svg>
             </button>
-            <h2 class="col-6 me-2">Usage Statistics</h2>
+            
         </div>
 
-        <div class="col-12">
-            <canvas id='interactions-chart-canvas'></canvas>
+        <div class="d-flex flex-row justify-content-evenly"> 
+            <div class="interactions-chart-div">
+                <canvas id='interactions-chart-canvas'></canvas>
+            </div>
+
+            <div class="session-times-div">
+                <canvas id='session-times-chart-canvas'></canvas>
+            </div>
+            
+
+            
         </div>
 
-        <div class="col-12">
-            <canvas id='session-times-chart-canvas'></canvas>
-        </div>
 
-        <div>
-            {{ interactionCounts }}
-        </div>
-
-        <div>
-            {{ numLogs }}
-        </div>
-
-        <div>
-            {{ session_dates.length }}
-        </div>
         
 
     </div>
@@ -227,5 +224,12 @@ export default {
 
 <style scoped>
 
+.interactions-chart-div{
+    width: 30dvw;
+}
+
+.session-times-div{
+    height: 30dvh;
+}
 
 </style>

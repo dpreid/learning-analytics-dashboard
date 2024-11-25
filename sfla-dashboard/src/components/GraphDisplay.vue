@@ -193,7 +193,13 @@
         getConfigJSON(){
             this.setSelectedTask(this.getSelectedHardware);
             this.setTaskList(this.getSelectedHardware);
-            console.log(this.task_list)
+            //console.log(this.task_list)
+        },
+        getSelectedHardware(){
+            if(this.getConfigJSON){
+                this.setTaskList(this.getSelectedHardware);
+            }
+            
         }
       },
       methods:{
@@ -215,6 +221,7 @@
 				.catch((err) => console.log(err));
         },
         requestComparisonGraph(){
+            console.log(this.selectedTask)
             let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/comparisonGraph?taskcode=${this.selectedTask['code_string']}&username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
             axios
 				.get(accessURL, {}, { headers: { Authorization: '' } })

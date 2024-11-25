@@ -1,12 +1,10 @@
 <template>
   
     <div class="practable-component">
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <h2>Affective Reflection</h2>
-            </div>
-            <div class="col-lg-3">
+        <div class="d-flex flex-row justify-content-end align-items-center mb-2"> 
+            
+            <h4 class="me-2 text-start flex-fill">Affective reflection</h4>
+            
             <popup-help class="me-2" id="popup-help-affective-reflection">
                     <template v-slot:header>
                         <h5> Affective Reflection </h5>
@@ -24,7 +22,7 @@
                     </div>
                     </template>
                 </popup-help>
-        </div>
+        
         </div>
         
     
@@ -131,6 +129,9 @@ export default {
             this.selected_subject = null;
             this.user_input = '';
         },
+        feedback(log){
+            console.log(log)
+        }
 
       }
 }

@@ -1,6 +1,7 @@
 <template>
   <div id="app" class='container-fluid-sm m-0'>
-       <navigation-bar />
+       <navigation-bar :isTaskCompletionOn='isTaskCompletionOn' :isIndicatorsOn='isIndicatorsOn' :isAffectiveReflectionOn='isAffectiveReflectionOn' :isUsageStatsOn='isUsageStatsOn' 
+                      @toggleaffectivereflection="toggleAffectiveReflection" @toggleusagestats="toggleUsageStats" @toggleindicators="toggleIndicators" @toggletaskcompletion="toggleTaskCompletion"/>
 
         <div v-if='!isMobile' class='row' id='component-grid'>
           <!-- Have a layout for desktop -->
@@ -10,13 +11,13 @@
             </div>
 
             <div class='d-flex' id='second-row'>
-              <div class='drop-area drop-area-half' id='drop_1_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><indicators id='indicators' /></div>
-              <div class='drop-area drop-area-half' id='drop_1_1' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><task-completion id='task-completion'/></div>
+              <div class='drop-area drop-area-half' id='drop_1_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><indicators v-if='isIndicatorsOn' id='indicators' /></div>
+              <div class='drop-area drop-area-half' id='drop_1_1' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><task-completion v-if='isTaskCompletionOn' id='task-completion'/></div>
             </div>
 
             <div class='d-flex' id='third-row'>
-                <div class='drop-area drop-area-half' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><affective-feedback id='affective-feedback' /></div>
-                <div class='drop-area drop-area-half' id='drop_2_1' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><usage-stats id='usage-stats' /></div>
+                <div class='drop-area drop-area-half' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><affective-feedback v-if='isAffectiveReflectionOn' id='affective-feedback' /></div>
+                <div class='drop-area drop-area-half' id='drop_2_1' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><usage-stats v-if='isUsageStatsOn' id='usage-stats' /></div>
                 
             </div>
 
@@ -27,10 +28,10 @@
             
             <div class='drop-area drop-area-mobile' id='drop_0_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><graph-display id="graph-display" graph_id="student-graph" title="Your Graph" graph_type="student_graph" /></div>
             <div class='drop-area drop-area-mobile' id='drop_1_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><graph-display id="comparison-graph-display" graph_id="comparison-graph" title="Comparison Graph" graph_type="comparison_graph" /></div>
-            <div class='drop-area drop-area-mobile' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><affective-feedback id='affective-feedback' /></div>
-            <div class='drop-area drop-area-mobile' id='drop_3_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><usage-stats id='usage-stats' /></div>
-            <div class='drop-area drop-area-mobile' id='drop_4_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><task-completion id='task-completion'/></div>
-            <div class='drop-area drop-area-mobile' id='drop_5_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><indicators id='indicators' /></div>
+            <div class='drop-area drop-area-mobile' id='drop_2_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><affective-feedback v-if='isAffectiveReflectionOn' id='affective-feedback' /></div>
+            <div class='drop-area drop-area-mobile' id='drop_3_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><usage-stats v-if='isUsageStatsOn' id='usage-stats' /></div>
+            <div class='drop-area drop-area-mobile' id='drop_4_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><task-completion v-if='isTaskCompletionOn' id='task-completion'/></div>
+            <div class='drop-area drop-area-mobile' id='drop_5_0' :draggable='getDraggable' @dragstart="dragComponent" @drop='dropComponent' @dragover.prevent @dragenter='dragEnter' @dragleave="dragLeave"><indicators v-if='isIndicatorsOn' id='indicators' /></div>
 
         </div>
      
@@ -64,7 +65,10 @@ export default {
   },
   data() {
     return {
-      
+      isTaskCompletionOn: true,
+      isIndicatorsOn: true,
+      isAffectiveReflectionOn: false,
+      isUsageStatsOn: false
     }
   },
   created(){
@@ -127,6 +131,18 @@ export default {
     }
   },
   methods:{
+    toggleAffectiveReflection(){
+      this.isAffectiveReflectionOn = !this.isAffectiveReflectionOn;
+    },
+    toggleUsageStats(){
+      this.isUsageStatsOn = !this.isUsageStatsOn;
+    },
+    toggleIndicators(){
+      this.isIndicatorsOn = !this.isIndicatorsOn;
+    },
+    toggleTaskCompletion(){
+      this.isTaskCompletionOn = !this.isTaskCompletionOn;
+    },
     dragComponent(event){
         event.dataTransfer.effectAllowed = 'move';
          let element = event.target;
