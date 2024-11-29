@@ -47,9 +47,6 @@ const chatStore = {
          getChatHost(state){
             return state.chat_host;
          },
-         getLoggingAuth(state){
-            return state.la_auth;
-         }
          
          
        },  
