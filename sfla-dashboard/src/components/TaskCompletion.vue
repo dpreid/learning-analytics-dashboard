@@ -134,7 +134,9 @@
             'getSelectedHardware',
             'getCourse',
             'getLogUUID',
-            'getConfigJSON'
+            'getConfigJSON',
+            'getTaskCompareHost',
+            'getLoggingAuth'
         ]),
         
         getSeparateCompleted(){
@@ -226,7 +228,7 @@
             this.showGraph = !this.showGraph;
         },
         requestTaskCompletion(){
-            let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/taskCompletion?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            let accessURL = `${this.getTaskCompareHost}/taskCompletion?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
             axios
 				.get(accessURL, {}, { headers: { Authorization: '' } })
 				.then((response) => {

@@ -186,7 +186,9 @@
                 'getSelectedHardware',
                 'getCourse',
                 'getLogUUID',
-                'getConfigJSON'
+                'getConfigJSON',
+                'getLoggingAuth',
+                'getTaskCompareHost'
             ]),
       },
       watch:{
@@ -211,7 +213,7 @@
             this.selectedTask = this.getConfigJSON['parameters'][hardware]['tasks'][0];
         },
         requestStudentGraph(){
-            let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/studentGraph?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            let accessURL = `${this.getTaskCompareHost}/studentGraph?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
             axios
 				.get(accessURL, {}, { headers: { Authorization: '' } })
 				.then((response) => {
@@ -222,7 +224,7 @@
         },
         requestComparisonGraph(){
             console.log(this.selectedTask)
-            let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/comparisonGraph?taskcode=${this.selectedTask['code_string']}&username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            let accessURL = `${this.getTaskCompareHost}/comparisonGraph?taskcode=${this.selectedTask['code_string']}&username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
             axios
 				.get(accessURL, {}, { headers: { Authorization: '' } })
 				.then((response) => {

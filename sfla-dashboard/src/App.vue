@@ -83,6 +83,23 @@ export default {
 
       //let decodedStreams = JSON.parse(decodeURIComponent(String(streams)));
 
+      let la = query.get('la')
+      let lh = decodeURIComponent(query.get('lh'));
+      let th = decodeURIComponent(query.get('th'));
+      let ch = decodeURIComponent(query.get('ch'));
+      if(lh != null){
+        this.$store.dispatch('setLoggingHost', lh);
+      }
+      if(th != null){
+        this.$store.dispatch('setTaskCompareHost', th);
+      }
+      if(ch != null){
+        this.$store.dispatch('setChatHost', ch);
+      }
+      if(la != null){
+        this.$store.dispatch('setLoggingAuth', la);
+      }
+      
       let course = query.get('course');
       if(course != null){
         this.$store.dispatch('setCourse', course);

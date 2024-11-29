@@ -128,7 +128,9 @@
             'getLogUUID',
             'getCourse',
             'getSelectedHardware',
-            'getConfigJSON'
+            'getConfigJSON',
+            'getTaskCompareHost',
+            'getLoggingAuth'
         ]),
         getXLabels(){
             let labels = []
@@ -195,7 +197,7 @@
             this.showGraph = !this.showGraph;
         },
         requestIndicators(){
-            let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/otherIndicators?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            let accessURL = `${this.getTaskCompareHost}/otherIndicators?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
             axios
 				.get(accessURL, {}, { headers: { Authorization: '' } })
 				.then((response) => {

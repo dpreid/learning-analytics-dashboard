@@ -61,7 +61,9 @@ export default {
         ...mapGetters([
             'getLogUUID',
             'getCourse',
-            'getSelectedHardware'
+            'getSelectedHardware',
+            'getTaskCompareHost',
+            'getLoggingAuth'
         ]),
         
       },
@@ -70,7 +72,7 @@ export default {
             
         ]),
         requestUsageStats(){
-            let accessURL = `https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1/usageStats?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            let accessURL = `${this.getTaskCompareHost}/usageStats?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
             axios
 				.get(accessURL, {}, { headers: { Authorization: '' } })
 				.then((response) => {
