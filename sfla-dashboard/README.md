@@ -21,7 +21,7 @@ The dashboard also displays other learning indicators calculated by the learning
 When accessing the SFLA dashboard, the dashboard needs to know the course and hardware so that it can access the correct logging data and expectation graphs. This info is passed in URL query parameters e.g.:
 
 ```
-http://localhost:5173/?course=ed1&hardware=spinner&hardware=pendulum&config=/local/config.json
+http://localhost:5173/?course=ed1&hardware=spinner&hardware=pendulum&th=https://app.practable.io/ed-log-dev/analytics/taskcompare/api/v1&config=/local/config.json
 ```
 
 The config file is stored locally in public for development purposes.

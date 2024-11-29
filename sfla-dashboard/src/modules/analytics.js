@@ -52,4 +52,4 @@ const analyticsStore = {
   
   }
 
-  export default chatStore;
+  export default analyticsStore;
