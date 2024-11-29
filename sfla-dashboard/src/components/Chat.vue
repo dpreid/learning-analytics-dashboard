@@ -11,7 +11,7 @@
               </button>
         
               <ul class="dropdown-menu" id="chat-container" aria-label="chat messages">
-                  <chat-widget :message_list="getMessages" :message_count="getNumMessages" @onMessageSent="handleMessageSent" class='m-3' @click.stop/>
+                  <chat-widget :message_list="getMessages" :message_count="getNumMessages" @onMessageSent="handleMessageSent" @onMessageReceived="handleMessageReceived" class='m-3' @click.stop/>
               </ul>
 
             </li>
@@ -57,6 +57,16 @@ export default {
           this.addMessage(message);
           console.log(message);
         },
+        handleMessageReceived(message){
+          let received_message =       
+              {
+                "sender": "chatbot",
+                time: new Date().getTime(),
+                "text": message.data
+              }
+          this.addMessage(received_message);
+          console.log(received_message);
+        }
         
       }
   }

@@ -3,7 +3,7 @@
         <div id='message-container'>
             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide='false'>
                 <div class='toast-header'>
-                    <strong class="me-auto">Remote Lab Chat</strong>
+                    <strong class="me-auto">Feedback Bot Chat</strong>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-
+import axios from 'axios';
 
 export default {
     name: 'ChatWidget',
@@ -58,7 +58,7 @@ export default {
         message_list: Array,
         message_count: Number,
     },
-    emits:['onMessageSent'],
+    emits:['onMessageSent', 'onMessageReceived'],
     data () {
         return {
             user_input: '',
@@ -66,7 +66,8 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'getLogUUID'
+            'getLogUUID',
+            'getChatHost'
         ])
         
     },
@@ -79,9 +80,23 @@ export default {
     methods:{
         sendMessage(){
             let message = {sender:this.getLogUUID, time: new Date().getTime(), text: this.user_input}
+            var accessURL = `${this.getChatHost}/chatbot?username=${this.getLogUUID}&bot_type=silly-bot`; 
+            console.log(accessURL)
+            axios
+            .post(accessURL, 
+                message, 
+                { headers: 
+                    { 
+                    'Content-Type': 'application/json',
+                    } 
+            }).then((response) => {
+                this.$emit('onMessageReceived', response);
+            })
+            .catch((err) => console.log(err));
+
             this.$emit('onMessageSent', message);
-            this.user_input = '';
-            
+            this.user_input = '';            
+                
         },
         getMessageClass(sender){
             if(sender == this.getLogUUID){
@@ -95,7 +110,10 @@ export default {
                 return 'toast-header header-admin'
             } else if(sender == 'hardware'){
                 return 'toast-header header-hardware'
-            } else {
+            } else if(sender == 'chatbot'){
+                return 'toast-header header-chatbot'
+            } 
+            else {
                 return 'toast-header header-standard'
             }
             
@@ -130,6 +148,11 @@ export default {
 }
 
 .header-admin{
+    background-color: var(--background-color-warning);
+    color: var(--text-color-inverted);
+}
+
+.header-chatbot{
     background-color: var(--background-color-warning);
     color: var(--text-color-inverted);
 }
