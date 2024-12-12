@@ -54,8 +54,15 @@ export default {
           'addMessage'
         ]),
         handleMessageSent(message){
-          this.addMessage(message);
-          console.log(message);
+          //reduce full log to the basic data to be saved in front-end vuex for display
+          let message_to_save = 
+            {
+              "sender": message['actor']['id'],
+              time: new Date().getTime(),
+              "text": message['object']['text']
+            }
+          this.addMessage(message_to_save);
+          console.log(message_to_save);
         },
         handleMessageReceived(message){
           let received_message =       

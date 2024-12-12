@@ -31,6 +31,10 @@
 
             </div>
 
+            <div v-if='awaiting_response' id="waiting-icon-container">
+                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>
+
             <div id='bottom-container'></div>
 
         </div>
@@ -62,12 +66,15 @@ export default {
     data () {
         return {
             user_input: '',
+            awaiting_response: false
         }
     },
     computed:{
         ...mapGetters([
             'getLogUUID',
-            'getChatHost'
+            'getChatHost',
+            'getCourse',
+            'getSelectedHardware'
         ])
         
     },
@@ -79,8 +86,34 @@ export default {
     },
     methods:{
         sendMessage(){
-            let message = {sender:this.getLogUUID, time: new Date().getTime(), text: this.user_input}
-            var accessURL = `${this.getChatHost}/chatbot?username=${this.getLogUUID}&bot_type=silly-bot`; 
+            this.awaiting_response = true;
+            //let message = {sender:this.getLogUUID, time: new Date().getTime(), text: this.user_input}
+            let message = {
+                "time": new Date().getTime(), 
+                "level": "INFO",
+                "type": "chat", 
+                "actor":
+                {
+                    "id": this.getLogUUID,
+                    "course": this.getCourse
+                },
+                "verb": 
+                {
+                    "name": "sent-message", 
+                    // "definition": `${this.instance_path}${config.definitions_path}/clicked`
+                }, 
+                "object": 
+                {
+                    "name": "feedback-bot",
+                    "text": this.user_input
+                },
+                "context": 
+                {
+                    "experiment": this.getSelectedhardware
+                }
+            };
+
+            var accessURL = `${this.getChatHost}/chat?username=${this.getLogUUID}&bot_type=silly-bot`; 
             console.log(accessURL)
             axios
             .post(accessURL, 
@@ -90,9 +123,13 @@ export default {
                     'Content-Type': 'application/json',
                     } 
             }).then((response) => {
+                this.awaiting_response = false;
                 this.$emit('onMessageReceived', response);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                this.awaiting_response = false;
+                console.log(err)
+            });
 
             this.$emit('onMessageSent', message);
             this.user_input = '';            
@@ -166,5 +203,67 @@ export default {
     background-color: var(--button-color-secondary);
     color: var(--text-color-inverted);
 }
+
+
+.lds-ellipsis,
+.lds-ellipsis div {
+  box-sizing: border-box;
+}
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33.33333px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-color-inverted);
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 4px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 4px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 16px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 28px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(12px, 0);
+  }
+}
+
 
 </style>

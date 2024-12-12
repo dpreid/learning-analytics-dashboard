@@ -5,7 +5,6 @@ const chatStore = {
     state: () => ({
          isChatOn: true,
          messages: [{sender:'admin', time: Date.now(), text: 'Messages from the hardware, admin team and collaborators will appear here'}],
-         la_auth: '',
          chat_host: ''
        }),
        mutations:{
@@ -15,9 +14,6 @@ const chatStore = {
          SET_CHAT_HOST(state, host){
             state.chat_host = host;
          },
-         SET_LOGGING_AUTH(state, auth){
-            state.la_auth = auth;
-         }
          
 
        },
@@ -28,9 +24,6 @@ const chatStore = {
          setChatHost(context, host){
             context.commit('SET_CHAT_HOST', host);
          },
-         setLoggingAuth(context, auth){
-            context.commit('SET_LOGGING_AUTH', auth);
-         }
 
 
        },
