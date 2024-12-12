@@ -263,7 +263,7 @@ export default {
         if(stored_uuid){
             this.$store.dispatch('setUUID', stored_uuid);
         } else{
-          this.$store.dispatch('setUUID', 'david-test-user');
+          this.$store.dispatch('setUUID', 'cs94c86cfu9c3q2nmvig');
         }
       },
   },

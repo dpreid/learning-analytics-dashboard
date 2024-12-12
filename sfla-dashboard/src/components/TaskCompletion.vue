@@ -16,6 +16,18 @@
                 </svg>
             </button>
 
+            <request-chat-feedback class="me-2" id="chat-feedback-task-completion" :awaiting="awaiting_response" @request-feedback="requestFeedback">
+                <template v-slot:header>
+                    <h5> Task Completion feedback </h5>
+                </template>
+
+                <template v-slot:body>
+                    
+                        {{ feedback_response }}
+                    
+                </template>
+            </request-chat-feedback>
+
             <div v-if="getSelectedHardware == 'spinner'">
                 <popup-help class="me-2" id="popup-help-task-completion">
                     <template v-slot:header>
@@ -107,6 +119,7 @@
   import {mapActions, mapGetters} from 'vuex'
   import SimpleLineGraph from './elements/SimpleLineGraph.vue'
   import PopupHelp from './elements/PopupHelp.vue'
+  import RequestChatFeedback from './elements/RequestChatFeedback.vue'
 
   import axios from 'axios'
   
@@ -115,6 +128,7 @@
       components:{
           SimpleLineGraph,
           PopupHelp,
+          RequestChatFeedback
       },
       props: [],
       data(){
@@ -123,7 +137,9 @@
             headings: ['Task', 'Relative Similarity', 'Comment'],
             hide_axis: true,
             invert: true,
-            task_dissimilarity: {}
+            task_dissimilarity: {},
+            awaiting_response: false,
+            feedback_response: ''
           }
       },
       mounted(){
@@ -136,6 +152,7 @@
             'getLogUUID',
             'getConfigJSON',
             'getTaskCompareHost',
+            'getChatHost',
             'getLoggingAuth'
         ]),
         
@@ -237,6 +254,53 @@
                     this.saveLocal(this.task_dissimilarity);
 				})
 				.catch((err) => console.log(err));
+        },
+        requestFeedback(){
+            console.log('request feedback now')
+            this.awaiting_response = true;
+            let feedback_observables = {
+                "time": new Date().getTime(), 
+                "level": "INFO",
+                "type": "chat", 
+                "actor":
+                {
+                    "id": this.getLogUUID,
+                    "course": this.getCourse
+                },
+                "verb": 
+                {
+                    "name": "requested-feedback", 
+                    // "definition": `${this.instance_path}${config.definitions_path}/clicked`
+                }, 
+                "object": 
+                {
+                    "name": "task-completion-feedback-bot",
+                    "text": this.user_input
+                },
+                "context": 
+                {
+                    "experiment": this.getSelectedhardware
+                }
+            };
+            let accessURL = `${this.getChatHost}/task-completion-feedback?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            axios
+				.get(accessURL, 
+                    feedback_observables, 
+                    { headers: 
+                        {
+                            'Content-Type': 'application/json', 
+                            'Authorization': '' 
+                        } 
+                    })
+				.then((response) => {
+					console.log(response);
+                    this.awaiting_response = false;
+                    this.feedback_response = response.data;
+				})
+				.catch((err) => {
+                    console.log(err);
+                    this.awaiting_response = false;
+                });
         },
         saveLocal(task_dissimilarity){
             let item_name = `${this.getLogUUID}-${this.getCourse}-${this.getSelectedHardware}-taskcompletion`
