@@ -138,6 +138,7 @@
             hide_axis: true,
             invert: true,
             task_dissimilarity: {},
+            //feedback_input: 'Can you give me feedback on my work please?',
             awaiting_response: false,
             feedback_response: ''
           }
@@ -275,16 +276,17 @@
                 "object": 
                 {
                     "name": "task-completion-feedback-bot",
-                    "text": this.user_input
+                    "task_dissimilarity": this.task_dissimilarity
+                    //"text": ''
                 },
                 "context": 
                 {
-                    "experiment": this.getSelectedhardware
+                    "experiment": this.getSelectedhardware,
                 }
             };
-            let accessURL = `${this.getChatHost}/task-completion-feedback?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            let accessURL = `${this.getChatHost}/taskCompletionFeedback?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}&bot_type=task-completion`
             axios
-				.get(accessURL, 
+				.post(accessURL, 
                     feedback_observables, 
                     { headers: 
                         {
