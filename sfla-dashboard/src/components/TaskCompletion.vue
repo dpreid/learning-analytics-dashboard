@@ -9,14 +9,14 @@
                 <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
             </div>
            
-            <button type='button' class='button-toolbar button-primary me-2' id="request_usage_stats" aria-label='request usage statistics' @click="requestTaskCompletion">
+            <button type='button' class='button-toolbar button-primary me-2' id="request_usage_stats" aria-label='request usage statistics' @click="requestTaskCompletion" data-bs-toggle="tooltip" title="Request data">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
                 </svg>
             </button>
 
-            <request-chat-feedback class="me-2" id="chat-feedback-task-completion" :awaiting="awaiting_response" @request-feedback="requestFeedback">
+            <request-chat-feedback class="me-2" id="chat-feedback-task-completion" :awaiting="awaiting_response" @request-feedback="requestFeedback" :disabled="isFeedbackDisabled">
                 <template v-slot:header>
                     <h5> Task Completion feedback </h5>
                 </template>
@@ -140,7 +140,7 @@
             task_dissimilarity: {},
             //feedback_input: 'Can you give me feedback on my work please?',
             awaiting_response: false,
-            feedback_response: ''
+            feedback_response: '',
           }
       },
       mounted(){
@@ -156,7 +156,13 @@
             'getChatHost',
             'getLoggingAuth'
         ]),
-        
+        isFeedbackDisabled(){
+            if(Object.keys(this.task_dissimilarity).length > 0){
+                return false
+            } else{
+                return true
+            }
+        },
         getSeparateCompleted(){
             let completed = this.getCompleted[0];
             let components = completed.split("-");
