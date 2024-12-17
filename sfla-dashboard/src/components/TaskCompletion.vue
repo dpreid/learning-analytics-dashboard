@@ -37,26 +37,6 @@
                         This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
                         It is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.<br>
                         <br>
-                        <div v-if="getCourse == 'cie3'">
-                            The tasks represent the practical aspects of the CIE3 coursework workbook.<br>
-                            spinner-1-2: Section 2 and 3.<br>
-                            spinner-3: Section 5<br>
-                            spinner-4: Section 6
-                        </div>
-                        <div v-if="getCourse == 'ed1'">
-                            This component uses a graph comparison algorithm to predict the task or task combinations that you have completed.
-                            <br>
-                            The tasks represent the practical aspects of the Engineering Design 1 workshop workbook.<br>
-                            <br>
-                            spinner-engdes1-1-core -> Lab 1 Core tasks<br>
-                            spinner-engdes1-1-ext -> Lab 1 Extension tasks<br>
-                            spinner-engdes1-1-core-ext -> Lab 1 Core and Extension tasks combined<br>
-                            spinner-engdes1-2 -> Lab 2 Core tasks<br>
-                            spinner-engdes1-all -> all Spinner tasks combined<br>
-                            
-                            <br>
-                            <b>Please note: this component is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.</b>
-                        </div>
                     </template>
                 </popup-help>
             </div>
@@ -66,20 +46,8 @@
                         <h5> Task completion Help </h5>
                     </template>
                     <template v-slot:body>
-                        This component uses a graph comparison algorithm to predict the task or task combination that you have completed. The relative similarity is to the 
-                            task or task combination that the algorithm thinks you are closest to. A full bar does not necessarily mean that you have fully completed that task, just that 
-                            you are currently closer to completing that task than the others.
-                            <br>
-                            The tasks represent the practical aspects of the Engineering Design 1 workshop workbook.<br>
-                            <br>
-                            pendulum-engdes1-1-core -> Lab 1 Core tasks<br>
-                            pendulum-engdes1-1-ext -> Lab 1 Extension tasks<br>
-                            pendulum-engdes1-1-core-ext -> Lab 1 Core and Extension tasks combined<br>
-                            pendulum-engdes1-2 -> Lab 2 Core tasks<br>
-                            pendulum-engdes1-all -> all Pendulum tasks combined<br>
-                            
-                            <br>
-                            <b>Please note: this component is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.</b>
+                        This component uses a graph comparison algorithm to predict the task or task combination that you have completed.
+                        <b>Please note: this component is experimental and should be used to reflect upon, not as evidence that you have finished tasks completely or correctly.</b>
                             
                     </template>
                 </popup-help>
@@ -89,7 +57,26 @@
 
         <simple-line-graph v-if="showGraph" id="taskcompletion-line-chart" heading="TaskCompletion" :x_labels="getXLabels" :y_values="getYValues" :hide_y_axis='hide_axis' :invert="invert"/>
 
-        <div v-else class="row table" id='task-completion-table' >
+        <div v-else class="d-flex flex-column-reverse" id='task-completion-info'>
+
+            <div v-for="key in Object.keys(task_completion)" :key="key">
+                <div v-if="key.includes('-all')" class="flex-row mb-4">
+                    <div class="">Total lab Progress</div>
+                    <div class="progress bg-white ms-2 me-2">
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgressAsString(task_completion[key])"></div>
+                    </div>
+                </div>
+
+                <div v-else class="d-flex me-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" :id="key + 'checkbox'" :checked="task_decision[key]">
+                        <label :for="key + 'checkbox'">{{ getTaskReadableFromCode(key) }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div v-else class="row table" id='task-completion-table' >
 
             <table>
                 <thead class='table-head background-primary'>
@@ -98,7 +85,6 @@
                     </tr>
                 </thead>
                     <tr v-for="key in Object.keys(task_dissimilarity)" :key="key">
-                        <!-- <td>{{ key }}</td> -->
                         <td>{{ getTaskReadableFromCode(key) }}</td>
                         <td>
                             <div class="progress">
@@ -108,10 +94,10 @@
                         
                         <td>{{ getComment(task_dissimilarity[key]) }}</td>
                     </tr>
-            </table> 
+            </table>
 
-        </div>
-  
+        </div> -->
+
     </div>
   </template>
   
@@ -134,10 +120,12 @@
       data(){
           return{
             showGraph: false,
-            headings: ['Task', 'Relative Similarity', 'Comment'],
+            //headings: ['Task', 'Estimated Completion'],
             hide_axis: true,
             invert: true,
             task_dissimilarity: {},
+            task_completion: {},
+            task_decision: {},
             //feedback_input: 'Can you give me feedback on my work please?',
             awaiting_response: false,
             feedback_response: '',
@@ -225,14 +213,16 @@
             const readable = this.getConfigJSON['parameters'][this.getSelectedHardware]['tasks'].find((task) => task['code_string'] == code);
             return readable['readable_string']
           },
-          getProgress(value){
-            let closest_value = this.getCompleted[1];
-            let width = closest_value*100.0/value;
-            return width
-        },
+        //   getProgress(value){
+        //     let closest_value = this.getCompleted[1];
+        //     let width = closest_value*100.0/value;
+        //     return width
+        // },
         getProgressAsString(value){
-            let width = this.getProgress(value)
-            return 'width: ' + width.toFixed(2) + '%';
+            // this method now is provided with a value that is already a completion rate between 0 and 1
+            //let width = this.getProgress(value)
+            value = value * 100
+            return 'width: ' + value.toFixed(2) + '%';
         },
         getComment(value){
             let closest_value = this.getCompleted[1];
@@ -258,6 +248,8 @@
 				.then((response) => {
 					console.log(response);
                     this.task_dissimilarity = response.data.task_dissimilarity;
+                    this.task_completion = response.data.task_completion;
+                    this.task_decision = response.data.task_decision;
                     this.saveLocal(this.task_dissimilarity);
 				})
 				.catch((err) => console.log(err));
