@@ -82,14 +82,14 @@
 
 
         <!-- Ensures that border around component reaches to below the graph-->
-        <div v-else class="row">
+        <!-- <div v-else class="row">
             <div class="col-sm-12"></div>
-        </div>
+        </div> -->
 
 
         <div class='mynetwork' :id="graph_id" @mousedown="setDraggable(false)" @mouseup="setDraggable(true)"></div>
 
-        <div v-if="graph_type == 'comparison_graph'" class="row">
+        <div class="row">
             <div class="d-flex flex-row align-items-center">
                 <button class="button-toolbar button-secondary me-lg-4" type="button" :id="graph_id + 'step-graph-negative'" aria-label="step graph negative" data-bs-toggle="tooltip" title="Step back" 
                 @click="updateGraph(Number(current_step) - 1)">
@@ -303,7 +303,13 @@
 				.then((response) => {
 					console.log(response)
                     drawGraph(this.graph_id, response.data.nodes, response.data.edges, this.getNodeTitles(response.data.node_info), response.data.hardware)
-				})
+                    this.ordered_actions_for_comparison_task = response.data.ordered_actions
+                    this.nodes = response.data.nodes;
+                    this.edges = response.data.edges;
+                    this.node_info = response.data.node_info;
+                    this.hardware = response.data.hardware;
+                    this.current_step = this.ordered_actions_for_comparison_task.length;
+                })
 				.catch((err) => console.log(err));
         },
         requestComparisonGraph(){
