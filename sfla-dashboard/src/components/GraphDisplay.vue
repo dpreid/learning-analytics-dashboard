@@ -86,7 +86,31 @@
             <div class="col-sm-12"></div>
         </div>
 
+
         <div class='mynetwork' :id="graph_id" @mousedown="setDraggable(false)" @mouseup="setDraggable(true)"></div>
+
+        <div v-if="graph_type == 'comparison_graph'" class="row">
+            <div class="d-flex flex-row align-items-center">
+                <button class="button-toolbar button-secondary me-lg-4" type="button" :id="graph_id + 'step-graph-negative'" aria-label="step graph negative" data-bs-toggle="tooltip" title="Step back" 
+                @click="updateGraph(Number(current_step) - 1)">
+                -
+                </button>
+
+                <input type="range" min="0" :max="ordered_actions_for_comparison_task.length" v-model="current_step" :value="current_step" class="slider flex-fill" :id="graph_id + 'graphStepSlider'" @change="updateGraph(current_step)" @mousedown="setDraggable(false)" @mouseup="setDraggable(true)" @mouseleave="setDraggable(true)">
+                
+                <button class="button-toolbar button-secondary ms-lg-4" type="button" :id="graph_id + 'step-graph-positive'" aria-label="step graph positive" data-bs-toggle="tooltip" title="Step forward" 
+                    @click="updateGraph(Number(current_step) + 1)">
+                    +
+                </button>
+
+                <!-- <label class="me-2" for="graphStepSlider">{{ current_step }}</label> -->
+            </div>
+           
+        </div>
+
+       
+        
+
 </div>
 </template>
   
@@ -136,30 +160,84 @@
             //edges = new DataSet([{"arrows": "to", "from": "voltage_step", "label": "1", "to": "voltage_step", "weight": 1.0}, {"arrows": "to", "from": "voltage_step", "label": "1", "to": "position_step", "weight": 1.0}, {"arrows": "to", "from": "position_step", "label": "2", "to": "position_step", "weight": 2.0}, {"arrows": "to", "from": "position_step", "label": "1", "to": "position_ramp", "weight": 1.0}, {"arrows": "to", "from": "position_ramp", "label": "3", "to": "position_ramp", "weight": 3.0}, {"arrows": "to", "from": "position_ramp", "label": "1", "to": "position_step", "weight": 1.0}]);
             edges = new DataSet([])
         }
-        
-        
-
-
         // adding nodes and edges to the graph
         data = {nodes: nodes, edges: edges};
 
         options = {"nodes": {"font": {"color": "rgba(0,0,0,1)"}, "size": 20}, "edges": {"color": {"inherit": true}, "smooth": {"forceDirection": "none", "roundness": 1}}, "interaction": {"navigationButtons": true}, "physics": {"minVelocity": 0.75}};
-        // options = {
-        //     "edges": {
-        //         "color": {
-        //         "inherit": true
-        //         },
-        //         "smooth": false
-        //     },
-        //     "physics": {
-        //         "minVelocity": 0.75
-        //     }
-        // }
         network = new Network(container, data, options);
         
         return network;
 
     }
+
+    // draws a graph but only for the edges up to step in the ordered_list of actions performed.
+    // want to create the edge set dynamically
+    function drawGraphToStepN(id, n_list, e_list, node_titles, hardware, ordered_list, step) {
+        container = document.getElementById(id);
+
+        e_list.forEach(edge => {
+            edge.width = 1
+        });
+
+        // parsing and collecting nodes and edges
+        if(n_list.length > 0){
+            if(hardware == 'spinner'){
+                nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "x": 100, "y": -173.20508075688772, 'title': node_titles['voltage_step']}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "x": 200, "y": 0, 'title': node_titles['position_step']}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "x": -200, "y": 0, 'title': node_titles['position_ramp']}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "x": -100, "y": -173.20508075688772, 'title': node_titles['voltage_ramp']}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "x": 100, "y": 173.20508075688772, 'title': node_titles['speed_step']}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "x": -100, "y": 173.20508075688772, 'title': node_titles['speed_ramp']}]);
+               
+            } else if(hardware == 'pendulum'){
+                nodes = new DataSet([{"id": "start", "label": "start", "physics": false, "shape": "dot", "x": 0, "y": -200, 'title': node_titles['start']}, {"id": "brake", "label": "brake", "physics": false, "shape": "dot", "x": 128, "y": -154, 'title': node_titles['brake']}, {"id": "free", "label": "free", "physics": false, "shape": "dot", "x": 196, "y": -34, 'title': node_titles['free']}, {"id": "load", "label": "load", "physics": false, "shape": "dot", "x": 174, "y": 100, 'title': node_titles['load']}, {"id": "sampling", "label": "sampling", "physics": false, "shape": "dot", "x": 68, "y": 188, 'title': node_titles['sampling']}, {"id": "drive_perc", "label": "drive_perc", "physics": false, "shape": "dot", "x": -68, "y": 188, 'title': node_titles['drive_perc']}, {"id": "brake_perc", "label": "brake_perc", "physics": false, "shape": "dot", "x": -174, "y": 100, 'title': node_titles['brake_perc']}, {"id": "measuring_tools", "label": "measuring_tools", "physics": false, "shape": "dot", "x": -196, "y": -34, 'title': node_titles['measuring_tools']}, {"id": "record", "label": "record", "physics": false, "shape": "dot", "x": -128, "y": -154, 'title': node_titles['record']}]);
+                
+            } else{
+                nodes = new DataSet([])
+            }
+            
+        } else{
+            if(hardware == 'spinner'){
+                nodes = new DataSet([{"id": "voltage_step", "label": "voltage_step", "physics": false, "shape": "dot", "x": 100, "y": -173.20508075688772}, {"id": "position_step", "label": "position_step", "physics": false, "shape": "dot", "x": 200, "y": 0}, {"id": "position_ramp", "label": "position_ramp", "physics": false, "shape": "dot", "x": -200, "y": 0}, {"id": "voltage_ramp", "label": "voltage_ramp", "physics": false, "shape": "dot", "x": -100, "y": -173.20508075688772}, {"id": "speed_step", "label": "speed_step", "physics": false, "shape": "dot", "x": 100, "y": 173.20508075688772}, {"id": "speed_ramp", "label": "speed_ramp", "physics": false, "shape": "dot", "x": -100, "y": 173.20508075688772}]);
+            } else if(hardware == 'pendulum'){
+                nodes = new DataSet([{"id": "start", "label": "start", "physics": false, "shape": "dot", "x": 0, "y": -200}, {"id": "brake", "label": "brake", "physics": false, "shape": "dot", "x": 128, "y": -154}, {"id": "free", "label": "free", "physics": false, "shape": "dot", "x": 196, "y": -34}, {"id": "load", "label": "load", "physics": false, "shape": "dot", "x": 174, "y": 100}, {"id": "sampling", "label": "sampling", "physics": false, "shape": "dot", "x": 68, "y": 188}, {"id": "drive_perc", "label": "drive_perc", "physics": false, "shape": "dot", "x": -68, "y": 188}, {"id": "brake_perc", "label": "brake_perc", "physics": false, "shape": "dot", "x": -174, "y": 100}, {"id": "measuring_tools", "label": "measuring_tools", "physics": false, "shape": "dot", "x": -196, "y": -34}, {"id": "record", "label": "record", "physics": false, "shape": "dot", "x": -128, "y": -154}]);
+            } else{
+                nodes = new DataSet([])
+            }
+            //edges = new DataSet([{"arrows": "to", "from": "voltage_step", "label": "1", "to": "voltage_step", "weight": 1.0}, {"arrows": "to", "from": "voltage_step", "label": "1", "to": "position_step", "weight": 1.0}, {"arrows": "to", "from": "position_step", "label": "2", "to": "position_step", "weight": 2.0}, {"arrows": "to", "from": "position_step", "label": "1", "to": "position_ramp", "weight": 1.0}, {"arrows": "to", "from": "position_ramp", "label": "3", "to": "position_ramp", "weight": 3.0}, {"arrows": "to", "from": "position_ramp", "label": "1", "to": "position_step", "weight": 1.0}]);
+            edges = new DataSet([])
+        }
+        //dynamically create an edge list
+        let new_e_list = []
+        //console.log(ordered_list)
+        let ordered_list_to_draw = ordered_list.slice(0, step)
+        for (let i=1; i < ordered_list_to_draw.length; i++){
+            let from = ordered_list_to_draw[i-1]
+            let to = ordered_list_to_draw[i]
+            //get the edge that should be added
+            let edge_to_add = e_list.find((edge) => edge.from == from && edge.to == to)
+            //if the id of this edge is already in the new_e_list edges then don't add the edge but iterate the label
+            let edge_exists = new_e_list.find((edge) => edge.id == edge_to_add.id)
+            if(edge_exists){
+                new_e_list.forEach((edge) => {
+                    if(edge.id == edge_to_add.id){
+                        edge.label += 1
+                    }
+                })
+            } else{
+                edge_to_add.label = 1
+                new_e_list.push(edge_to_add)
+            } 
+        }
+
+        //convert all label values to strings
+        new_e_list.forEach((edge) => {
+            edge.label = (edge.label).toString()
+        })
+
+        edges = new DataSet(new_e_list)
+        data = {nodes: nodes, edges: edges};
+        options = {"nodes": {"font": {"color": "rgba(0,0,0,1)"}, "size": 20}, "edges": {"color": {"inherit": true}, "smooth": {"forceDirection": "none", "roundness": 1}}, "interaction": {"navigationButtons": true}, "physics": {"minVelocity": 0.75}};
+        network = new Network(container, data, options);
+        return network;
+
+    }
+
 
   export default {
       name: "GraphDisplay",
@@ -170,7 +248,13 @@
       data(){
           return{
               selectedTask: '', 
-              task_list: []
+              task_list: [],
+              ordered_actions_for_comparison_task: [],
+              nodes: [],
+              edges: [],
+              node_info: [],
+              hardware: '',
+              current_step: 0
           }
       },  
       watch:{
@@ -209,7 +293,7 @@
             'setDraggable'
         ]),
         setSelectedTask(hardware){
-            console.log(this.getConfigJSON)
+            //console.log(this.getConfigJSON)
             this.selectedTask = this.getConfigJSON['parameters'][hardware]['tasks'][0];
         },
         requestStudentGraph(){
@@ -223,14 +307,21 @@
 				.catch((err) => console.log(err));
         },
         requestComparisonGraph(){
-            console.log(this.selectedTask)
+            //console.log(this.selectedTask)
             let accessURL = `${this.getTaskCompareHost}/comparisonGraph?taskcode=${this.selectedTask['code_string']}&username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
             axios
 				.get(accessURL, {}, { headers: { Authorization: '' } })
 				.then((response) => {
-					console.log(response)
+					//console.log(response)
                     drawGraph(this.graph_id, response.data.nodes, response.data.edges, this.getNodeTitles(response.data.node_info), response.data.hardware)
-				})
+                    this.ordered_actions_for_comparison_task = response.data.ordered_actions
+                    this.nodes = response.data.nodes;
+                    this.edges = response.data.edges;
+                    this.node_info = response.data.node_info;
+                    this.hardware = response.data.hardware;
+                    this.current_step = this.ordered_actions_for_comparison_task.length;
+                    //drawGraphToStepN(this.graph_id, response.data.nodes, response.data.edges, this.getNodeTitles(response.data.node_info), response.data.hardware, this.ordered_actions_for_comparison_task, 5)
+                })
 				.catch((err) => console.log(err));
         },
         getNodeTitles(node_info){
@@ -248,6 +339,12 @@
         },
         setTaskList(hardware){
             this.task_list = this.getConfigJSON['parameters'][hardware]['tasks'];
+        },
+        updateGraph(step){
+            if(step >= 0 && step <= this.ordered_actions_for_comparison_task.length){
+                this.current_step = step;
+                drawGraphToStepN(this.graph_id, this.nodes, this.edges, this.getNodeTitles(this.node_titles), this.hardware, this.ordered_actions_for_comparison_task, step)
+            }
         }
         
         
@@ -258,7 +355,7 @@
   <style scoped>
   .mynetwork {
             width: 100%;
-            height: 50dvh;
+            height: 45dvh;
             background-color: var(--background-color-highlight);
             position: relative;
             float: left;
