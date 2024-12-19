@@ -8,7 +8,7 @@
                 <label class="form-check-label mt-1" for="flexSwitchCheckDefault">Show Chart</label>
             </div>
 
-            <button type='button' class='button-toolbar button-primary me-2' id="request_engagement_indicators" aria-label='request engagement indicators' @click="requestIndicators">
+            <button type='button' class='button-toolbar button-primary me-2' id="request_engagement_indicators" aria-label='request engagement indicators' @click="requestIndicators(); requestTaskExploration()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
@@ -46,23 +46,27 @@
                     </tr>
                 </thead>
                     <!-- EXPLORATION INDICATOR -->
-                    <!-- <tr>
-                        <td v-if="response['exploration']">exploration</td>
-                        <td v-if="response['exploration']">
+                    <tr>
+                        <td v-if="task_exploration != null">exploration</td>
+                        <td v-if="task_exploration != null">
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgress(response['exploration'], 100)"></div>
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgress(task_exploration, 100)"></div>
                             </div>
                         </td>
-                        <td v-if="response['exploration']">{{ getExplorationComment(response['exploration']) }}</td>
-                        <td v-if="response['exploration']">
-                            <popup-help>
-                                <template v-slot:popup-help-header id='p-h-header'>Exploration</template>
-                                <template v-slot:popup-help-body id='p-h-header'>
-                                    Exploration is calculated by considering how many edges exist on your graph that are not necessary to complete tasks when compared to the expected workbook procedure. 
+                        <td v-if="task_exploration != null">{{ getExplorationComment(task_exploration) }}</td>
+                        <td v-if="task_exploration != null">
+                            <popup-help class="me-2" id="popup-help-exploration">
+                                <template v-slot:header>
+                                    <h5> Exploration Help </h5>
                                 </template>
-                            </popup-help>
+                                <template v-slot:body>
+                                    This is a quantity measured from your student graph derived from your use of hardware modes that are not necessarily required 
+                                    for the task but are interesting to explore. Note: this is an experimental measurement and is not necessarily an accurate measure of 
+                                    user engagement.
+                                </template>
+                        </popup-help>
                         </td>
-                    </tr> -->
+                    </tr>
 
 
                     <!-- Number of runs INDICATOR -->
@@ -80,7 +84,7 @@
                                     <h5> Total Edges Help </h5>
                                 </template>
                                 <template v-slot:body>
-                                    This is the percentage of edges your graph contains in comparison to the expected full procedure. It does not consider whether the edges are appropriate for tasks or not, 
+                                    This is the percentage of hardware commands (graph edges) you have sent in comparison to the expected full procedure. It does not consider whether the commands are appropriate for tasks or not, 
                                     so do not consider 100% as proof that you have finished tasks!
                                 </template>
                         </popup-help>
@@ -117,7 +121,8 @@
               showGraph: false,
               hide_axis: false,
               invert: false,
-              indicators: {}
+              indicators: {},
+              task_exploration: null
           }
       },
       mounted(){
@@ -183,14 +188,14 @@
             let comments = this.getConfigJSON['parameters'][this.getSelectedHardware]['indicators']['exploration'];
             
             for (let i=0; i<comments.length;i++){
-                //requires that comments are in value order
-                if(value > comments[i]['value']){
+                //requires that comments are in decreasing value order
+                if(value >= comments[i]['value']){
                     return comments[i]['comment'];
                 }
             }
         },
         getEdgesComment(value){
-            return 'Your graph contains ' + value.toFixed(0) + '% of the expected number of edges.'
+            return 'You have sent ' + value.toFixed(0) + '% of the expected number of hardware commands.'
         },
        
         toggleChart(){
@@ -203,11 +208,27 @@
 				.then((response) => {
 					console.log(response);
                     this.indicators = response.data.indicators;
-                    this.saveLocal(this.indicators);
+                    if(this.indicators != {} && this.task_exploration != null){
+                        this.saveLocal(this.indicators, this.task_exploration);
+                    }
+                    
 				})
 				.catch((err) => console.log(err));
         },
-        saveLocal(indicators){
+        requestTaskExploration(){
+            let accessURL = `${this.getTaskCompareHost}/taskExploration?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            axios
+				.get(accessURL, {}, { headers: { Authorization: '' } })
+				.then((response) => {
+					console.log(response);
+                    this.task_exploration = response.data.task_exploration;
+                    if(this.indicators != {} && this.task_exploration != null){
+                        this.saveLocal(this.indicators, this.task_exploration);
+                    }
+				})
+				.catch((err) => console.log(err));
+        },
+        saveLocal(indicators, task_exploration){
             let item_name = `${this.getLogUUID}-${this.getCourse}-${this.getSelectedHardware}-indicators`
             let saved_item = window.localStorage.getItem(item_name)
             if(saved_item == null){
@@ -216,6 +237,7 @@
                 saved_item = JSON.parse(saved_item)
             }
             let date = new Date();
+            indicators['task_exploration'] = task_exploration
             let to_save = {"date": date, "indicators":indicators}
             saved_item.push(to_save);
             let data_json = JSON.stringify(saved_item);
