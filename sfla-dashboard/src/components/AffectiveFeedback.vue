@@ -75,6 +75,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import PopupHelp from './elements/PopupHelp.vue'
+import axios from 'axios'
 
 export default {
     name: "AffectiveFeedback",
@@ -95,7 +96,10 @@ export default {
       },
       computed: {
         ...mapGetters([
-            
+            'getLogUUID',
+            'getCourse',
+            'getSelectedHardware',
+            'getTaskCompareHost'
         ]),
         getSubmitAllowed(){
             if(this.selected_state != null && this.selected_subject != null){
@@ -115,10 +119,10 @@ export default {
             
         ]),
         submit(){
-            if(this.selected_subject == 'Other'){
-                this.feedback({"state": this.selected_state, "subject": this.selected_subject, "input": this.user_input});
+            if(this.selected_subject == 'Other' || this.selected_subject == 'Workbook'){
+                this.feedback({'affective_state' : {"state": this.selected_state, "subject": this.selected_subject, "input": this.user_input}});
             } else{
-                this.feedback({"state": this.selected_state, "subject": this.selected_subject});
+                this.feedback({'affective_state' : {"state": this.selected_state, "subject": this.selected_subject}});
             }
             
             this.thanks = true;
@@ -130,7 +134,13 @@ export default {
             this.user_input = '';
         },
         feedback(log){
-            console.log(log)
+            let accessURL = `${this.getTaskCompareHost}/submitUserFeedback?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            axios
+				.post(accessURL, log, { headers: { Authorization: '' } })
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((err) => console.log(err));
         }
 
       }

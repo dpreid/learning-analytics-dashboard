@@ -57,7 +57,7 @@
 
         <simple-line-graph v-if="showGraph" id="taskcompletion-line-chart" heading="TaskCompletion" :x_labels="getXLabels" :y_values="getYValues" :hide_y_axis='hide_axis' :invert="invert"/>
 
-        <div v-else class="d-flex flex-column-reverse" id='task-completion-info'>
+        <div v-else class="d-flex flex-column" id='task-completion-info'>
 
             <div v-for="key in Object.keys(task_completion)" :key="key">
                 <div v-if="key.includes('-all')" class="flex-row mb-4">
@@ -66,14 +66,40 @@
                         <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="getProgressAsString(task_completion[key])"></div>
                     </div>
                 </div>
-
-                <div v-else class="d-flex me-2">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" :id="key + 'checkbox'" :checked="task_decision[key]">
-                        <label :for="key + 'checkbox'">{{ getTaskReadableFromCode(key) }}</label>
-                    </div>
-                </div>
             </div>
+
+            <table>
+                <thead class='table-head background-primary'>
+                    <tr class='background-primary text-white'>
+                        <th v-for='heading in headings' :key="heading" scope="col">{{ heading }}</th>
+                    </tr>
+                </thead>
+                    <tr v-for="key in Object.keys(task_completion)" :key="key">
+                        <td v-if="!key.includes('-all')">
+                            {{ getTaskReadableFromCode(key) }}
+                        </td>
+                        <td v-if="!key.includes('-all')">
+                            <input class="form-check-input" type="checkbox" value="" :id="key + 'task-completion-checkbox'" :checked="task_decision[key]" disabled>
+                        </td>
+                        <td v-if="!key.includes('-all')">
+                            <input class="form-check-input" type="checkbox" value="" :id="key + 'user-completion-checkbox'" :checked="user_completion[key]" @change="updateUserCompletion(key)">
+                        </td>
+                        <td v-if="!key.includes('-all')">
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" type="button" id="difficulty-rating-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ user_difficulty[key] }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="difficulty-rating-dropdown">
+                                    <li><a class="dropdown-item" :id='key + "difficulty-rating-1"' aria-label="difficulty-rating-1" @click="updateDifficultyRating(key, 1)">1 (Very Easy)</a></li>
+                                    <li><a class="dropdown-item" :id='key + "difficulty-rating-2"' aria-label="difficulty-rating-2" @click="updateDifficultyRating(key, 2)">2</a></li>
+                                    <li><a class="dropdown-item" :id='key + "difficulty-rating-3"' aria-label="difficulty-rating-3" @click="updateDifficultyRating(key, 3)">3</a></li>
+                                    <li><a class="dropdown-item" :id='key + "difficulty-rating-4"' aria-label="difficulty-rating-4" @click="updateDifficultyRating(key, 4)">4</a></li>
+                                    <li><a class="dropdown-item" :id='key + "difficulty-rating-5"' aria-label="difficulty-rating-5" @click="updateDifficultyRating(key, 5)">5 (Very Difficult)</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+            </table>
         </div>
 
         <!-- <div v-else class="row table" id='task-completion-table' >
@@ -120,7 +146,7 @@
       data(){
           return{
             showGraph: false,
-            //headings: ['Task', 'Estimated Completion'],
+            headings: ['Task', 'Estimated Completion', 'User Defined', 'Difficulty rating'],
             hide_axis: true,
             invert: true,
             task_dissimilarity: {},
@@ -129,6 +155,8 @@
             //feedback_input: 'Can you give me feedback on my work please?',
             awaiting_response: false,
             feedback_response: '',
+            user_completion: {},        //user defined whether they have completed tasks
+            user_difficulty: {}         //user defined difficulty of task
           }
       },
       mounted(){
@@ -211,7 +239,10 @@
           ]),
           getTaskReadableFromCode(code){
             const readable = this.getConfigJSON['parameters'][this.getSelectedHardware]['tasks'].find((task) => task['code_string'] == code);
-            return readable['readable_string']
+            if(readable){
+                return readable['readable_string']
+            }
+            
           },
         //   getProgress(value){
         //     let closest_value = this.getCompleted[1];
@@ -247,10 +278,59 @@
 				.get(accessURL, {}, { headers: { Authorization: '' } })
 				.then((response) => {
 					console.log(response);
-                    this.task_dissimilarity = response.data.task_dissimilarity;
-                    this.task_completion = response.data.task_completion;
-                    this.task_decision = response.data.task_decision;
-                    this.saveLocal(this.task_dissimilarity);
+                    if(typeof response.data == 'object'){
+                        //if the server responds with the expected data as json object
+                        this.task_dissimilarity = response.data.task_dissimilarity;
+                        this.task_completion = response.data.task_completion;
+                        this.task_decision = response.data.task_decision;
+                        this.saveLocal(this.task_dissimilarity);
+                        this.requestUserFeedback();
+                    } 
+                    else
+                    // if the server responds with data as a string because there is no logged actions yet
+                    {
+                        // let data = JSON.parse(response.data)
+                        // this.task_dissimilarity = data.task_dissimilarity;
+                        // this.task_completion = data.task_completion;
+                        // this.task_decision = data.task_decision;
+                        // this.saveLocal(this.task_dissimilarity);
+                        this.task_dissimilarity = {};
+                        this.task_completion = {};
+                        this.task_decision = {};
+                    }
+                    
+				})
+				.catch((err) => console.log(err));
+        },
+        requestUserFeedback(){
+            let accessURL = `${this.getTaskCompareHost}/getUserFeedback?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            axios
+				.get(accessURL, {}, { headers: { Authorization: '' } })
+				.then((response) => {
+					console.log(response);
+                    if(typeof response.data == 'object'){
+                        if(response.data.feedback['difficulty']){
+                            this.user_difficulty = response.data.feedback['difficulty']
+                        } else{
+                            Object.keys(this.task_decision).forEach((key) => {
+                                this.user_difficulty[key] = 'NA'
+                            })
+                        }
+
+                        if(response.data.feedback['completion']){
+                            this.user_completion = response.data.feedback['completion']
+                        } else{
+                            Object.keys(this.task_decision).forEach((key) => {
+                                this.user_completion[key] = false
+                            })
+                        }
+                    } 
+                    else
+                    // if the server responds with data as a string because there is no logged actions yet
+                    {
+                       
+                    }
+                    
 				})
 				.catch((err) => console.log(err));
         },
@@ -302,6 +382,30 @@
                     this.awaiting_response = false;
                 });
         },
+        updateUserCompletion(task){
+            this.user_completion[task] = !this.user_completion[task]
+            let log = {'user_completion': this.user_completion}
+            //console.log(task, rating)
+            let accessURL = `${this.getTaskCompareHost}/submitUserFeedback?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            axios
+				.post(accessURL, log, { headers: { Authorization: '' } })
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((err) => console.log(err));
+        },
+        updateDifficultyRating(task, rating){
+            this.user_difficulty[task] = rating
+            let log = {'user_difficulty': this.user_difficulty}
+            //console.log(task, rating)
+            let accessURL = `${this.getTaskCompareHost}/submitUserFeedback?username=${this.getLogUUID}&course=${this.getCourse}&hardware=${this.getSelectedHardware}`
+            axios
+				.post(accessURL, log, { headers: { Authorization: '' } })
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((err) => console.log(err));
+        },
         saveLocal(task_dissimilarity){
             let item_name = `${this.getLogUUID}-${this.getCourse}-${this.getSelectedHardware}-taskcompletion`
             let saved_item = window.localStorage.getItem(item_name)
@@ -330,7 +434,9 @@
   }
   </script>
   
-  <style>
+  <style scoped>
+
+  
   
   
   </style>
